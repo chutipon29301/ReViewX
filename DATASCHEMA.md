@@ -38,36 +38,41 @@ a = {
 }
 ```
 
-#### Review Object
-All review object will contain data for show in `Explore` page
+### MovieSuggestion
 
+#### MovieObject
+Show movie detail in MovieSuggestion fragment and SearchMovie fragement
 ```javascript
-review = {
-    '_id': '23awhjfg804awhjyg94w0uity432wg',
-    'title': 'Star Wars',
-    'theme': 'sci-fi',
-    //... to be discuss
+movieObject = {
+    '_id': 'dsfn9u43tyg8afw4ba4uageh',
+    'movieName': 'Star Wars',
+    'releaseDate': '14/12/2017',
+    'genre': [
+        'animation',
+        'family',
+        'fantasy'
+    ],
+    'score': 98,
+    'pic': 'http://www.google.com'
 }
 ```
 
-#### Review Detail Object
-All detail about the review object
-```javascript
-reviewDetail = {
-    '_id': '24wurmq49-wirq-wrvc-q,wr3',
-    'reviewID': '23awhjfg804awhjyg94w0uity432wg',
-    'detail': 'Detail about movie review',
-    //...to be discuss
-}
-```
+### ReviewSuggestion
 
-#### Configuration
-Object which collect information about configuration of the app
+#### ReviewObject
+Show review detail in ReviewSuggestion fragment
 ```javascript
-config = {
-    '_id': 'config',
-    'theme': 'dark',
-    //...to be discuss
+movieObject = {
+    '_id': 'dsfn9u43tyg8afw4ba4uageh',
+    'movieName': 'Star Wars',
+    'reviewer': 'Ming Yanisa',
+    'threeWords': [
+        'beautiful',
+        'emotional',
+        'terrible'
+    ],
+    'score': 98,
+    'pic': 'http://www.google.com'
 }
 ```
 
@@ -83,6 +88,8 @@ userPref = {
     'dislikeThene': [
         'sci-fi',
         'drama'
-    ]
+    ],
+    'comment': 'Long time ago, in the galaxy far far away',
+    'point': 143
 }
 ```
