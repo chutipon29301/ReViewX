@@ -20,4 +20,4 @@
 ## What feature we're using
 >- GPS
 >- Gyroscope
->- Storetha data in device
+>- Store tha data in device
