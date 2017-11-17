@@ -53,7 +53,15 @@ movieObject = {
         'fantasy'
     ],
     'score': 98,
-    'pic': 'http://www.google.com'
+    'pic': 'http://www.google.com',
+    'plot': '',
+    'director': [
+        '','','','',...
+    ],
+    'actor': [
+        '','','','',...
+    ],
+    'trailer': 'http://www.youtube.com'
 }
 ```
 
