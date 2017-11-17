@@ -62,7 +62,7 @@ movieObject = {
 #### ReviewObject
 Show review detail in ReviewSuggestion fragment
 ```javascript
-movieObject = {
+reviewObject = {
     '_id': 'dsfn9u43tyg8afw4ba4uageh',
     'movieName': 'Star Wars',
     'reviewer': 'Ming Yanisa',
@@ -72,7 +72,9 @@ movieObject = {
         'terrible'
     ],
     'score': 98,
-    'pic': 'http://www.google.com'
+    'point': 143,
+    'pic': 'http://www.google.com',
+    'review': 'Long time ago, in the galaxy far far away',
 }
 ```
 
@@ -81,15 +83,6 @@ Collection that collect all user information
 ```javascript
 userPref = {
     '_id': 'userPrefs',
-    'likeTheme': [
-        'fantasy',
-        'comady'
-    ],
-    'dislikeThene': [
-        'sci-fi',
-        'drama'
-    ],
-    'comment': 'Long time ago, in the galaxy far far away',
-    'point': 143
+    'rank': 'Alpaca'
 }
 ```
