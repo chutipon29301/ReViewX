@@ -1,7 +1,9 @@
-package com.chutipon.reviewx;
+package com.chutipon.reviewx.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.chutipon.reviewx.R;
 
 public class MainActivity extends AppCompatActivity {
 
