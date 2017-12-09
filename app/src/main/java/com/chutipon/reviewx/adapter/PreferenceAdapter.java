@@ -1,12 +1,10 @@
 package com.chutipon.reviewx.adapter;
 
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.BaseAdapter;
-import android.widget.GridLayout;
-import android.widget.GridView;
-import android.widget.ImageView;
 
 import com.chutipon.reviewx.R;
 
@@ -14,33 +12,43 @@ import com.chutipon.reviewx.R;
  * Created by admin on 12/9/2017 AD.
  */
 
-public class PreferenceAdapter extends BaseAdapter{
-    ImageView imageView;
+public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.ViewHolder>{
+
+    private static PreferenceAdapter instance;
+    private LayoutInflater mInflater;
+
+    private PreferenceAdapter(){
+    }
+
+    public static PreferenceAdapter getInstance(){
+        if (instance == null){
+            instance = new PreferenceAdapter();
+        }
+        return instance;
+    }
+
+    public void init(Context context){
+        mInflater = LayoutInflater.from(context);
+    }
+
     @Override
-    public int getCount() {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = mInflater.inflate(R.layout.view_genre_custom,parent,false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+    }
+
+    @Override
+    public int getItemCount() {
         return 5;
     }
 
-    @Override
-    public Object getItem(int i) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view!=null){
-            imageView = (ImageView)view ;
-        }else{
-            imageView = new ImageView(viewGroup.getContext());
-            imageView.setLayoutParams(new GridView.LayoutParams(85,85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER);
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public ViewHolder(View itemView) {
+            super(itemView);
         }
-        imageView.setImageResource(R.drawable.anime);
-        return imageView;
     }
 }
