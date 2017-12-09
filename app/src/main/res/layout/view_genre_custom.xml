@@ -17,8 +17,7 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="@drawable/selectablebutton"
-        android:src="@drawable/fantasy"
-        />
+        android:src="@drawable/fantasy"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -26,8 +25,7 @@
         android:layout_alignBottom="@+id/genrePic"
         android:gravity="center"
         android:text="Genre"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold"/>
 
     </RelativeLayout>
 
