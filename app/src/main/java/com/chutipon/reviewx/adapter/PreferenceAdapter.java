@@ -1,5 +1,6 @@
 package com.chutipon.reviewx.adapter;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -14,33 +15,19 @@ import com.chutipon.reviewx.R;
  * Created by admin on 12/9/2017 AD.
  */
 
-public class PreferenceAdapter extends BaseAdapter{
-    ImageView imageView;
-    @Override
-    public int getCount() {
-        return 5;
-    }
+public class PreferenceAdapter extends RecyclerView.Adapter{
 
     @Override
-    public Object getItem(int i) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return null;
     }
-
     @Override
-    public long getItemId(int i) {
-        return 0;
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view!=null){
-            imageView = (ImageView)view ;
-        }else{
-            imageView = new ImageView(viewGroup.getContext());
-            imageView.setLayoutParams(new GridView.LayoutParams(85,85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER);
-        }
-        imageView.setImageResource(R.drawable.anime);
-        return imageView;
+    public int getItemCount() {
+        return 0;
     }
 }
