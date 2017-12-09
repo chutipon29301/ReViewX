@@ -2,4 +2,7 @@
     <string name="app_name">ReViewX</string>
     <string name="facebook_app_id">134837027180827</string>
     <string name="fb_login_protocol_scheme">fb134837027180827</string>
+
+    <string name="open_drawer">Open Menu</string>
+    <string name="close_drawer">Close Menu</string>
 </resources>
