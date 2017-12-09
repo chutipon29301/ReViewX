@@ -9,6 +9,7 @@ import com.chutipon.reviewx.R;
 
 public class PreferenceActivity extends AppCompatActivity {
 
+
     Toolbar toolbar;
     RecyclerView recyclerView;
 
@@ -16,6 +17,7 @@ public class PreferenceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preference);
+
 
         initInstance(savedInstanceState);
     }
