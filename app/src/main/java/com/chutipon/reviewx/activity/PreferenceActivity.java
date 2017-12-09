@@ -1,17 +1,16 @@
 package com.chutipon.reviewx.activity;
 
-import com.chutipon.reviewx.R;
-
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.GridView;
+
+import com.chutipon.reviewx.R;
 
 public class PreferenceActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    GridView gridView;
-
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,5 +23,7 @@ public class PreferenceActivity extends AppCompatActivity {
     private void initInstance(Bundle savedInstanceState) {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        recyclerView = findViewById(R.id.recyclerView);
     }
 }
