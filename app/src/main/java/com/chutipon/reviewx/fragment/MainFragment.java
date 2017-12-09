@@ -31,7 +31,6 @@ public class MainFragment extends Fragment {
     }
 
     private void initFragment(Bundle savedInstanceState) {
-
     }
 
     @Nullable
