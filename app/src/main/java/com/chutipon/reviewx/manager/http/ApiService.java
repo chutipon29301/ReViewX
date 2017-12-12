@@ -1,6 +1,7 @@
 package com.chutipon.reviewx.manager.http;
 
 import com.chutipon.reviewx.dao.GenreListDao;
+import com.chutipon.reviewx.dao.MovieSuggestionListDao;
 
 import io.reactivex.Observable;
 import retrofit2.http.POST;
@@ -12,4 +13,7 @@ import retrofit2.http.POST;
 public interface ApiService {
     @POST("/post/v1/listGenre")
     Observable<GenreListDao> listGenre();
+
+    @POST("/post/v1/listMovieSuggestion")
+    Observable<MovieSuggestionListDao> listMovieSuggestion();
 }
