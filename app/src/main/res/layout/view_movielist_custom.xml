@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/moviePic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/selectablebutton"
+            android:src="@drawable/fantasy"/>
+
+        <TextView
+            android:id="@+id/movieName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/moviePic"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="Movie Name"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/releaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieName"
+            android:layout_toRightOf="@+id/moviePic"
+            android:layout_marginTop="20dp"
+            android:textSize="15sp"
+            android:text="Released Date"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/movieName"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:textSize="15sp"
+            android:text="Score"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/genreDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/releaseDate"
+            android:layout_toRightOf="@+id/moviePic"
+            android:layout_marginTop="20dp"
+            android:textSize="15sp"
+            android:text="Genre"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
