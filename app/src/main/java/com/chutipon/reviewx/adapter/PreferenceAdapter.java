@@ -96,7 +96,7 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Vi
                     .transform(transformation)
                     .into(img);
 
-//            txtGenre.setText(PreferenceManager.getInstance().getGenreListDao().getGenres()[position].getGenreName());
+            txtGenre.setText(PreferenceManager.getInstance().getGenreListDao().getGenres()[position].getName());
         }
 
     }
