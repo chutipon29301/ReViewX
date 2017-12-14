@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private void redirect() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
 //        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        Intent intent = new Intent(MainActivity.this, PreferenceActivity.class);
         startActivity(intent);
         finish();
     }

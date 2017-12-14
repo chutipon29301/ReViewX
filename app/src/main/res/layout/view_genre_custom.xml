@@ -8,22 +8,25 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageButton
         android:id="@+id/genrePic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="10dp"
         android:clickable="true"
         android:focusable="true"
+        android:background="@android:color/transparent"
         android:foreground="@drawable/selectablebutton"
         android:src="@drawable/fantasy"/>
 
     <TextView
+        android:id="@+id/txt_genre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/genrePic"
         android:gravity="center"
+        android:paddingBottom="10dp"
+        android:background="#88000000"
         android:text="Genre"
         android:textStyle="bold"/>
 
