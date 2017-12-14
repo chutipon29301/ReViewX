@@ -5,4 +5,5 @@ package com.chutipon.reviewx.dao;
  */
 
 public class MovieSuggestionListDao {
+    //TODO: Implement movie suggestion list
 }

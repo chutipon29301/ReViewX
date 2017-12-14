@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void redirect() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        //TODO: Load page to be redirect
+
 //        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         startActivity(intent);
