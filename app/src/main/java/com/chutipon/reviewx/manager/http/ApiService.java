@@ -1,5 +1,6 @@
 package com.chutipon.reviewx.manager.http;
 
+import com.chutipon.reviewx.dao.CheckExistUserDao;
 import com.chutipon.reviewx.dao.GeneralResponseDao;
 import com.chutipon.reviewx.dao.GenreListDao;
 import com.chutipon.reviewx.dao.MovieSuggestionListDao;
@@ -16,6 +17,10 @@ import retrofit2.http.POST;
 
 public interface ApiService {
     @FormUrlEncoded
+    @POST("/post/v1/checkExistUser")
+    Observable<CheckExistUserDao> checkExistUser(@Field("facebookID") int facebookID);
+
+    @FormUrlEncoded
     @POST("/post/v1/addUser")
     Observable<GeneralResponseDao> addUser(@Field("facebookID") int facebookID, @Field("preference") PreferenceDao preference);
 
@@ -25,5 +30,8 @@ public interface ApiService {
     @POST("/post/v1/listMovieSuggestion")
     Observable<MovieSuggestionListDao> listMovieSuggestion();
 
+    @FormUrlEncoded
+    @POST("/post/v1/addReview")
+    Observable<GeneralResponseDao> addReview();
 
 }
