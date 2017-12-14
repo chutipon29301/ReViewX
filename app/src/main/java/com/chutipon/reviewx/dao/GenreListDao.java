@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class GenreListDao {
-    @SerializedName("genres") GenreInfoDao genres[];
+    @SerializedName("genres")       private GenreInfoDao genres[];
 
     public GenreInfoDao[] getGenres() {
         return genres;
