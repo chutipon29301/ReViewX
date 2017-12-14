@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class GenreInfoDao {
     @SerializedName("genreID")      private int genreID;
-    @SerializedName("name")         private String genreName;
+    @SerializedName("name")         private String name;
     @SerializedName("image")        private String image;
 
     public int getGenreID() {return genreID;}
@@ -17,12 +17,12 @@ public class GenreInfoDao {
         this.genreID = genreID;
     }
 
-    public String getGenreName() {
-        return genreName;
+    public String getName() {
+        return name;
     }
 
-    public void setGenreName(String genreName) {
-        this.genreName = genreName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getImage() {
