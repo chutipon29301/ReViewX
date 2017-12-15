@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             redirect();
         }
 
-        //  For getting app keyhash
+          //For getting app keyhash
 //        try {
 //            PackageInfo info = getPackageManager().getPackageInfo(
 //                    "com.chutipon.reviewx",

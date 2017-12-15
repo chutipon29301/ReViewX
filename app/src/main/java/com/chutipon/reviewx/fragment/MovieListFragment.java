@@ -19,7 +19,12 @@ import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 import com.chutipon.reviewx.activity.MainActivity;
 import com.chutipon.reviewx.adapter.MovieListAdapter;
+import com.chutipon.reviewx.dao.PreferenceDao;
+import com.chutipon.reviewx.manager.PreferenceManager;
+import com.chutipon.reviewx.manager.RealmManager;
 import com.chutipon.reviewx.util.Contextor;
+
+import io.realm.Realm;
 
 /**
  * Created by admin on 12/9/2017 AD.
@@ -27,6 +32,7 @@ import com.chutipon.reviewx.util.Contextor;
 
 public class MovieListFragment extends Fragment {
     private RecyclerView movieListRecycler;
+    private Realm realm;
 
     public static MovieListFragment getInstance() {
         if(instance==null){
@@ -68,5 +74,4 @@ public class MovieListFragment extends Fragment {
     public MovieListFragment(){
 
     }
-
 }
