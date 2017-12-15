@@ -18,7 +18,7 @@ import retrofit2.http.POST;
 public interface ApiService {
     @FormUrlEncoded
     @POST("/post/v1/checkExistUser")
-    Observable<CheckExistUserDao> checkExistUser(@Field("facebookID") int facebookID);
+    Observable<CheckExistUserDao> checkExistUser(@Field("facebookID") String facebookID);
 
     @FormUrlEncoded
     @POST("/post/v1/addUser")
