@@ -8,8 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.fragment.LoadingFragment;
+import com.chutipon.reviewx.fragment.MainFragment;
+import com.chutipon.reviewx.manager.CheckExistUserManager;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -23,17 +28,24 @@ import java.security.NoSuchAlgorithmException;
 public class MainActivity extends AppCompatActivity {
 
     private CallbackManager callbackManager;
+    private final String TAG = "MainActivity";
+    private static MainActivity instance;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+<<<<<<< HEAD
         if (isLoggedIn()) {
             redirect();
         }
 
           //For getting app keyhash
+=======
+        //  For getting app keyhash
+>>>>>>> refs/remotes/chutipon29301/master
 //        try {
 //            PackageInfo info = getPackageManager().getPackageInfo(
 //                    "com.chutipon.reviewx",
@@ -49,11 +61,14 @@ public class MainActivity extends AppCompatActivity {
 //
 //        }
 
+        instance = this;
+        redirect();
         initInstance(savedInstanceState);
     }
 
     private void initInstance(Bundle savedInstanceState) {
         callbackManager = CallbackManager.Factory.create();
+        progressBar = findViewById(R.id.progress_bar);
 
         LoginButton loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
@@ -61,36 +76,42 @@ public class MainActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d("MainActivity", "Login success");
+                Log.d(TAG, "onSuccess: ");
                 redirect();
             }
 
             @Override
             public void onCancel() {
-                Log.d("MainActivity", "Login cancel");
+                Log.d(TAG, "onCancel: ");
             }
 
             @Override
             public void onError(FacebookException exception) {
-                Log.d("MainActivity", "Login error");
+                Log.d(TAG, "onError: ");
                 exception.printStackTrace();
             }
         });
     }
 
-    private void redirect() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        //TODO: Load page to be redirect
+    public static MainActivity getInstance() {
+        return instance;
+    }
 
-//        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+    private void redirect() {
+        if (isLoggedIn()) {
+            Log.d(TAG, "redirect: Access token " + AccessToken.getCurrentAccessToken().getUserId());
+            CheckExistUserManager.getInstance().startCheckExistUser(AccessToken.getCurrentAccessToken().getUserId());
+        }
+    }
+
+    public void redirectToPage(Class cls) {
+        Intent intent = new Intent(MainActivity.this, cls);
         startActivity(intent);
         finish();
     }
 
     public boolean isLoggedIn() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        return accessToken != null;
+        return AccessToken.getCurrentAccessToken() != null;
     }
 
     @Override
