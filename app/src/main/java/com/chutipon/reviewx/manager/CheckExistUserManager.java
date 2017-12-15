@@ -1,5 +1,10 @@
 package com.chutipon.reviewx.manager;
 
+import android.util.Log;
+
+import com.chutipon.reviewx.activity.HomeActivity;
+import com.chutipon.reviewx.activity.MainActivity;
+import com.chutipon.reviewx.activity.PreferenceActivity;
 import com.chutipon.reviewx.dao.CheckExistUserDao;
 
 import io.reactivex.Observer;
@@ -13,6 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CheckExistUserManager {
     private static CheckExistUserManager instance;
+    private static String TAG = "CheckExistUserManager";
 
     private CheckExistUserManager() {
     }
@@ -24,25 +30,30 @@ public class CheckExistUserManager {
         return instance;
     }
 
-    public void startCheckExistUser(int facebookID) {
+    public void startCheckExistUser(String facebookID) {
         HttpManager.getInstance().getApiService().checkExistUser(facebookID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<CheckExistUserDao>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        //TODO: Start request to server
-                        //TODO: Add loading fragment into activity
+                        Log.d(TAG, "onSubscribe: ");
                     }
 
                     @Override
                     public void onNext(CheckExistUserDao value) {
-                        //TODO: On server response
+                        Log.d(TAG, "onNext: " + value.isExist());
+                        if (value.isExist()) {
+                            MainActivity.getInstance().redirectToPage(HomeActivity.class);
+                        } else {
+                            MainActivity.getInstance().redirectToPage(PreferenceActivity.class);
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d(TAG, "onError: ");
+                        e.printStackTrace();
                     }
 
                     @Override
