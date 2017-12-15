@@ -15,9 +15,10 @@
 ## What we’re doing
     This android application is a movie review platform for users and reviewers. You can browse through the latest movie reviews by other users and write your own review about the movie that you’re interested in. Moreover, the review feed will be customized to a user’s taste. The application will suggest movies from the user’s favorite genre. If the user doesn’t know what to watch, there’s a mode to pick a movie at random as well. This application has GPS functionality which can detect your location to determine the closest theater.
 
-
-
 ## What feature we're using
 >- GPS
 >- Gyroscope
 >- Store the data in device
+
+## Duty
+Read more in Project
