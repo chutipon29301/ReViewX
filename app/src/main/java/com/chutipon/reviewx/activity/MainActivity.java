@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //  For getting app keyhash
 //        try {
 //            PackageInfo info = getPackageManager().getPackageInfo(
 //                    "com.chutipon.reviewx",
