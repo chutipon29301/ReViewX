@@ -102,7 +102,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.tab_explore:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.contentContainer, MapFragment.getInstance())
+                        .replace(R.id.contentContainer, MovieListFragment.getInstance())
                         .commit();
                 break;
             case R.id.tab_myreview:
@@ -111,9 +111,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                        .commit();
                 break;
             case R.id.tab_nearby:
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace()
-//                        .commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer, MapFragment.getInstance())
+                        .commit();
                 break;
             case R.id.tab_readLater:
 //                getSupportFragmentManager().beginTransaction()
