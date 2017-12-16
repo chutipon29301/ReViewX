@@ -32,7 +32,6 @@ import io.realm.Realm;
 
 public class MovieListFragment extends Fragment {
     private RecyclerView movieListRecycler;
-    private Realm realm;
 
     public static MovieListFragment getInstance() {
         if(instance==null){
@@ -72,6 +71,5 @@ public class MovieListFragment extends Fragment {
     private static MovieListFragment instance;
 
     public MovieListFragment(){
-
     }
 }
