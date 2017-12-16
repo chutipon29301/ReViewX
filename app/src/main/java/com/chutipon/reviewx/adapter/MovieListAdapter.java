@@ -49,7 +49,7 @@ import com.chutipon.reviewx.R;
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 6;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
