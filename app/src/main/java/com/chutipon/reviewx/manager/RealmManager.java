@@ -2,8 +2,6 @@ package com.chutipon.reviewx.manager;
 
 import com.chutipon.reviewx.dao.PreferenceDao;
 
-import java.util.AbstractList;
-import java.util.ArrayList;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -29,6 +27,8 @@ public class RealmManager {
     private RealmManager() {
         realm = Realm.getDefaultInstance();
     }
+
+    public Realm getRealm() { return realm; }
 
     public void storePreferenceDao(final int userID, final String rank){
         realm.beginTransaction();
@@ -57,6 +57,16 @@ public class RealmManager {
             }
         });
         return allPreferenceDao;
+    }
+
+    public void deletePreferenceDao(final int userID){
+        preferenceDao = findPreferenceDao(userID);
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                preferenceDao.deleteFromRealm();
+            }
+        });
     }
 
     public void deleteAllPreferenceDao(){
