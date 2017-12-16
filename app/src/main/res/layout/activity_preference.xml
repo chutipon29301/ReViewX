@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Select your favorite genre"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/primaryDarkColor"
             android:textSize="25sp"
             android:textStyle="bold" />
 

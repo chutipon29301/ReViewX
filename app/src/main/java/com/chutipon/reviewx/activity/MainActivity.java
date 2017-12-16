@@ -37,18 +37,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
         if (isLoggedIn()) {
             redirect();
         }
 
           //For getting app keyhash
-=======
-        //  For getting app keyhash
->>>>>>> refs/remotes/chutipon29301/master
-=======
->>>>>>> origin/master
 //        try {
 //            PackageInfo info = getPackageManager().getPackageInfo(
 //                    "com.chutipon.reviewx",
