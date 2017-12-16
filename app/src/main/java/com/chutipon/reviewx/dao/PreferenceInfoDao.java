@@ -9,27 +9,23 @@ import java.util.ArrayList;
  */
 
 public class PreferenceInfoDao {
-    public void setLike(int[] like) {
-        this.like = like;
-    }
 
-    @SerializedName("like")
-    private int[] like;
+    @SerializedName("like")         private ArrayList<Integer> like;
+    @SerializedName("dislike")      private ArrayList<Integer> dislike;
 
-    public void setDislike(int[] dislike) {
-        this.dislike = dislike;
-    }
-
-    @SerializedName("dislike")
-    private int[] dislike;
-
-    public int[] getLike() {
+    public ArrayList<Integer> getLike() {
         return like;
     }
 
-    public int[] getDislike() {
+    public void setLike(ArrayList<Integer> like) {
+        this.like = like;
+    }
+
+    public ArrayList<Integer> getDislike() {
         return dislike;
     }
 
-
+    public void setDislike(ArrayList<Integer> dislike) {
+        this.dislike = dislike;
+    }
 }

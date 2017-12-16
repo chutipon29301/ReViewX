@@ -6,6 +6,7 @@ import com.chutipon.reviewx.adapter.PreferenceAdapter;
 import com.chutipon.reviewx.dao.GenreListDao;
 import com.chutipon.reviewx.dao.PreferenceInfoDao;
 import com.chutipon.reviewx.dao.PreferenceListDao;
+import com.chutipon.reviewx.util.PreferenceUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -19,7 +20,6 @@ import io.reactivex.schedulers.Schedulers;
 public class PreferenceManager {
     private static PreferenceManager instance;
     private GenreListDao genreListDao;
-
 
     private PreferenceManager(){
         Log.v("PreferenceManager", "PreferenceManager called");
@@ -48,6 +48,7 @@ public class PreferenceManager {
             public void onComplete() {
                 Log.v("PreferenceManager", "onComplete called");
                 PreferenceAdapter.getInstance().notifyDataSetChanged();
+                PreferenceUtil.getInstance().setStateSize(genreListDao.getGenres().length);
             }
         });
     }

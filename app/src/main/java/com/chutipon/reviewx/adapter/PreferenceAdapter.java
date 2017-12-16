@@ -85,18 +85,16 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Vi
 
         ImageButton img;
         int position;
+        private TextView txtGenre;
 
-        TextView txtGenre;
-
-        public ViewHolder(View itemView) {
-
+        ViewHolder(View itemView) {
             super(itemView);
             img = itemView.findViewById(R.id.genrePic);
             txtGenre = itemView.findViewById(R.id.txt_genre);
             img.setOnClickListener(this);
         }
 
-        public void bind(int position) {
+        void bind(int position) {
             this.position = position;
             Transformation transformation = new RoundedTransformationBuilder()
                     .borderColor(Color.BLACK)
@@ -110,8 +108,6 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Vi
                     .centerCrop()
                     .transform(transformation)
                     .into(img);
-
-
             txtGenre.setText(PreferenceManager.getInstance().getGenreListDao().getGenres()[position].getName());
         }
 
@@ -123,14 +119,14 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Vi
 
             if (img.isSelected()) {
                 //Handle selected state change
-                img.setBackground(Contextor.getInstance().getContext().getDrawable(R.drawable.circle_background));
 //                PreferenceUtil.getInstance().addLike(PreferenceManager.getInstance().getGenreListDao().getGenres()[position].getGenreID());
+                PreferenceUtil.getInstance().setValue(position, true);
+                img.setBackground(Contextor.getInstance().getContext().getDrawable(R.drawable.circle_background));
             } else {
 //                PreferenceUtil.getInstance().addDislike(PreferenceManager.getInstance().getGenreListDao().getGenres()[position].getGenreID());
-
+                PreferenceUtil.getInstance().setValue(position, false);
                 img.setBackgroundColor(Color.TRANSPARENT);
             }
-
         }
 
     }

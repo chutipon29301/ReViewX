@@ -16,46 +16,34 @@ import java.util.List;
  */
 
 public class PreferenceUtil {
-    private ArrayList<Integer> like;
-    private ArrayList<Integer> dislike;
-    private PreferenceInfoDao preferenceInfoDao;
 
-    public static PreferenceUtil getInstance(){
-        if (instance == null){
+    private static PreferenceUtil instance;
+    private boolean[] state;
+
+    public static PreferenceUtil getInstance() {
+        if (instance == null) {
             instance = new PreferenceUtil();
         }
         return instance;
     }
-    private PreferenceUtil(){
-            like = new ArrayList<>();
-            dislike = new ArrayList<>();
-            preferenceInfoDao = new PreferenceInfoDao();
-    }
-    public void addLike(int likeId){
 
-                like.add(likeId);
-                preferenceInfoDao.setLike(convertIntegers(like));
-
-        Log.d("add","like size"+like.size());
-    }
-    public void addDislike(int dislikeId){
-                dislike.add(dislikeId);
-                preferenceInfoDao.setDislike(convertIntegers(dislike));
-        }
-
-
-
-    private static PreferenceUtil instance;
-    public static int[] convertIntegers(List<Integer> integers)
-    {
-        int[] ret = new int[integers.size()];
-        Iterator<Integer> iterator = integers.iterator();
-        for (int i = 0; i < ret.length; i++)
-        {
-            ret[i] = iterator.next().intValue();
-        }
-        return ret;
+    private PreferenceUtil() {
     }
 
+    public void setStateSize(int size){
+        state = new boolean[size];
+    }
+
+    public void setValue(int index, boolean value){
+        state[index] = value;
+    }
+
+    public boolean getStateAt(int index){
+        return state[index];
+    }
+
+    public int getStateSize(){
+        return state.length;
+    }
 
 }

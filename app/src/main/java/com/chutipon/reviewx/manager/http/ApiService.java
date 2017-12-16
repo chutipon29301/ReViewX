@@ -5,8 +5,10 @@ import com.chutipon.reviewx.dao.GeneralResponseDao;
 import com.chutipon.reviewx.dao.GenreListDao;
 import com.chutipon.reviewx.dao.MovieSuggestionListDao;
 import com.chutipon.reviewx.dao.PreferenceInfoDao;
+import com.chutipon.reviewx.dao.PreferenceListDao;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -20,9 +22,9 @@ public interface ApiService {
     @POST("/post/v1/checkExistUser")
     Observable<CheckExistUserDao> checkExistUser(@Field("facebookID") String facebookID);
 
-    @FormUrlEncoded
     @POST("/post/v1/addUser")
-    Observable<GeneralResponseDao> addUser(@Field("facebookID") int facebookID, @Field("preference") PreferenceInfoDao preference);
+    Observable<GeneralResponseDao> addUser(@Body PreferenceListDao preferenceListDao);
+
 
     @POST("/post/v1/listGenre")
     Observable<GenreListDao> listGenre();

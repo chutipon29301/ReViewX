@@ -8,25 +8,22 @@ import com.google.gson.annotations.SerializedName;
 
 public class PreferenceListDao {
 
-
-
-    @SerializedName("facebookID")        private int facebookId;
+    @SerializedName("facebookID")        private String facebookId;
     @SerializedName("preference")        private PreferenceInfoDao preference;
 
-    public int getFacebookId() {
+    public String getFacebookId() {
         return facebookId;
+    }
+
+    public void setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
     }
 
     public PreferenceInfoDao getPreference() {
         return preference;
     }
 
-    public void setFacebookId(int facebookId) {
-        this.facebookId = facebookId;
-    }
-
     public void setPreference(PreferenceInfoDao preference) {
         this.preference = preference;
     }
-
 }
