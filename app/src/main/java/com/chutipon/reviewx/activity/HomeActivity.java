@@ -1,6 +1,5 @@
 package com.chutipon.reviewx.activity;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -20,12 +19,9 @@ import com.facebook.AccessTokenTracker;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "HomeActivity";
-    Toolbar toolbar;
-    Fragment currentFragnment;
     private static HomeActivity instance;
-    DrawerLayout drawerLayout;
-    ActionBarDrawerToggle actionBarDrawerToggle;
-    AccessTokenTracker accessTokenTracker;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private AccessTokenTracker accessTokenTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +45,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        drawerLayout = findViewById(R.id.drawerLayout);
+        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        Button logoutBtn = findViewById(R.id.logoutBtn);
-//        logoutBtn.setOnClickListener(this);
+        findViewById(R.id.tab_explore).setOnClickListener(this);
+        findViewById(R.id.tab_myreview).setOnClickListener(this);
+        findViewById(R.id.tab_nearby).setOnClickListener(this);
+        findViewById(R.id.tab_readLater).setOnClickListener(this);
+        findViewById(R.id.tab_tutorial).setOnClickListener(this);
     }
 
     @Override
@@ -124,9 +123,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                getSupportFragmentManager().beginTransaction()
 //                        .replace()
 //                        .commit();
-                break;
-            case R.id.tab_logout:
-//                LoginManager.getInstance().logOut();
                 break;
         }
 

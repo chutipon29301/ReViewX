@@ -103,12 +103,6 @@
 
             android:text="Overlay tutorial" />
 
-        <Button
-            android:id="@+id/tab_logout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Log out" />
-
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
