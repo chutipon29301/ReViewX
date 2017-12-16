@@ -9,28 +9,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.MovieListFragment;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "HomeActivity";
-    private CallbackManager callbackManager;
     Toolbar toolbar;
     Fragment currentFragnment;
     private static HomeActivity instance;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    AccessTokenTracker accessTokenTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +40,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initInstance(Bundle savedInstanceState) {
+
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                redirectToPage(MainActivity.class);
+            }
+        };
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -56,32 +58,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 //        Button logoutBtn = findViewById(R.id.logoutBtn);
 //        logoutBtn.setOnClickListener(this);
-
-        callbackManager = CallbackManager.Factory.create();
-
-        LoginButton loginButton = findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
-
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "onSuccess: ");
-                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "onCancel: ");
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                Log.d(TAG, "onError: ");
-                exception.printStackTrace();
-            }
-        });
     }
 
     @Override
@@ -106,6 +82,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     public static HomeActivity getInstance() {
         return instance;
+    }
+
+    public void redirectToPage(Class cls) {
+        Intent intent = new Intent(HomeActivity.this, cls);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        accessTokenTracker.stopTracking();
     }
 
     @Override
