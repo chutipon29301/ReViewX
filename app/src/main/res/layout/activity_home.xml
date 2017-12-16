@@ -62,37 +62,43 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/tab_explore"
+
             android:layout_width="match_parent"
             android:layout_height="50dp"
 
             android:text="Explore" />
 
         <Button
+            android:id="@+id/tab_nearby"
             android:layout_width="match_parent"
             android:layout_height="50dp"
 
             android:text="Near by" />
 
         <Button
+            android:id="@+id/tab_myreview"
             android:layout_width="match_parent"
             android:layout_height="50dp"
 
             android:text="My review" />
 
         <Button
+            android:id="@+id/tab_readLater"
             android:layout_width="match_parent"
             android:layout_height="50dp"
 
             android:text="Read Later" />
 
         <Button
+            android:id="@+id/tab_tutorial"
             android:layout_width="match_parent"
             android:layout_height="50dp"
 
             android:text="Overlay tutorial" />
 
         <Button
-            android:id="@+id/logoutBtn"
+            android:id="@+id/tab_logout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="Log out" />

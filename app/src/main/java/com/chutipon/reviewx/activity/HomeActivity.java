@@ -1,5 +1,6 @@
 package com.chutipon.reviewx.activity;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private static String TAG = "HomeActivity";
     private CallbackManager callbackManager;
     Toolbar toolbar;
+    Fragment currentFragnment;
     private static HomeActivity instance;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -109,9 +111,35 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.logoutBtn:
-                LoginManager.getInstance().logOut();
+            case R.id.tab_explore:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer,MovieListFragment.getInstance())
+                        .commit();
+                break;
+            case R.id.tab_myreview:
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.contentContainer,)
+//                        .commit();
+                break;
+            case R.id.tab_nearby:
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace()
+//                        .commit();
+                break;
+            case R.id.tab_readLater:
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace()
+//                        .commit();
+                break;
+            case R.id.tab_tutorial:
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace()
+//                        .commit();
+                break;
+            case R.id.tab_logout:
+//                LoginManager.getInstance().logOut();
                 break;
         }
+
     }
 }
