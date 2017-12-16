@@ -54,8 +54,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Button logoutBtn = findViewById(R.id.logoutBtn);
-        logoutBtn.setOnClickListener(this);
+//        Button logoutBtn = findViewById(R.id.logoutBtn);
+//        logoutBtn.setOnClickListener(this);
 
         callbackManager = CallbackManager.Factory.create();
 
