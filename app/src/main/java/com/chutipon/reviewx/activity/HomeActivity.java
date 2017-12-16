@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.fragment.MapFragment;
 import com.chutipon.reviewx.fragment.MovieListFragment;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -101,7 +102,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.tab_explore:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.contentContainer,MovieListFragment.getInstance())
+                        .replace(R.id.contentContainer, MapFragment.getInstance())
                         .commit();
                 break;
             case R.id.tab_myreview:
