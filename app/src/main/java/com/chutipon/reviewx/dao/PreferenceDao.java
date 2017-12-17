@@ -11,8 +11,8 @@ import io.realm.annotations.Required;
  */
 
 public class PreferenceDao extends RealmObject{
-    @PrimaryKey @SerializedName("userID") private int userID;
-    @SerializedName("rank") private String rank;
+    @PrimaryKey @SerializedName("userID")       private int userID;
+    @SerializedName("rank")                     private String rank;
 
     public int getUserID() {
         return userID;
