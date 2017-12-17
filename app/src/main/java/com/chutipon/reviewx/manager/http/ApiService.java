@@ -7,6 +7,7 @@ import com.chutipon.reviewx.dao.GenreListDao;
 import com.chutipon.reviewx.dao.LocationListDao;
 import com.chutipon.reviewx.dao.MovieSuggestionListDao;
 import com.chutipon.reviewx.dao.PreferenceListDao;
+import com.chutipon.reviewx.dao.SearchResultListDao;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -39,5 +40,9 @@ public interface ApiService {
 
     @POST("/post/v1/listLocation")
     Observable<LocationListDao> getLocation();
+
+    @FormUrlEncoded
+    @POST("/post/v1/searchMovie")
+    Observable<SearchResultListDao> searchMovie(@Field("key") String key);
 
 }
