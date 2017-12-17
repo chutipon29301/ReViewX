@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 
+import com.chutipon.reviewx.activity.SearchActivity;
 import com.chutipon.reviewx.adapter.MovieListAdapter;
 
 import at.markushi.ui.CircleButton;
@@ -71,7 +72,7 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         if(view==btnwrite){
-            HomeActivity.getInstance().Search();
+            HomeActivity.getInstance().redirect(SearchActivity.class);
         }
     }
 }

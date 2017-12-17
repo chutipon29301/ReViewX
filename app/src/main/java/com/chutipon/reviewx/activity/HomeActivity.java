@@ -15,8 +15,6 @@ import android.view.View;
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.MapFragment;
 import com.chutipon.reviewx.fragment.MovieListFragment;
-import com.chutipon.reviewx.fragment.ReviewListFragment;
-import com.chutipon.reviewx.fragment.SearchFragment;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 
@@ -94,6 +92,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
         finish();
     }
+    public void redirect(Class cls) {
+        Intent intent = new Intent(HomeActivity.this, cls);
+        startActivity(intent);
+    }
 
     @Override
     protected void onDestroy() {
@@ -132,9 +134,5 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-    public void Search() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contentContainer, SearchFragment.getInstance())
-                .commit();
-    }
+
 }
