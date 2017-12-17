@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.manager.RandomMovieManager;
-import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
