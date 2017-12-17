@@ -5,8 +5,11 @@ import com.chutipon.reviewx.dao.CheckExistUserDao;
 import com.chutipon.reviewx.dao.GeneralResponseDao;
 import com.chutipon.reviewx.dao.GenreListDao;
 import com.chutipon.reviewx.dao.LocationListDao;
+import com.chutipon.reviewx.dao.MovieReviewListDao;
+import com.chutipon.reviewx.dao.MovieSuggestionInfoDao;
 import com.chutipon.reviewx.dao.MovieSuggestionListDao;
 import com.chutipon.reviewx.dao.PreferenceListDao;
+import com.chutipon.reviewx.dao.SearchResultListDao;
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
@@ -39,5 +42,17 @@ public interface ApiService {
 
     @POST("/post/v1/listLocation")
     Observable<LocationListDao> getLocation();
+
+    @FormUrlEncoded
+    @POST("/post/v1/searchMovie")
+    Observable<SearchResultListDao> searchMovie(@Field("key") String key);
+
+    @FormUrlEncoded
+    @POST("/post/v1/listReviewForMovie")
+    Observable<MovieReviewListDao> getMovieReview(@Field("movieID") int movieID);
+
+    @FormUrlEncoded
+    @POST("/post/v1/getRandomMovie")
+    Observable<MovieSuggestionInfoDao> getRandomMovie(@Field("userID") String userID);
 
 }

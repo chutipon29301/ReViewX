@@ -10,7 +10,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 
-import com.chutipon.reviewx.manager.HttpManager;
 import com.chutipon.reviewx.manager.LocationManager;
 import com.chutipon.reviewx.util.Contextor;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -29,23 +28,26 @@ import com.google.android.gms.tasks.Task;
  */
 
 public class GoogleMapFragment extends SupportMapFragment implements OnMapReadyCallback {
-    private static GoogleMapFragment instance;
-    private static final String TAG = "GoogleMapFragment";
-    private FusedLocationProviderClient mFusedLocationProviderClient;
+
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private static final int DEFAULT_ZOOM = 17;
+    private static final String TAG = "GoogleMapFragment";
+    private static GoogleMapFragment instance;
+    private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
     private boolean mLocationPermissionGranted;
     private GoogleMap mMap;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
     private Location mLastKnownLocation;
-    private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 17;
+
+    public static GoogleMapFragment getInstance() {
+        return instance;
+    }
 
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         instance = this;
-        // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-
     }
 
     @Override
@@ -56,59 +58,13 @@ public class GoogleMapFragment extends SupportMapFragment implements OnMapReadyC
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
         Log.i(TAG, "onMapReady: called");
-        LatLng sydney = new LatLng(-33.852, 151.211);
-        googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
         mMap = googleMap;
+
         getLocationPermission();
         updateLocationUI();
         getDeviceLocation();
         updateMarker();
-    }
-
-    private void updateMarker() {
-        for (int i = 0; i < LocationManager.getInstance().getLocationsSize(); i++) {
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(LocationManager.getInstance().getInfoAtIndex(i).getLatitude()
-                            , LocationManager.getInstance().getInfoAtIndex(i).getLongitude()))
-                    .title(LocationManager.getInstance().getInfoAtIndex(i).getName()));
-        }
-    }
-
-    public static GoogleMapFragment getInstance() {
-        return instance;
-    }
-
-    private void getDeviceLocation() {
-        try {
-            if (mLocationPermissionGranted) {
-                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Location> task) {
-                        if (task.isSuccessful()) {
-                            // Set the map's camera position to the current location of the device.
-                            mLastKnownLocation = task.getResult();
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                    new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                        } else {
-                            Log.d(TAG, "Current location is null. Using defaults.");
-                            Log.e(TAG, "Exception: %s", task.getException());
-                            mMap.moveCamera(CameraUpdateFactory
-                                    .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
-                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                        }
-                    }
-                });
-            }
-        } catch (SecurityException e) {
-            Log.e("Exception: %s", e.getMessage());
-        }
     }
 
     @Override
@@ -153,6 +109,43 @@ public class GoogleMapFragment extends SupportMapFragment implements OnMapReadyC
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
+
+    private void getDeviceLocation() {
+        try {
+            if (mLocationPermissionGranted) {
+                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            // Set the map's camera position to the current location of the device.
+                            mLastKnownLocation = task.getResult();
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                    new LatLng(mLastKnownLocation.getLatitude(),
+                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                        } else {
+                            Log.d(TAG, "Current location is null. Using defaults.");
+                            Log.e(TAG, "Exception: %s", task.getException());
+                            mMap.moveCamera(CameraUpdateFactory
+                                    .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
+                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e) {
+            Log.e("Exception: %s", e.getMessage());
+        }
+    }
+
+    private void updateMarker() {
+        for (int i = 0; i < LocationManager.getInstance().getLocationsSize(); i++) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(LocationManager.getInstance().getInfoAtIndex(i).getLatitude()
+                            , LocationManager.getInstance().getInfoAtIndex(i).getLongitude()))
+                    .title(LocationManager.getInstance().getInfoAtIndex(i).getName()));
         }
     }
 }

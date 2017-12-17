@@ -22,10 +22,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
-
     private CallbackManager callbackManager;
-    private final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
     private static MainActivity instance;
+
+    public static MainActivity getInstance() {
+        return instance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +47,10 @@ public class MainActivity extends AppCompatActivity {
         initInstance(savedInstanceState);
     }
 
-
-
     private void initInstance(Bundle savedInstanceState) {
         callbackManager = CallbackManager.Factory.create();
-
         LoginButton loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
-
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -72,8 +71,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public static MainActivity getInstance() {
-        return instance;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void redirect() {
@@ -85,20 +86,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void redirectToPage(Class cls) {
         Intent intent = new Intent(MainActivity.this, cls);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
 
-
     public boolean isLoggedIn() {
         return AccessToken.getCurrentAccessToken() != null;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void getKeyhash() {
@@ -114,4 +108,5 @@ public class MainActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException ignored) {
         } catch (NoSuchAlgorithmException ignored) {
         }
-    }}
+    }
+}

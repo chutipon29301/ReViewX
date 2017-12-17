@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CheckExistUserManager {
     private static CheckExistUserManager instance;
-    private static String TAG = "CheckExistUserManager";
+    private static final String TAG = "CheckExistUserManager";
 
     private CheckExistUserManager() {
     }
@@ -37,12 +37,12 @@ public class CheckExistUserManager {
                 .subscribe(new Observer<CheckExistUserDao>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        Log.d(TAG, "onSubscribe: ");
+                        Log.i(TAG, "onSubscribe: called");
                     }
 
                     @Override
                     public void onNext(CheckExistUserDao value) {
-                        Log.d(TAG, "onNext: " + value.isExist());
+                        Log.i(TAG, "onNext: called");
                         if (value.isExist()) {
                             MainActivity.getInstance().redirectToPage(HomeActivity.class);
                         } else {
@@ -52,13 +52,12 @@ public class CheckExistUserManager {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d(TAG, "onError: "+e.getMessage());
-                        e.printStackTrace();
-
+                        Log.e(TAG, "onError: " + e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
+                        Log.i(TAG, "onComplete: called");
                     }
                 });
     }

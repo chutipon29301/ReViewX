@@ -7,8 +7,8 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class GeneralResponseDao {
-    @SerializedName("err") private int err;
-    @SerializedName("msg") private String msg;
+    @SerializedName("err")      private int err;
+    @SerializedName("msg")      private String msg;
 
     public int getErr() {
         return err;

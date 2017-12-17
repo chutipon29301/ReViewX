@@ -10,9 +10,9 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class LocationInfoDao extends RealmObject{
-    @SerializedName("name")         private String name;
-    @SerializedName("latitude")     private double latitude;
-    @SerializedName("longitude")    private double longitude;
+    @SerializedName("name")                     private String name;
+    @SerializedName("latitude")                 private double latitude;
+    @SerializedName("longitude")                private double longitude;
     @PrimaryKey @SerializedName("locationID")   private String locationID;
 
     public String getName() {

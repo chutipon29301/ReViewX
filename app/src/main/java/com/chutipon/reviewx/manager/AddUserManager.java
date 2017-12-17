@@ -23,7 +23,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class AddUserManager {
     private static AddUserManager instance;
-    private final String TAG = "AddUserManager";
+    private static final String TAG = "AddUserManager";
 
     private AddUserManager() {
     }
@@ -61,23 +61,23 @@ public class AddUserManager {
                 .subscribe(new Observer<GeneralResponseDao>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        Log.d(TAG, "onSubscribe: ");
+                        Log.i(TAG, "onSubscribe: called");
                     }
 
                     @Override
                     public void onNext(GeneralResponseDao value) {
-                        Log.d(TAG, "onNext: ");
+                        Log.i(TAG, "onNext: called");
                         PreferenceActivity.getInstance().redirectToPage(HomeActivity.class);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d(TAG, "onError: ");
+                        Log.e(TAG, "onError: " + e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.d(TAG, "onComplete: ");
+                        Log.i(TAG, "onComplete: called");
                     }
                 });
     }

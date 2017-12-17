@@ -2,6 +2,7 @@ package com.chutipon.reviewx.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.MapFragment;
@@ -18,15 +20,20 @@ import com.chutipon.reviewx.fragment.MovieListFragment;
 import com.chutipon.reviewx.fragment.SearchFragment;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
-import com.github.tbouron.shakedetector.library.ShakeDetector;
+import com.facebook.Profile;
+import com.squareup.seismic.ShakeDetector;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ShakeDetector.Listener {
+    private static final int START_SHAKE_ACTIVITY = 1;
+    private static boolean shakeActivityRunning = false;
     private static String TAG = "HomeActivity";
     private static HomeActivity instance;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private AccessTokenTracker accessTokenTracker;
-    private static boolean shakeActivityRunning = false;
-    private static final int START_SHAKE_ACTIVITY = 1;
+
+    public static HomeActivity getInstance() {
+        return instance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +43,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         instance = this;
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contentContainer, MovieListFragment.getInstance(), "MainFragment")
+                    .add(R.id.contentContainer, MovieListFragment.getInstance(), "MovieListFragment")
                     .commit();
         }
-
+        initListener();
         initInstance(savedInstanceState);
     }
 
-    private void initInstance(Bundle savedInstanceState) {
-
+    private void initListener() {
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
@@ -52,21 +58,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
 
-        ShakeDetector.create(HomeActivity.this, new ShakeDetector.OnShakeListener() {
-            @Override
-            public void OnShake() {
-                Log.d(TAG, "OnShake: called");
-                Log.d(TAG, "OnShake: " + shakeActivityRunning);
-                if (!shakeActivityRunning) {
-                    shakeActivityRunning = true;
-                    Intent intent = new Intent(HomeActivity.this, ShakeActivity.class);
-                    startActivityForResult(intent, START_SHAKE_ACTIVITY);
-                }
-            }
-        });
+        new ShakeDetector(this).start((SensorManager) getSystemService(SENSOR_SERVICE));
+    }
 
+    private void initInstance(Bundle savedInstanceState) {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -78,6 +76,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tab_nearby).setOnClickListener(this);
         findViewById(R.id.tab_readLater).setOnClickListener(this);
         findViewById(R.id.tab_tutorial).setOnClickListener(this);
+
+        TextView username = findViewById(R.id.username);
+        username.setText(Profile.getCurrentProfile().getName());
     }
 
     @Override
@@ -94,22 +95,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    public static HomeActivity getInstance() {
-        return instance;
-    }
-
-    public void redirectToPage(Class cls) {
-        Intent intent = new Intent(HomeActivity.this, cls);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-    }
 
     @Override
     protected void onDestroy() {
@@ -159,9 +147,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+    @Override
+    public void hearShake() {
+        Log.d(TAG, "OnShake: called");
+        Log.d(TAG, "OnShake: " + shakeActivityRunning);
+        if (!shakeActivityRunning) {
+            shakeActivityRunning = true;
+            Intent intent = new Intent(HomeActivity.this, ShakeActivity.class);
+            startActivityForResult(intent, START_SHAKE_ACTIVITY);
+        }
+    }
+
     public void Search() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.contentContainer, SearchFragment.getInstance())
                 .commit();
     }
+
+    public void redirectToPage(Class cls) {
+        Intent intent = new Intent(HomeActivity.this, cls);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    public void redirect(Class cls) {
+        Intent intent = new Intent(HomeActivity.this, cls);
+        startActivity(intent);
+    }
+
 }

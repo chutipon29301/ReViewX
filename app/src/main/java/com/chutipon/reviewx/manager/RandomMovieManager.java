@@ -2,8 +2,9 @@ package com.chutipon.reviewx.manager;
 
 import android.util.Log;
 
-import com.chutipon.reviewx.dao.LocationInfoDao;
-import com.chutipon.reviewx.dao.LocationListDao;
+import com.chutipon.reviewx.dao.MovieSuggestionInfoDao;
+import com.chutipon.reviewx.fragment.RandomFragment;
+import com.facebook.AccessToken;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -14,32 +15,35 @@ import io.reactivex.schedulers.Schedulers;
  * Created by admin on 17/12/2017 AD.
  */
 
-public class LocationManager {
-    private static final String TAG = "LocationManager";
-    private static LocationManager instance;
-    private LocationListDao locationListDao;
+public class RandomMovieManager {
+    private static final String TAG = "RandomMovieFragment";
+    private static RandomMovieManager instance;
+    private MovieSuggestionInfoDao movieSuggestionInfoDao;
 
-    public static LocationManager getInstance() {
+    public static RandomMovieManager getInstance() {
         if (instance == null) {
-            instance = new LocationManager();
+            instance = new RandomMovieManager();
         }
         return instance;
     }
 
-    private LocationManager() {
-        HttpManager.getInstance().getApiService().getLocation()
+    private RandomMovieManager() {
+    }
+
+    public void load() {
+        HttpManager.getInstance().getApiService().getRandomMovie(AccessToken.getCurrentAccessToken().getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<LocationListDao>() {
+                .subscribe(new Observer<MovieSuggestionInfoDao>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         Log.i(TAG, "onSubscribe: called");
                     }
 
                     @Override
-                    public void onNext(LocationListDao value) {
+                    public void onNext(MovieSuggestionInfoDao value) {
                         Log.i(TAG, "onNext: called");
-                        locationListDao = value;
+                        movieSuggestionInfoDao = value;
                     }
 
                     @Override
@@ -50,21 +54,12 @@ public class LocationManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
+                        RandomFragment.getInstance().loadData();
                     }
                 });
     }
 
-    public LocationInfoDao getInfoAtIndex(int index) {
-        return locationListDao.getLocations().get(index);
-    }
-
-    public int getLocationsSize() {
-        if (locationListDao == null) {
-            return 0;
-        }
-        if (locationListDao.getLocations() == null) {
-            return 0;
-        }
-        return locationListDao.getLocations().size();
+    public MovieSuggestionInfoDao getMovieSuggestionInfoDao() {
+        return movieSuggestionInfoDao;
     }
 }

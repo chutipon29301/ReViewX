@@ -10,14 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chutipon.reviewx.R;
-import com.chutipon.reviewx.activity.HomeActivity;
-
-import com.chutipon.reviewx.adapter.MovieListAdapter;
 import com.chutipon.reviewx.adapter.SearchAdapter;
-
-import at.markushi.ui.CircleButton;
-
-import static com.chutipon.reviewx.R.id.movielistRecycler;
 
 /**
  * Created by admin on 12/9/2017 AD.

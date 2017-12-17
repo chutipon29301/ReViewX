@@ -18,11 +18,5 @@ public class ShakeActivity extends AppCompatActivity {
                     .add(R.id.contentContainer, RandomFragment.getInstance())
                     .commit();
         }
-
-        initInstance(savedInstanceState);
-    }
-
-    private void initInstance(Bundle savedInstanceState) {
-
     }
 }
