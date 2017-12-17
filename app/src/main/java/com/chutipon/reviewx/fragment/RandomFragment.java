@@ -1,7 +1,5 @@
 package com.chutipon.reviewx.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,8 +12,8 @@ import com.chutipon.reviewx.R;
 public class RandomFragment extends Fragment {
     private static RandomFragment instance;
 
-    public static RandomFragment getInstance(){
-        if(instance == null){
+    public static RandomFragment getInstance() {
+        if (instance == null) {
             instance = new RandomFragment();
         }
         return instance;
@@ -23,15 +21,13 @@ public class RandomFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_random, container, false);
         initInstance(rootView, savedInstanceState);
         return rootView;
     }
 
-    private void initInstance(View rootView, Bundle savedInstanceState){
+    private void initInstance(View rootView, Bundle savedInstanceState) {
 
     }
 }
