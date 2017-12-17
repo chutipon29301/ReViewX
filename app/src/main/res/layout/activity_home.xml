@@ -58,7 +58,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_toRightOf="@id/moviePic"
                 android:text="Movie Name"
                 android:textColor="@color/secondaryColor"
                 android:background="@color/primaryColor"
@@ -69,45 +68,38 @@
 
         <Button
             android:id="@+id/tab_explore"
-
             android:layout_width="match_parent"
             android:layout_height="50dp"
-
             android:text="Explore" />
 
         <Button
             android:id="@+id/tab_nearby"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-
             android:text="Near by" />
 
         <Button
             android:id="@+id/tab_myreview"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-
             android:text="My review" />
 
         <Button
             android:id="@+id/tab_readLater"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-
             android:text="Read Later" />
 
         <Button
             android:id="@+id/tab_tutorial"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-
             android:text="Overlay tutorial" />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
             android:layout_marginTop="30dp" />

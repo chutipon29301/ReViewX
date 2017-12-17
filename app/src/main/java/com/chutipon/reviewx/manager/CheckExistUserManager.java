@@ -58,7 +58,6 @@ public class CheckExistUserManager {
 
                     @Override
                     public void onComplete() {
-                        //TODO: Handle complete event
                     }
                 });
     }
