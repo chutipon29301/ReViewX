@@ -1,5 +1,7 @@
 package com.chutipon.reviewx.manager;
 
+import android.util.Log;
+
 import com.chutipon.reviewx.dao.LocationInfoDao;
 import com.chutipon.reviewx.dao.LocationListDao;
 
@@ -13,6 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class LocationManager {
+    private static final String TAG = "LocationManager";
     private static LocationManager instance;
     private LocationListDao locationListDao;
 
@@ -30,22 +33,23 @@ public class LocationManager {
                 .subscribe(new Observer<LocationListDao>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        Log.i(TAG, "onSubscribe: called");
                     }
 
                     @Override
                     public void onNext(LocationListDao value) {
+                        Log.i(TAG, "onNext: called");
                         locationListDao = value;
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG, "onError: " + e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
-
+                        Log.i(TAG, "onComplete: called");
                     }
                 });
     }

@@ -47,7 +47,7 @@ public class SearchMovieManager {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "onError: called");
+                        Log.e(TAG, "onError: " + e.getMessage());
                     }
 
                     @Override

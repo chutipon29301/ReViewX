@@ -15,7 +15,7 @@ import io.realm.RealmResults;
  */
 
 public class RealmManager {
-    private final String TAG = "RealmManager";
+    private static final String TAG = "RealmManager";
     private static RealmManager instance;
     private final ThreadLocal<Realm> localRealm = new ThreadLocal<>();
     private PreferenceDao preferenceDao;
