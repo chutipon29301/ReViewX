@@ -8,27 +8,26 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chutipon.reviewx.R;
-import com.chutipon.reviewx.fragment.MovieListFragment;
 
 
 /**
  * Created by admin on 12/9/2017 AD.
  */
 
-    public class MovieListAdapter extends RecyclerView.Adapter< MovieListAdapter.ViewHolder> implements View.OnClickListener {
+    public class SearchAdapter extends RecyclerView.Adapter< SearchAdapter.ViewHolder> implements View.OnClickListener {
 
    private LayoutInflater mInflater;
-    private MovieListAdapter(){
+    private SearchAdapter(){
 
     }
-    public static MovieListAdapter getInstance() {
+    public static SearchAdapter getInstance() {
         if(instance==null){
-            instance = new MovieListAdapter();
+            instance = new SearchAdapter();
         }
         return instance;
     }
 
-    private static MovieListAdapter instance;
+    private static SearchAdapter instance;
 
     public void init(Context cont){
         mInflater = LayoutInflater.from(cont);
@@ -38,13 +37,13 @@ import com.chutipon.reviewx.fragment.MovieListFragment;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.view_movielist_custom,parent,false);
+        View view = mInflater.inflate(R.layout.view_search_custom,parent,false);
         parent.setOnClickListener(this);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MovieListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(SearchAdapter.ViewHolder holder, int position) {
 
     }
 

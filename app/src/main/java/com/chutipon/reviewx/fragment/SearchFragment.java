@@ -8,26 +8,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 
 import com.chutipon.reviewx.adapter.MovieListAdapter;
+import com.chutipon.reviewx.adapter.SearchAdapter;
 
 import at.markushi.ui.CircleButton;
+
+import static com.chutipon.reviewx.R.id.movielistRecycler;
 
 /**
  * Created by admin on 12/9/2017 AD.
  */
 
-public class MovieListFragment extends Fragment implements View.OnClickListener {
-    private RecyclerView movieListRecycler;
-   CircleButton btnwrite;
+public class SearchFragment extends Fragment{
+    private RecyclerView searchRecycler;
 
-    public static MovieListFragment getInstance() {
+
+    public static SearchFragment getInstance() {
         if(instance==null){
-            instance = new MovieListFragment();
+            instance = new SearchFragment();
         }
         return instance;
     }
@@ -41,7 +43,7 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-       View rootView = inflater.inflate(R.layout.fragment_movielist,container,false);
+       View rootView = inflater.inflate(R.layout.fragment_search,container,false);
        initInstance(rootView);
         return rootView;
     }
@@ -49,29 +51,23 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
 
     private void initInstance(View rootView) {
 
-        movieListRecycler = rootView.findViewById(R.id.movielistRecycler);
-    btnwrite = rootView.findViewById(R.id.btn_write);
-        MovieListAdapter.getInstance().init(getActivity().getBaseContext());
+        searchRecycler = rootView.findViewById(R.id.searchRecycler);
 
-        movieListRecycler.setAdapter(MovieListAdapter.getInstance());
-        movieListRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-        btnwrite.setOnClickListener(this);
+        SearchAdapter.getInstance().init(getActivity().getBaseContext());
+
+        searchRecycler.setAdapter(SearchAdapter.getInstance());
+        searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
+
+    }
+
+
+
+    private static SearchFragment instance;
+
+    public SearchFragment(){
 
     }
 
 
 
-    private static MovieListFragment instance;
-
-    public MovieListFragment(){
-
-    }
-
-
-    @Override
-    public void onClick(View view) {
-        if(view==btnwrite){
-            HomeActivity.getInstance().Search();
-        }
-    }
 }
