@@ -3,6 +3,7 @@ package com.chutipon.reviewx.dao;
 import com.google.gson.annotations.SerializedName;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by admin on 17/12/2017 AD.
@@ -12,7 +13,7 @@ public class LocationInfoDao extends RealmObject{
     @SerializedName("name")         private String name;
     @SerializedName("latitude")     private double latitude;
     @SerializedName("longitude")    private double longitude;
-    @SerializedName("locationID")   private String locationID;
+    @PrimaryKey @SerializedName("locationID")   private String locationID;
 
     public String getName() {
         return name;

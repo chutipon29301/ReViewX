@@ -1,5 +1,9 @@
 package com.chutipon.reviewx.manager;
 
+import android.util.Log;
+
+import com.chutipon.reviewx.dao.LocationInfoDao;
+import com.chutipon.reviewx.dao.LocationListDao;
 import com.chutipon.reviewx.dao.PreferenceDao;
 
 
@@ -11,9 +15,11 @@ import io.realm.RealmResults;
  */
 
 public class RealmManager {
+    private final String TAG = "RealmManager";
     private static RealmManager instance;
     private final ThreadLocal<Realm> localRealm = new ThreadLocal<>();
     private PreferenceDao preferenceDao;
+    private LocationInfoDao locationInfoDao;
 
     RealmManager(){}
 
@@ -23,6 +29,10 @@ public class RealmManager {
         }
         return instance;
     }
+
+    /*
+    PreferenceDao stuff
+     */
 
     public void storePreferenceDao(int userID, String rank) {
         preferenceDao = new PreferenceDao();
@@ -36,12 +46,12 @@ public class RealmManager {
         }, new Realm.Transaction.OnSuccess(){
             @Override
             public void onSuccess(){
-                System.out.println("Data is stored successfully!");
+                Log.i(TAG, "PreferenceDao is stored successfully.");
             }
         }, new Realm.Transaction.OnError(){
             @Override
             public void onError(Throwable error){
-                System.out.println("There is an error in storePreferenceDao()");
+                Log.e(TAG, "ERROR in storePreferenceDao()");
             }
         });
     }
@@ -54,6 +64,50 @@ public class RealmManager {
             }
         });
         return preferenceDao;
+    }
+
+    /*
+    LocationInfoDao stuff
+     */
+
+    public void storeLocationInfoDao(String name, double latitude, double longitude, String locationID){
+        locationInfoDao = new LocationInfoDao();
+        locationInfoDao.setName(name);
+        locationInfoDao.setLatitude(latitude);
+        locationInfoDao.setLongitude(longitude);
+        locationInfoDao.setLocationID(locationID);
+        runTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(locationInfoDao);
+            }
+        }, new Realm.Transaction.OnSuccess(){
+            @Override
+            public void onSuccess(){
+                Log.i(TAG, "LocationInfoDao is stored successfully.");
+            }
+        }, new Realm.Transaction.OnError(){
+            @Override
+            public void onError(Throwable error){
+                Log.e(TAG, "ERROR in storeLocationInfoDao()");
+            }
+        });
+    }
+
+    public void storeAllLocationInfoDao(LocationListDao locationListDao){
+        for(LocationInfoDao lid : locationListDao.getLocations()){
+            storeLocationInfoDao(lid.getName(), lid.getLatitude(), lid.getLongitude(), lid.getLocationID());
+        }
+    }
+
+    public LocationInfoDao findLocationInfoDao(final String locationID){
+        runTransaction(new Realm.Transaction(){
+            @Override
+            public void execute(Realm realm){
+                locationInfoDao = realm.where(LocationInfoDao.class).equalTo("locationID", locationID).findFirst();
+            }
+        });
+        return locationInfoDao;
     }
 
     /**
