@@ -107,15 +107,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         .replace(R.id.contentContainer, MovieListFragment.getInstance())
                         .commit();
                 break;
-            case R.id.tab_myreview:
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.contentContainer,)
-//                        .commit();
-                break;
             case R.id.tab_nearby:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer, MapFragment.getInstance())
                         .commit();
+                break;
+            case R.id.tab_myreview:
+//                getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.contentContainer,)
+//                        .commit();
                 break;
             case R.id.tab_readLater:
 //                getSupportFragmentManager().beginTransaction()
