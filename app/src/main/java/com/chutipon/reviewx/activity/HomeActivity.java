@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         instance = this;
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contentContainer, MovieListFragment.getInstance(), "MainFragment")
+                    .add(R.id.contentContainer, MovieListFragment.getInstance(), "MovieListFragment")
                     .commit();
         }
         initListener();
