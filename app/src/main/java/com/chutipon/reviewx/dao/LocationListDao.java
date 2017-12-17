@@ -9,7 +9,7 @@ import io.realm.RealmObject;
  * Created by admin on 17/12/2017 AD.
  */
 
-public class LocationListDao extends RealmObject {
+public class LocationListDao {
     @SerializedName("locations")    private RealmList<LocationInfoDao> locations;
 
     public RealmList<LocationInfoDao> getLocations() {
