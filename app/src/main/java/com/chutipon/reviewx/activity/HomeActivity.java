@@ -15,7 +15,6 @@ import android.view.View;
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.MapFragment;
 import com.chutipon.reviewx.fragment.MovieListFragment;
-import com.chutipon.reviewx.fragment.ReviewListFragment;
 import com.chutipon.reviewx.fragment.SearchFragment;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;

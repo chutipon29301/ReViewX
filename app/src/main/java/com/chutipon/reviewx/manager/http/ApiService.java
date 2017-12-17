@@ -6,7 +6,6 @@ import com.chutipon.reviewx.dao.GeneralResponseDao;
 import com.chutipon.reviewx.dao.GenreListDao;
 import com.chutipon.reviewx.dao.LocationListDao;
 import com.chutipon.reviewx.dao.MovieSuggestionListDao;
-import com.chutipon.reviewx.dao.PreferenceInfoDao;
 import com.chutipon.reviewx.dao.PreferenceListDao;
 
 import io.reactivex.Observable;
