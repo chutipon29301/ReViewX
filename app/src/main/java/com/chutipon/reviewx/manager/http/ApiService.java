@@ -3,6 +3,7 @@ package com.chutipon.reviewx.manager.http;
 import com.chutipon.reviewx.dao.CheckExistUserDao;
 import com.chutipon.reviewx.dao.GeneralResponseDao;
 import com.chutipon.reviewx.dao.GenreListDao;
+import com.chutipon.reviewx.dao.LocationListDao;
 import com.chutipon.reviewx.dao.MovieSuggestionListDao;
 import com.chutipon.reviewx.dao.PreferenceInfoDao;
 import com.chutipon.reviewx.dao.PreferenceListDao;
@@ -35,5 +36,8 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/post/v1/addReview")
     Observable<GeneralResponseDao> addReview();
+
+    @POST("/post/v1/listLocation")
+    Observable<LocationListDao> getLocation();
 
 }

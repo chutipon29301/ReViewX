@@ -19,12 +19,15 @@ import com.chutipon.reviewx.fragment.ReviewListFragment;
 import com.chutipon.reviewx.fragment.SearchFragment;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
+import com.github.tbouron.shakedetector.library.ShakeDetector;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "HomeActivity";
     private static HomeActivity instance;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private AccessTokenTracker accessTokenTracker;
+    private static boolean shakeActivityRunning = false;
+    private static final int START_SHAKE_ACTIVITY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     .add(R.id.contentContainer, MovieListFragment.getInstance(), "MainFragment")
                     .commit();
         }
+
         initInstance(savedInstanceState);
     }
 
@@ -48,6 +52,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 redirectToPage(MainActivity.class);
             }
         };
+
+        ShakeDetector.create(HomeActivity.this, new ShakeDetector.OnShakeListener() {
+            @Override
+            public void OnShake() {
+                Log.d(TAG, "OnShake: called");
+                Log.d(TAG, "OnShake: " + shakeActivityRunning);
+                if (!shakeActivityRunning) {
+                    shakeActivityRunning = true;
+                    Intent intent = new Intent(HomeActivity.this, ShakeActivity.class);
+                    startActivityForResult(intent, START_SHAKE_ACTIVITY);
+                }
+            }
+        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -90,7 +107,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     public void redirectToPage(Class cls) {
         Intent intent = new Intent(HomeActivity.this, cls);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
@@ -103,7 +120,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tab_explore:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer, MovieListFragment.getInstance())
@@ -130,7 +147,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                        .commit();
                 break;
         }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case START_SHAKE_ACTIVITY:
+                shakeActivityRunning = false;
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+                break;
+        }
     }
     public void Search() {
         getSupportFragmentManager().beginTransaction()
