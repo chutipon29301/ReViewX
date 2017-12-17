@@ -2,6 +2,7 @@ package com.chutipon.reviewx.activity;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -18,9 +19,9 @@ import com.chutipon.reviewx.fragment.MovieListFragment;
 import com.chutipon.reviewx.fragment.SearchFragment;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
-import com.github.tbouron.shakedetector.library.ShakeDetector;
+import com.squareup.seismic.ShakeDetector;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ShakeDetector.Listener {
     private static String TAG = "HomeActivity";
     private static HomeActivity instance;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -52,18 +53,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
 
-        ShakeDetector.create(HomeActivity.this, new ShakeDetector.OnShakeListener() {
-            @Override
-            public void OnShake() {
-                Log.d(TAG, "OnShake: called");
-                Log.d(TAG, "OnShake: " + shakeActivityRunning);
-                if (!shakeActivityRunning) {
-                    shakeActivityRunning = true;
-                    Intent intent = new Intent(HomeActivity.this, ShakeActivity.class);
-                    startActivityForResult(intent, START_SHAKE_ACTIVITY);
-                }
-            }
-        });
+        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        ShakeDetector sd = new ShakeDetector(this);
+        sd.start(sensorManager);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -159,9 +151,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
     public void Search() {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.contentContainer, SearchFragment.getInstance())
                 .commit();
+    }
+
+    @Override
+    public void hearShake() {
+        Log.d(TAG, "OnShake: called");
+        Log.d(TAG, "OnShake: " + shakeActivityRunning);
+        if (!shakeActivityRunning) {
+            shakeActivityRunning = true;
+            Intent intent = new Intent(HomeActivity.this, ShakeActivity.class);
+            startActivityForResult(intent, START_SHAKE_ACTIVITY);
+        }
     }
 }
