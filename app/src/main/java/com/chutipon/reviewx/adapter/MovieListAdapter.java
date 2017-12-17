@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.MovieListFragment;
+import com.chutipon.reviewx.manager.MovieSuggestionManager;
 
 
 /**
@@ -35,7 +36,6 @@ import com.chutipon.reviewx.fragment.MovieListFragment;
         Log.d("printming", mInflater+"");
     }
 
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.view_movielist_custom,parent,false);
@@ -51,7 +51,7 @@ import com.chutipon.reviewx.fragment.MovieListFragment;
 
     @Override
     public int getItemCount() {
-        return 6;
+        return MovieSuggestionManager.getInstance().getSize();
     }
 
     @Override

@@ -27,10 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = "MainActivity";
     private static MainActivity instance;
 
-    public static MainActivity getInstance() {
-        return instance;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,17 +35,23 @@ public class MainActivity extends AppCompatActivity {
         if (isLoggedIn()) {
             redirect();
         }
+
 //          For getting app keyhash
-//        getKeyHash();
+//        getKeyhash();
 
         instance = this;
         redirect();
         initInstance(savedInstanceState);
     }
 
+
+
     private void initInstance(Bundle savedInstanceState) {
+        callbackManager = CallbackManager.Factory.create();
+
         LoginButton loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -70,14 +72,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    public boolean isLoggedIn() {
-        return AccessToken.getCurrentAccessToken() != null;
+    public static MainActivity getInstance() {
+        return instance;
     }
 
     private void redirect() {
@@ -94,7 +90,18 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private void getKeyHash() {
+
+    public boolean isLoggedIn() {
+        return AccessToken.getCurrentAccessToken() != null;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void getKeyhash() {
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.chutipon.reviewx",
@@ -107,6 +114,4 @@ public class MainActivity extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException ignored) {
         } catch (NoSuchAlgorithmException ignored) {
         }
-    }
-
-}
+    }}

@@ -30,8 +30,9 @@ public interface ApiService {
     @POST("/post/v1/listGenre")
     Observable<GenreListDao> listGenre();
 
+    @FormUrlEncoded
     @POST("/post/v1/listMovieSuggestion")
-    Observable<MovieSuggestionListDao> listMovieSuggestion();
+    Observable<MovieSuggestionListDao> listMovieSuggestion(@Field("userID") String userID);
 
     @POST("/post/v1/addReview")
     Observable<GeneralResponseDao> addReview(@Body AddReviewDao addReviewDao);
