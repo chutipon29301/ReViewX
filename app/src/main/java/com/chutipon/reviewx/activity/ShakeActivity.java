@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.fragment.RandomFragment;
 
 public class ShakeActivity extends AppCompatActivity {
 
@@ -11,5 +12,17 @@ public class ShakeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shake);
+
+        if (savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.contentContainer, RandomFragment.getInstance())
+                    .commit();
+        }
+
+        initInstance(savedInstanceState);
+    }
+
+    private void initInstance(Bundle savedInstanceState) {
+
     }
 }
