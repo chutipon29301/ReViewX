@@ -11,23 +11,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.chutipon.reviewx.R;
-import com.chutipon.reviewx.activity.HomeActivity;
-
 import com.chutipon.reviewx.adapter.MovieListAdapter;
-
-import at.markushi.ui.CircleButton;
+import com.chutipon.reviewx.adapter.ReviewListAdapter;
 
 /**
  * Created by admin on 12/9/2017 AD.
  */
 
-public class MovieListFragment extends Fragment implements View.OnClickListener {
-    private RecyclerView movieListRecycler;
-   CircleButton btnwrite;
-
-    public static MovieListFragment getInstance() {
+public class ReviewListFragment extends Fragment implements View.OnClickListener {
+    private RecyclerView reviewListRecycler;
+    Button btnmore;
+    public static ReviewListFragment getInstance() {
         if(instance==null){
-            instance = new MovieListFragment();
+            instance = new ReviewListFragment();
         }
         return instance;
     }
@@ -41,7 +37,7 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-       View rootView = inflater.inflate(R.layout.fragment_movielist,container,false);
+       View rootView = inflater.inflate(R.layout.fragment_reviewlist,container,false);
        initInstance(rootView);
         return rootView;
     }
@@ -49,29 +45,29 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
 
     private void initInstance(View rootView) {
 
-        movieListRecycler = rootView.findViewById(R.id.movielistRecycler);
-    btnwrite = rootView.findViewById(R.id.btn_write);
-        MovieListAdapter.getInstance().init(getActivity().getBaseContext());
+        reviewListRecycler = rootView.findViewById(R.id.reviewlistRecycler);
+        btnmore = rootView.findViewById(R.id.btn_more);
+        ReviewListAdapter.getInstance().init(getActivity().getBaseContext());
 
-        movieListRecycler.setAdapter(MovieListAdapter.getInstance());
-        movieListRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-        btnwrite.setOnClickListener(this);
+        reviewListRecycler.setAdapter(ReviewListAdapter.getInstance());
+        btnmore.setOnClickListener(this);
+        reviewListRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
+
 
     }
 
 
 
-    private static MovieListFragment instance;
+    private static ReviewListFragment instance;
 
-    public MovieListFragment(){
-
+    public ReviewListFragment(){
     }
 
 
     @Override
     public void onClick(View view) {
-        if(view==btnwrite){
-            HomeActivity.getInstance().Search();
+        if(view==btnmore){
+
         }
     }
 }

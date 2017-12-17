@@ -38,19 +38,19 @@ public class MainActivity extends AppCompatActivity {
             redirect();
         }
 
-          //For getting app keyhash
-//        try {
-//            PackageInfo info = getPackageManager().getPackageInfo(
-//                    "com.chutipon.reviewx",
-//                    PackageManager.GET_SIGNATURES);
-//            for (Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (PackageManager.NameNotFoundException ignored) {
-//        } catch (NoSuchAlgorithmException ignored) {
-//        }
+//          For getting app keyhash
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.chutipon.reviewx",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException ignored) {
+        } catch (NoSuchAlgorithmException ignored) {
+        }
 
         instance = this;
         redirect();
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
 
     public boolean isLoggedIn() {
         return AccessToken.getCurrentAccessToken() != null;
