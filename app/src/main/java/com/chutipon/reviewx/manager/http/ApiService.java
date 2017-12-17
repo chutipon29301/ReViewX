@@ -6,6 +6,7 @@ import com.chutipon.reviewx.dao.GeneralResponseDao;
 import com.chutipon.reviewx.dao.GenreListDao;
 import com.chutipon.reviewx.dao.LocationListDao;
 import com.chutipon.reviewx.dao.MovieReviewListDao;
+import com.chutipon.reviewx.dao.MovieSuggestionInfoDao;
 import com.chutipon.reviewx.dao.MovieSuggestionListDao;
 import com.chutipon.reviewx.dao.PreferenceListDao;
 import com.chutipon.reviewx.dao.SearchResultListDao;
@@ -49,5 +50,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/post/v1/listReviewForMovie")
     Observable<MovieReviewListDao> getMovieReview(@Field("movieID") int movieID);
+
+    @FormUrlEncoded
+    @POST("/post/v1/getRandomMovie")
+    Observable<MovieSuggestionInfoDao> getRandomMovie(@Field("userID") String userID);
 
 }

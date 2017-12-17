@@ -6,17 +6,37 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.manager.RandomMovieManager;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RandomFragment extends Fragment {
+    private static final String TAG = "RandomFragment";
     private static RandomFragment instance;
+    private FrameLayout frameLayout;
+    private CircleImageView circleImageView;
+    private TextView textView;
 
     public static RandomFragment getInstance() {
         if (instance == null) {
             instance = new RandomFragment();
         }
         return instance;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initFragment(savedInstanceState);
+    }
+
+    private void initFragment(Bundle savedInstanceState) {
+        RandomMovieManager.getInstance().load();
     }
 
     @Nullable
@@ -28,6 +48,14 @@ public class RandomFragment extends Fragment {
     }
 
     private void initInstance(View rootView, Bundle savedInstanceState) {
+        frameLayout = rootView.findViewById(R.id.loading_screen);
+        circleImageView = rootView.findViewById(R.id.movieImage);
+        textView = rootView.findViewById(R.id.movieName);
+    }
 
+    public void loadData(){
+        frameLayout.setVisibility(View.GONE);
+        //TODO: load image
+        textView.setText(RandomMovieManager.getInstance().getMovieSuggestionInfoDao().getTitle());
     }
 }
