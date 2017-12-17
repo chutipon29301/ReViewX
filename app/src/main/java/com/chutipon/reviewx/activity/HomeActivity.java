@@ -24,12 +24,16 @@ import com.facebook.Profile;
 import com.squareup.seismic.ShakeDetector;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ShakeDetector.Listener {
+    private static final int START_SHAKE_ACTIVITY = 1;
+    private static boolean shakeActivityRunning = false;
     private static String TAG = "HomeActivity";
     private static HomeActivity instance;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private AccessTokenTracker accessTokenTracker;
-    private static boolean shakeActivityRunning = false;
-    private static final int START_SHAKE_ACTIVITY = 1;
+
+    public static HomeActivity getInstance() {
+        return instance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +46,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     .add(R.id.contentContainer, MovieListFragment.getInstance(), "MainFragment")
                     .commit();
         }
-
+        initListener();
         initInstance(savedInstanceState);
     }
 
-    private void initInstance(Bundle savedInstanceState) {
-
+    private void initListener() {
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
@@ -55,12 +58,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
 
-        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        ShakeDetector sd = new ShakeDetector(this);
-        sd.start(sensorManager);
+        new ShakeDetector(this).start((SensorManager) getSystemService(SENSOR_SERVICE));
+    }
 
+    private void initInstance(Bundle savedInstanceState) {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -91,22 +95,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
-    public static HomeActivity getInstance() {
-        return instance;
-    }
-
-    public void redirectToPage(Class cls) {
-        Intent intent = new Intent(HomeActivity.this, cls);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-    }
 
     @Override
     protected void onDestroy() {
@@ -157,12 +148,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void Search() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contentContainer, SearchFragment.getInstance())
-                .commit();
-    }
-
     @Override
     public void hearShake() {
         Log.d(TAG, "OnShake: called");
@@ -173,4 +158,23 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             startActivityForResult(intent, START_SHAKE_ACTIVITY);
         }
     }
+
+    public void Search() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contentContainer, SearchFragment.getInstance())
+                .commit();
+    }
+
+    public void redirectToPage(Class cls) {
+        Intent intent = new Intent(HomeActivity.this, cls);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    public void redirect(Class cls) {
+        Intent intent = new Intent(HomeActivity.this, cls);
+        startActivity(intent);
+    }
+
 }
