@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.ProgressBar;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.manager.CheckExistUserManager;
@@ -27,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     private final String TAG = "MainActivity";
     private static MainActivity instance;
-    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,27 +37,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
 //          For getting app keyhash
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.chutipon.reviewx",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException ignored) {
-        } catch (NoSuchAlgorithmException ignored) {
-        }
+//        getKeyhash();
 
         instance = this;
         redirect();
         initInstance(savedInstanceState);
     }
 
+
+
     private void initInstance(Bundle savedInstanceState) {
         callbackManager = CallbackManager.Factory.create();
-        progressBar = findViewById(R.id.progress_bar);
 
         LoginButton loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
@@ -113,4 +101,17 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-}
+    private void getKeyhash() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.chutipon.reviewx",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException ignored) {
+        } catch (NoSuchAlgorithmException ignored) {
+        }
+    }}

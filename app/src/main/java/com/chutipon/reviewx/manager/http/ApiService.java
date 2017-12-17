@@ -1,11 +1,11 @@
 package com.chutipon.reviewx.manager.http;
 
+import com.chutipon.reviewx.dao.AddReviewDao;
 import com.chutipon.reviewx.dao.CheckExistUserDao;
 import com.chutipon.reviewx.dao.GeneralResponseDao;
 import com.chutipon.reviewx.dao.GenreListDao;
 import com.chutipon.reviewx.dao.LocationListDao;
 import com.chutipon.reviewx.dao.MovieSuggestionListDao;
-import com.chutipon.reviewx.dao.PreferenceInfoDao;
 import com.chutipon.reviewx.dao.PreferenceListDao;
 
 import io.reactivex.Observable;
@@ -30,12 +30,12 @@ public interface ApiService {
     @POST("/post/v1/listGenre")
     Observable<GenreListDao> listGenre();
 
-    @POST("/post/v1/listMovieSuggestion")
-    Observable<MovieSuggestionListDao> listMovieSuggestion();
-
     @FormUrlEncoded
+    @POST("/post/v1/listMovieSuggestion")
+    Observable<MovieSuggestionListDao> listMovieSuggestion(@Field("userID") String userID);
+
     @POST("/post/v1/addReview")
-    Observable<GeneralResponseDao> addReview();
+    Observable<GeneralResponseDao> addReview(@Body AddReviewDao addReviewDao);
 
     @POST("/post/v1/listLocation")
     Observable<LocationListDao> getLocation();
