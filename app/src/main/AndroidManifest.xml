@@ -49,7 +49,7 @@
         </activity>
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.PreferenceActivity" />
-        <activity android:name=".activity.ShakeActivity"></activity>
+        <activity android:name=".activity.ShakeActivity" />
     </application>
 
 </manifest>

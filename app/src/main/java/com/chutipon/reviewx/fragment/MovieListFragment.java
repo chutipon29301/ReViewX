@@ -2,6 +2,7 @@ package com.chutipon.reviewx.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +15,11 @@ import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 
 import com.chutipon.reviewx.adapter.MovieListAdapter;
+import com.scalified.fab.ActionButton;
 
 import at.markushi.ui.CircleButton;
+import me.toptas.fancyshowcase.FancyShowCaseQueue;
+import me.toptas.fancyshowcase.FancyShowCaseView;
 
 /**
  * Created by admin on 12/9/2017 AD.
@@ -23,7 +27,7 @@ import at.markushi.ui.CircleButton;
 
 public class MovieListFragment extends Fragment implements View.OnClickListener {
     private RecyclerView movieListRecycler;
-   CircleButton btnwrite;
+    FloatingActionButton btnwrite;
 
     public static MovieListFragment getInstance() {
         if(instance==null){
@@ -50,12 +54,13 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
     private void initInstance(View rootView) {
 
         movieListRecycler = rootView.findViewById(R.id.movielistRecycler);
-    btnwrite = rootView.findViewById(R.id.btn_write);
+        btnwrite = rootView.findViewById(R.id.btn_write);
         MovieListAdapter.getInstance().init(getActivity().getBaseContext());
 
         movieListRecycler.setAdapter(MovieListAdapter.getInstance());
         movieListRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         btnwrite.setOnClickListener(this);
+
 
     }
 
