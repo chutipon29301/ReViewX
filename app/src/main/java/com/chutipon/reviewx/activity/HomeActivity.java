@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.MapFragment;
@@ -19,6 +20,7 @@ import com.chutipon.reviewx.fragment.MovieListFragment;
 import com.chutipon.reviewx.fragment.SearchFragment;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
+import com.facebook.Profile;
 import com.squareup.seismic.ShakeDetector;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ShakeDetector.Listener {
@@ -70,6 +72,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tab_nearby).setOnClickListener(this);
         findViewById(R.id.tab_readLater).setOnClickListener(this);
         findViewById(R.id.tab_tutorial).setOnClickListener(this);
+
+        TextView username = findViewById(R.id.username);
+        username.setText(Profile.getCurrentProfile().getName());
     }
 
     @Override
