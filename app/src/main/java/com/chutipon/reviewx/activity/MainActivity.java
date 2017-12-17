@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.ProgressBar;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.manager.CheckExistUserManager;
@@ -27,7 +26,10 @@ public class MainActivity extends AppCompatActivity {
     private CallbackManager callbackManager;
     private final String TAG = "MainActivity";
     private static MainActivity instance;
-    ProgressBar progressBar;
+
+    public static MainActivity getInstance() {
+        return instance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +39,8 @@ public class MainActivity extends AppCompatActivity {
         if (isLoggedIn()) {
             redirect();
         }
-
 //          For getting app keyhash
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.chutipon.reviewx",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException ignored) {
-        } catch (NoSuchAlgorithmException ignored) {
-        }
+//        getKeyHash();
 
         instance = this;
         redirect();
@@ -58,12 +48,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initInstance(Bundle savedInstanceState) {
-        callbackManager = CallbackManager.Factory.create();
-        progressBar = findViewById(R.id.progress_bar);
-
         LoginButton loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email");
-
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -84,8 +70,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public static MainActivity getInstance() {
-        return instance;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public boolean isLoggedIn() {
+        return AccessToken.getCurrentAccessToken() != null;
     }
 
     private void redirect() {
@@ -102,15 +94,19 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-
-    public boolean isLoggedIn() {
-        return AccessToken.getCurrentAccessToken() != null;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
+    private void getKeyHash() {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.chutipon.reviewx",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException ignored) {
+        } catch (NoSuchAlgorithmException ignored) {
+        }
     }
 
 }
