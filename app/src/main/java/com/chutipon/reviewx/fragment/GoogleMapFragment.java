@@ -10,6 +10,8 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 
+import com.chutipon.reviewx.manager.HttpManager;
+import com.chutipon.reviewx.manager.LocationManager;
 import com.chutipon.reviewx.util.Contextor;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -27,6 +29,7 @@ import com.google.android.gms.tasks.Task;
  */
 
 public class GoogleMapFragment extends SupportMapFragment implements OnMapReadyCallback {
+    private static GoogleMapFragment instance;
     private static final String TAG = "GoogleMapFragment";
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
@@ -39,7 +42,7 @@ public class GoogleMapFragment extends SupportMapFragment implements OnMapReadyC
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-
+        instance = this;
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
@@ -64,6 +67,20 @@ public class GoogleMapFragment extends SupportMapFragment implements OnMapReadyC
         getLocationPermission();
         updateLocationUI();
         getDeviceLocation();
+        updateMarker();
+    }
+
+    private void updateMarker() {
+        for (int i = 0; i < LocationManager.getInstance().getLocationsSize(); i++) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(LocationManager.getInstance().getInfoAtIndex(i).getLatitude()
+                            , LocationManager.getInstance().getInfoAtIndex(i).getLongitude()))
+                    .title(LocationManager.getInstance().getInfoAtIndex(i).getName()));
+        }
+    }
+
+    public static GoogleMapFragment getInstance() {
+        return instance;
     }
 
     private void getDeviceLocation() {
