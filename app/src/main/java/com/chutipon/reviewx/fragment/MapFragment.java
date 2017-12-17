@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.chutipon.reviewx.R;
 
 /**
- * Created by admin on 16/12/2017 AD.
+ * Created by admin on 17/12/2017 AD.
  */
 
 public class MapFragment extends Fragment{
@@ -28,7 +28,7 @@ public class MapFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map,container,false);
-        initInstance(rootView, savedInstanceState);
+        initInstance(rootView,savedInstanceState);
         return rootView;
     }
 

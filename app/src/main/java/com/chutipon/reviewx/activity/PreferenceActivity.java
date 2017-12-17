@@ -60,6 +60,7 @@ public class PreferenceActivity extends AppCompatActivity implements View.OnClic
 
     public void redirectToPage(Class cls) {
         Intent intent = new Intent(PreferenceActivity.this, cls);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }

@@ -52,13 +52,13 @@ public class CheckExistUserManager {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d(TAG, "onError: ");
+                        Log.d(TAG, "onError: "+e.getMessage());
                         e.printStackTrace();
+
                     }
 
                     @Override
                     public void onComplete() {
-                        //TODO: Handle complete event
                     }
                 });
     }
