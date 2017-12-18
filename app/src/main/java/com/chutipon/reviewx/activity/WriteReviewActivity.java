@@ -12,13 +12,19 @@ import android.widget.ImageView;
 import android.widget.Scroller;
 
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.dao.AddReviewDao;
+import com.chutipon.reviewx.manager.AddReviewManager;
+import com.chutipon.reviewx.manager.HttpManager;
 import com.chutipon.reviewx.manager.MovieInfoManager;
+import com.facebook.AccessToken;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import java.util.ArrayList;
 
-public class WriteReviewActivity extends AppCompatActivity implements View.OnClickListener, MovieInfoManager.onLoad {
+
+public class WriteReviewActivity extends AppCompatActivity implements View.OnClickListener, MovieInfoManager.onLoad, AddReviewManager.onLoadComplete {
 
     private static final String TAG = "WriteReviewActivity";
     private static WriteReviewActivity instance;
@@ -37,9 +43,9 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_writereview);
 
         Intent intent = getIntent();
-        movieID = intent.getIntExtra("movieID",-1);
+        movieID = intent.getIntExtra("movieID", -1);
         Log.d(TAG, "onCreate: movieID " + movieID);
-        if (movieID == -1){
+        if (movieID == -1) {
             finish();
         }
 
@@ -48,7 +54,7 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void initInstance(Bundle savedInstanceState) {
-        MovieInfoManager.getInstance().load(movieID,this);
+        MovieInfoManager.getInstance().load(movieID, this);
 
         reviewBtn = findViewById(R.id.btn_review);
         score = findViewById(R.id.score);
@@ -73,7 +79,17 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         if (view == reviewBtn) {
-            HomeActivity.getInstance().redirectToPage(HomeActivity.class);
+            AddReviewDao addReviewDao = new AddReviewDao();
+            addReviewDao.setFacebookID(AccessToken.getCurrentAccessToken().getUserId());
+            addReviewDao.setMovieID(movieID);
+            ArrayList<String> threeWords = new ArrayList<>();
+            threeWords.add(firstWord.getText().toString());
+            threeWords.add(secondWord.getText().toString());
+            threeWords.add(thirdWord.getText().toString());
+            addReviewDao.setThreeWords(threeWords);
+            addReviewDao.setReview(questionEntry.getText().toString());
+            addReviewDao.setScore(Integer.parseInt(score.getText().toString()));
+            AddReviewManager.getInstance().addReview(addReviewDao, this);
         }
 
     }
@@ -82,7 +98,8 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
         return instance;
     }
 
-    public void onLoadMovieInfo(){
+    @Override
+    public void onLoadMovieInfo() {
         Transformation transformation = new RoundedTransformationBuilder()
                 .cornerRadiusDp(30)
                 .oval(true)
@@ -95,4 +112,8 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
                 .into(movieImage);
     }
 
+    @Override
+    public void onLoadComplete() {
+        HomeActivity.getInstance().redirectToPage(HomeActivity.class);
+    }
 }
