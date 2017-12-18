@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.ImageButton;
 import android.widget.ImageView;
+
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
@@ -57,6 +60,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         View view = mInflater.inflate(R.layout.view_movielist_custom, parent, false);
         parent.setOnClickListener(this);
         return new ViewHolder(view);
+
+
     }
 
     @Override
@@ -76,6 +81,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         private int position;
         private ImageView imageView;
         private TextView movieName, releaseDate,score;
@@ -109,11 +115,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             movieName.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getTitle());
             releaseDate.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
             score.setText(String.valueOf(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()));
+
         }
 
         @Override
         public void onClick(View view) {
             HomeActivity.getInstance().redirect(ReviewListActivity.class, "movieID", MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getId());
         }
+
     }
 }
