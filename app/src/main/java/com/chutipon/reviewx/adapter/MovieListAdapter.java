@@ -1,11 +1,14 @@
 package com.chutipon.reviewx.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
@@ -16,6 +19,10 @@ import com.chutipon.reviewx.fragment.ReviewListFragment;
 
 import com.chutipon.reviewx.manager.MovieReviewManager;
 import com.chutipon.reviewx.manager.MovieSuggestionManager;
+import com.chutipon.reviewx.manager.PreferenceManager;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 
 /**
@@ -69,15 +76,39 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        int position;
+        private int position;
+        private ImageView imageView;
+        private TextView movieName, releaseDate,score;
 
         ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
+
+            initInstance(itemView);
+        }
+
+        private void initInstance(View itemView) {
+            imageView = itemView.findViewById(R.id.moviePic);
+            movieName = itemView.findViewById(R.id.movieName);
+            releaseDate = itemView.findViewById(R.id.releaseDate);
+            score = itemView.findViewById(R.id.score);
         }
 
         void bind(int position) {
             this.position = position;
+            Transformation transformation = new RoundedTransformationBuilder()
+                    .cornerRadiusDp(30)
+                    .oval(true)
+                    .build();
+            Picasso.with(itemView.getContext())
+                    .load(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getPosterPath())
+                    .resize(150, 150)
+                    .centerCrop()
+                    .transform(transformation)
+                    .into(imageView);
+            movieName.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getTitle());
+            releaseDate.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
+            score.setText(String.valueOf(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()));
         }
 
         @Override
