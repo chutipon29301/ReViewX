@@ -52,6 +52,8 @@
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.PreferenceActivity"/>
         <activity android:name=".activity.SearchActivity"/>
+        <activity android:name=".activity.ReadReviewActivity"/>
+
     </application>
 
 </manifest>

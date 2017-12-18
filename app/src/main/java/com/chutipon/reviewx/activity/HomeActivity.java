@@ -1,9 +1,11 @@
 package com.chutipon.reviewx.activity;
 
+
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -95,6 +97,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void redirect(Class cls) {
         Intent intent = new Intent(HomeActivity.this, cls);
         startActivity(intent);
+    }
+    public void redirectFragment(Fragment frag){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contentContainer,frag)
+                .commit();
     }
 
     @Override

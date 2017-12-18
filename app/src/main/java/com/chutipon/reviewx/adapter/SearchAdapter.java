@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.activity.SearchActivity;
 
 
 /**
@@ -58,10 +59,15 @@ import com.chutipon.reviewx.R;
 
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View view) {
+//            SearchActivity.getInstance().redirect();
+        }
     }
 }
