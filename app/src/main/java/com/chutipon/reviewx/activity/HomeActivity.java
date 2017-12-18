@@ -1,10 +1,14 @@
 package com.chutipon.reviewx.activity;
 
+import android.content.Context;
+
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +21,7 @@ import android.widget.TextView;
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.MapFragment;
 import com.chutipon.reviewx.fragment.MovieListFragment;
-import com.chutipon.reviewx.fragment.SearchFragment;
+
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.Profile;
@@ -98,6 +102,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
+    public void redirectToPage(Class cls) {
+        Intent intent = new Intent(HomeActivity.this, cls);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+    public void redirect(Class cls) {
+        Intent intent = new Intent(HomeActivity.this, cls);
+        startActivity(intent);
+    }
+    public void redirectFragment(Fragment frag){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contentContainer,frag)
+                .commit();
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -148,33 +168,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
     @Override
     public void hearShake() {
         Log.d(TAG, "OnShake: called");
-        Log.d(TAG, "OnShake: " + shakeActivityRunning);
+        Log.d(TAG, "OnShake: isActivityRunning = " + shakeActivityRunning);
         if (!shakeActivityRunning) {
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(150);
             shakeActivityRunning = true;
             Intent intent = new Intent(HomeActivity.this, ShakeActivity.class);
             startActivityForResult(intent, START_SHAKE_ACTIVITY);
         }
     }
 
-    public void Search() {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contentContainer, SearchFragment.getInstance())
-                .commit();
-    }
 
-    public void redirectToPage(Class cls) {
-        Intent intent = new Intent(HomeActivity.this, cls);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
-    }
-
-    public void redirect(Class cls) {
-        Intent intent = new Intent(HomeActivity.this, cls);
-        startActivity(intent);
-    }
 
 }

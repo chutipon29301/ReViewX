@@ -6,14 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.adapter.PreferenceAdapter;
 import com.chutipon.reviewx.manager.AddUserManager;
-import com.chutipon.reviewx.util.PreferenceUtil;
 
 public class PreferenceActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,7 +31,6 @@ public class PreferenceActivity extends AppCompatActivity implements View.OnClic
 
     private void initInstance(Bundle savedInstanceState) {
         instance = this;
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button enter = findViewById(R.id.btn_enter);
