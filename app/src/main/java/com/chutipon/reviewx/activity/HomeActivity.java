@@ -106,20 +106,27 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     public void redirectToPage(Class cls) {
         Intent intent = new Intent(HomeActivity.this, cls);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
+
     public void redirect(Class cls) {
         Intent intent = new Intent(HomeActivity.this, cls);
         startActivity(intent);
     }
-    public void redirectFragment(Fragment frag){
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contentContainer,frag)
-                .commit();
+
+    public void redirect(Class cls, String key, int value) {
+        Intent intent = new Intent(HomeActivity.this, cls);
+        intent.putExtra(key, value);
+        startActivity(intent);
     }
 
+    public void redirectFragment(Fragment frag) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contentContainer, frag)
+                .commit();
+    }
 
     @Override
     protected void onDestroy() {
@@ -170,7 +177,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
     @Override
     public void hearShake() {
         Log.d(TAG, "OnShake: called");
@@ -183,7 +189,4 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             startActivityForResult(intent, START_SHAKE_ACTIVITY);
         }
     }
-
-
-
 }

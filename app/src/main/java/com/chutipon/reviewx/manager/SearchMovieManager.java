@@ -2,6 +2,7 @@ package com.chutipon.reviewx.manager;
 
 import android.util.Log;
 
+import com.chutipon.reviewx.activity.SearchActivity;
 import com.chutipon.reviewx.dao.SearchResultInfoDao;
 import com.chutipon.reviewx.dao.SearchResultListDao;
 
@@ -19,7 +20,7 @@ public class SearchMovieManager {
     private static SearchMovieManager instance;
     private SearchResultListDao searchResultListDao;
 
-    private static SearchMovieManager getInstance() {
+    public static SearchMovieManager getInstance() {
         if (instance == null) {
             instance = new SearchMovieManager();
         }
@@ -53,7 +54,7 @@ public class SearchMovieManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
-                        //TODO: Notify caller adapter
+                        SearchActivity.getInstance().onSearchResultChange();
                     }
                 });
     }
@@ -72,4 +73,11 @@ public class SearchMovieManager {
         return searchResultListDao.getSearchResultInfoDaos()[index];
     }
 
+    public String[] getResultArray() {
+        String[] result = new String[searchResultListDao.getSearchResultInfoDaos().length];
+        for (int i = 0; i < searchResultListDao.getSearchResultInfoDaos().length; i++) {
+            result[i] = searchResultListDao.getSearchResultInfoDaos()[i].getTitle();
+        }
+        return result;
+    }
 }

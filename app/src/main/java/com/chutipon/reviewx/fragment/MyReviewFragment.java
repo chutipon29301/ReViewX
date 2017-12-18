@@ -9,14 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 import com.chutipon.reviewx.activity.SearchActivity;
 import com.chutipon.reviewx.adapter.MyReviewAdapter;
-import com.chutipon.reviewx.adapter.ReviewListAdapter;
-import com.chutipon.reviewx.adapter.SearchAdapter;
 
 /**
  * Created by admin on 12/9/2017 AD.

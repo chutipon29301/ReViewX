@@ -1,6 +1,5 @@
 package com.chutipon.reviewx.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,7 +22,6 @@ public class RandomFragment extends Fragment {
     private static final String TAG = "RandomFragment";
     private static RandomFragment instance;
     private FrameLayout frameLayout;
-//    private CircleImageView circleImageView;
     private TextView textView;
     private ImageView img;
 
