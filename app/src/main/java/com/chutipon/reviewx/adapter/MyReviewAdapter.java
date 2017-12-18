@@ -9,8 +9,7 @@ import android.view.ViewGroup;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
-import com.chutipon.reviewx.fragment.MyReviewFragment;
-import com.chutipon.reviewx.fragment.ReadReviewFragment;
+import com.chutipon.reviewx.activity.ReadReviewActivity;
 
 
 /**
@@ -70,7 +69,7 @@ import com.chutipon.reviewx.fragment.ReadReviewFragment;
 
         @Override
         public void onClick(View view) {
-            HomeActivity.getInstance().redirectFragment(ReadReviewFragment.getInstance());
+            HomeActivity.getInstance().redirect(ReadReviewActivity.class);
         }
     }
 }

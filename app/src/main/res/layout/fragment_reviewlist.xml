@@ -20,16 +20,10 @@
 
             <ImageView
                 android:id="@+id/movieImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <!--<de.hdodenhof.circleimageview.CircleImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="8dp"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:layout_marginRight="8dp"-->
-                <!--android:foreground="@drawable/selectablebutton"-->
-                <!--android:src="@drawable/fantasy"/>-->
+
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                />
 
 
         </LinearLayout>

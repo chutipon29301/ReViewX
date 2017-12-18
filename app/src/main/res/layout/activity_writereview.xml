@@ -75,6 +75,8 @@
                     android:textColor="@color/secondaryLightColor"
                     android:gravity="center_vertical"/>
                 <EditText
+                    android:id="@+id/score"
+                    android:inputType="number"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     />
@@ -99,7 +101,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="awesome"
                     android:textColor="@color/secondaryLightColor"
                     android:gravity="center"/>
                 <EditText
@@ -107,7 +108,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="awesome"
                     android:textColor="@color/secondaryLightColor"
                     android:gravity="center"/>
                 <EditText
@@ -115,7 +115,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="awesome"
                     android:textColor="@color/secondaryLightColor"
                     android:gravity="center"/>
             </LinearLayout>
@@ -126,13 +125,23 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        >
 
         <EditText
+            android:id="@+id/reviewText"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_margin="8dp"
-            android:text="aaaaaaaaaa" />
+            />
     </ScrollView>
+    <Button
+        android:id="@+id/btn_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Review!"
+        android:layout_gravity="right"
+        android:layout_margin="10dp"/>
 
 </LinearLayout>

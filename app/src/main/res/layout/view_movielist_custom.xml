@@ -13,51 +13,61 @@
         <ImageView
             android:layout_centerVertical="true"
             android:id="@+id/moviePic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/selectablebutton"
+            android:src="@drawable/fantasy"/>
 
-        <TextView
-            android:id="@+id/movieName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/moviePic"
-            android:layout_marginTop="10dp"
-            android:textSize="20sp"
-            android:text="Movie Name"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/releaseDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/movieName"
-            android:layout_toRightOf="@id/moviePic"
-            android:layout_marginTop="20dp"
-            android:textSize="15sp"
-            android:text="Released Date"
-            android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/releaseDate"
-            android:layout_alignBottom="@id/releaseDate"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="19dp"
-            android:text="Score"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/movieName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/moviePic"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:text="Movie Name"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/releaseDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/movieName"
+                android:layout_toRightOf="@id/moviePic"
+                android:layout_marginTop="20dp"
+                android:textSize="15sp"
+                android:text="Released Date"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/genreDes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/releaseDate"
-            android:layout_toRightOf="@+id/moviePic"
-            android:layout_marginTop="20dp"
-            android:textSize="15sp"
-            android:text="Genre"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/releaseDate"
+                android:layout_alignBottom="@id/releaseDate"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="19dp"
+                android:text="Score"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/genreDes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/releaseDate"
+                android:layout_marginTop="20dp"
+                android:textSize="15sp"
+
+                android:layout_toRightOf="@id/moviePic"
+                android:text="Genre"
+                android:textStyle="bold"/>
+
+
+
 
 
     </RelativeLayout>
