@@ -53,7 +53,7 @@ public class ReviewListFragment extends Fragment implements View.OnClickListener
 
         reviewListRecycler = rootView.findViewById(R.id.reviewlistRecycler);
         btnMore = rootView.findViewById(R.id.btn_more);
-        ReviewListAdapter.getInstance().init(getActivity().getBaseContext());
+        ReviewListAdapter.getInstance().init(getActivity().getBaseContext(), getArguments().getInt("movieID"));
 
         reviewListRecycler.setAdapter(ReviewListAdapter.getInstance());
         btnMore.setOnClickListener(this);
@@ -67,6 +67,8 @@ public class ReviewListFragment extends Fragment implements View.OnClickListener
     private static ReviewListFragment instance;
 
     public ReviewListFragment(){
+        Bundle args = new Bundle();
+        setArguments(args);
     }
 
 
@@ -88,5 +90,9 @@ public class ReviewListFragment extends Fragment implements View.OnClickListener
                 .centerCrop()
                 .transform(transformation)
                 .into(movieImage);
+    }
+
+    public void onLoadMovieReview(){
+
     }
 }

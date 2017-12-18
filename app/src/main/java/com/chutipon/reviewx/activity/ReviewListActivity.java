@@ -1,15 +1,15 @@
 package com.chutipon.reviewx.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.ReviewListFragment;
 import com.chutipon.reviewx.manager.MovieInfoManager;
 
-public class ReviewListActivity extends AppCompatActivity implements MovieInfoManager.onLoad {
+public class ReviewListActivity extends AppCompatActivity implements MovieInfoManager.onLoad{
 
     private static final String TAG = "ReviewListActivity";
     private static ReviewListActivity instance;
@@ -33,6 +33,7 @@ public class ReviewListActivity extends AppCompatActivity implements MovieInfoMa
         }
 
         if (savedInstanceState == null) {
+            ReviewListFragment.getInstance().getArguments().putInt("movieID", movieID);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, ReviewListFragment.getInstance(), "ReviewListFragment")
                     .commit();
@@ -45,7 +46,9 @@ public class ReviewListActivity extends AppCompatActivity implements MovieInfoMa
         MovieInfoManager.getInstance().load(movieID, this);
     }
 
+    @Override
     public void onLoadMovieInfo() {
         ReviewListFragment.getInstance().onLoadMovieInfo();
     }
+
 }
