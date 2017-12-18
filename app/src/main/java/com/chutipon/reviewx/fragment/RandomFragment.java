@@ -1,8 +1,10 @@
 package com.chutipon.reviewx.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,11 @@ public class RandomFragment extends Fragment {
         RandomMovieManager.getInstance().load();
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,7 +59,8 @@ public class RandomFragment extends Fragment {
         textView = rootView.findViewById(R.id.movieName);
     }
 
-    public void loadData(){
+    public void loadData() {
+        Log.i(TAG, "loadData: called");
         frameLayout.setVisibility(View.GONE);
         //TODO: load image
         textView.setText(RandomMovieManager.getInstance().getMovieSuggestionInfoDao().getTitle());

@@ -1,9 +1,11 @@
 package com.chutipon.reviewx.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -151,8 +153,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void hearShake() {
         Log.d(TAG, "OnShake: called");
-        Log.d(TAG, "OnShake: " + shakeActivityRunning);
+        Log.d(TAG, "OnShake: isActivityRunning = " + shakeActivityRunning);
         if (!shakeActivityRunning) {
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(150);
             shakeActivityRunning = true;
             Intent intent = new Intent(HomeActivity.this, ShakeActivity.class);
             startActivityForResult(intent, START_SHAKE_ACTIVITY);
