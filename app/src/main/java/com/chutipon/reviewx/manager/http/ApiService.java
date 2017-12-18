@@ -13,6 +13,7 @@ import com.chutipon.reviewx.dao.PreferenceListDao;
 import com.chutipon.reviewx.dao.SearchResultListDao;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableTransformer;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -66,5 +67,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/post/v1/deleteReadLater")
     Observable<GeneralResponseDao> deleteReadLater(@Field("readLaterID") String readLaterID);
+
+    @FormUrlEncoded
+    @POST("/post/v1/listReadLaterReview")
+    Observable<MovieReviewListDao> getReadLaterMovieReviewList(@Field("userID") String userID);
 
 }
