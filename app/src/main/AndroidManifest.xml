@@ -53,6 +53,7 @@
         <activity android:name=".activity.SearchActivity"/>
         <activity android:name=".activity.ReadReviewActivity"/>
 
+        <activity android:name=".activity.WriteReviewActivity" />
 
         <activity android:name=".activity.PreferenceActivity" />
         <activity

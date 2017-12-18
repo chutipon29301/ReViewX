@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.SearchActivity;
+import com.chutipon.reviewx.activity.WriteReviewActivity;
 
 
 /**
@@ -67,7 +68,7 @@ import com.chutipon.reviewx.activity.SearchActivity;
 
         @Override
         public void onClick(View view) {
-//            SearchActivity.getInstance().redirect();
+            SearchActivity.getInstance().redirect(WriteReviewActivity.class);
         }
     }
 }

@@ -1,11 +1,14 @@
 package com.chutipon.reviewx.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
@@ -14,7 +17,10 @@ import com.chutipon.reviewx.fragment.MovieListFragment;
 import com.chutipon.reviewx.fragment.ReviewListFragment;
 
 import com.chutipon.reviewx.manager.MovieSuggestionManager;
-
+import com.chutipon.reviewx.manager.PreferenceManager;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 
 /**
@@ -46,6 +52,8 @@ import com.chutipon.reviewx.manager.MovieSuggestionManager;
         View view = mInflater.inflate(R.layout.view_movielist_custom,parent,false);
         parent.setOnClickListener(this);
         return new ViewHolder(view);
+
+
     }
 
     @Override
@@ -65,14 +73,17 @@ import com.chutipon.reviewx.manager.MovieSuggestionManager;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
+
         }
 
         @Override
         public void onClick(View view) {
             HomeActivity.getInstance().redirectFragment(ReviewListFragment.getInstance());
         }
+
     }
 }
