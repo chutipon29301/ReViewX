@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.manager.SearchMovieManager;
@@ -16,7 +18,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private static final String TAG = "SearchActivity";
     private static SearchActivity instance;
     private MaterialSearchView searchView;
@@ -63,6 +65,8 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        searchView.setOnItemClickListener(this);
+
         searchView.setVoiceSearch(false);
     }
 
@@ -96,5 +100,10 @@ public class SearchActivity extends AppCompatActivity {
         if (SearchMovieManager.getInstance().getSize() > 0) {
             searchView.setSuggestions(SearchMovieManager.getInstance().getResultArray());
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//        Intent intent = new Intent(SearchActivity.this, )
     }
 }
