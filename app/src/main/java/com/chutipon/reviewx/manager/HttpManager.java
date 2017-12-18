@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class HttpManager {
+    private static final String TAG = "HttpManager";
     private static  HttpManager instance;
     private ApiService apiService;
 
@@ -32,7 +33,7 @@ public class HttpManager {
         return instance;
     }
 
-    public ApiService getApiService(){
+    ApiService getApiService(){
         return apiService;
     }
 

@@ -2,30 +2,23 @@ package com.chutipon.reviewx.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-
-
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.dao.PreferenceInfoDao;
-import com.chutipon.reviewx.dao.PreferenceListDao;
 import com.chutipon.reviewx.manager.PreferenceManager;
 import com.chutipon.reviewx.util.Contextor;
 import com.chutipon.reviewx.util.PreferenceUtil;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by admin on 12/9/2017 AD.
@@ -35,9 +28,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.ViewHolder> {
 
     private static PreferenceAdapter instance;
-    private static PreferenceInfoDao preferenceInfoDao;
     private LayoutInflater mInflater;
-    private final String TAG = "PreferenceAdapter";
+    private static final String TAG = "PreferenceAdapter";
 
     private PreferenceAdapter() {
 

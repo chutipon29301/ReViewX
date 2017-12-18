@@ -18,6 +18,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class PreferenceManager {
+    private static final String TAG = "PreferenceManager";
     private static PreferenceManager instance;
     private GenreListDao genreListDao;
 
@@ -29,24 +30,23 @@ public class PreferenceManager {
                 .subscribe(new Observer<GenreListDao>() {
             @Override
             public void onSubscribe(Disposable d) {
-                Log.v("PreferenceManager", "onSubscribe called");
+                Log.i(TAG, "onSubscribe: called");
             }
 
             @Override
             public void onNext(GenreListDao value) {
-                Log.v("PreferenceManager", "onNext called");
+                Log.i(TAG, "onNext: called");
                 genreListDao = value;
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.v("PreferenceManager", "onError called");
-                Log.v("PreferenceManager", e.getMessage());
+                Log.e(TAG, "onError: " + e.getMessage() );
             }
 
             @Override
             public void onComplete() {
-                Log.v("PreferenceManager", "onComplete called");
+                Log.i(TAG, "onComplete: called");
                 PreferenceAdapter.getInstance().notifyDataSetChanged();
                 PreferenceUtil.getInstance().setStateSize(genreListDao.getGenres().length);
             }

@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class CheckExistUserDao {
-    @SerializedName("exist") private boolean exist;
+    @SerializedName("exist")        private boolean exist;
 
     public boolean isExist() {
         return exist;

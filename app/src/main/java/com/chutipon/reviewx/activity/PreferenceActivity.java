@@ -6,20 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.adapter.PreferenceAdapter;
 import com.chutipon.reviewx.manager.AddUserManager;
-import com.chutipon.reviewx.util.PreferenceUtil;
 
 public class PreferenceActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "PreferenceActivity";
     private static PreferenceActivity instance;
 
-    private final String TAG = "PreferenceActivity";
+    public static PreferenceActivity getInstance() {
+        return instance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,6 @@ public class PreferenceActivity extends AppCompatActivity implements View.OnClic
 
     private void initInstance(Bundle savedInstanceState) {
         instance = this;
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button enter = findViewById(R.id.btn_enter);
@@ -54,13 +54,9 @@ public class PreferenceActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public static PreferenceActivity getInstance(){
-        return instance;
-    }
-
     public void redirectToPage(Class cls) {
         Intent intent = new Intent(PreferenceActivity.this, cls);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }

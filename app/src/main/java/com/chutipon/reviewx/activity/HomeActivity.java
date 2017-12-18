@@ -1,9 +1,12 @@
 package com.chutipon.reviewx.activity;
 
+import android.content.Context;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -13,18 +16,28 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.MapFragment;
 import com.chutipon.reviewx.fragment.MovieListFragment;
+
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
+import com.facebook.Profile;
+import com.squareup.seismic.ShakeDetector;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ShakeDetector.Listener {
+    private static final int START_SHAKE_ACTIVITY = 1;
+    private static boolean shakeActivityRunning = false;
     private static String TAG = "HomeActivity";
     private static HomeActivity instance;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private AccessTokenTracker accessTokenTracker;
+
+    public static HomeActivity getInstance() {
+        return instance;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +47,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         instance = this;
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contentContainer, MovieListFragment.getInstance(), "MainFragment")
+                    .add(R.id.contentContainer, MovieListFragment.getInstance(), "MovieListFragment")
                     .commit();
         }
+        initListener();
         initInstance(savedInstanceState);
     }
 
-    private void initInstance(Bundle savedInstanceState) {
-
+    private void initListener() {
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
@@ -49,8 +62,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
 
+        new ShakeDetector(this).start((SensorManager) getSystemService(SENSOR_SERVICE));
+    }
+
+    private void initInstance(Bundle savedInstanceState) {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -62,6 +80,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tab_nearby).setOnClickListener(this);
         findViewById(R.id.tab_readLater).setOnClickListener(this);
         findViewById(R.id.tab_tutorial).setOnClickListener(this);
+
+        TextView username = findViewById(R.id.username);
+        username.setText(Profile.getCurrentProfile().getName());
     }
 
     @Override
@@ -78,14 +99,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public static HomeActivity getInstance() {
-        return instance;
+        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     public void redirectToPage(Class cls) {
@@ -104,6 +118,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 .commit();
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -112,7 +127,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tab_explore:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer, MovieListFragment.getInstance())
@@ -139,7 +154,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                        .commit();
                 break;
         }
-
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case START_SHAKE_ACTIVITY:
+                shakeActivityRunning = false;
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+                break;
+        }
+    }
+
+
+    @Override
+    public void hearShake() {
+        Log.d(TAG, "OnShake: called");
+        Log.d(TAG, "OnShake: isActivityRunning = " + shakeActivityRunning);
+        if (!shakeActivityRunning) {
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(150);
+            shakeActivityRunning = true;
+            Intent intent = new Intent(HomeActivity.this, ShakeActivity.class);
+            startActivityForResult(intent, START_SHAKE_ACTIVITY);
+        }
+    }
+
+
 
 }
