@@ -16,17 +16,23 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/movieImage"
+        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="@drawable/selectablebutton"
-        android:src="@drawable/fantasy" />
+        android:layout_height="wrap_content" />
+
+    <!--<de.hdodenhof.circleimageview.CircleImageView-->
+        <!--android:id="@+id/movieImage"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:clickable="true"-->
+        <!--android:focusable="true"-->
+        <!--android:foreground="@drawable/selectablebutton"-->
+        <!--android:src="@drawable/fantasy" />-->
 
     <TextView
         android:freezesText="true"

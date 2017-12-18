@@ -28,9 +28,8 @@ import com.squareup.picasso.Transformation;
 public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.ViewHolder> {
 
     private static PreferenceAdapter instance;
-    private static PreferenceInfoDao preferenceInfoDao;
     private LayoutInflater mInflater;
-    private final String TAG = "PreferenceAdapter";
+    private static final String TAG = "PreferenceAdapter";
 
     private PreferenceAdapter() {
 

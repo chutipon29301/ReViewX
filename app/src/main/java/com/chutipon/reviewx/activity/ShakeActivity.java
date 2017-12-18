@@ -1,6 +1,5 @@
 package com.chutipon.reviewx.activity;
 
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
