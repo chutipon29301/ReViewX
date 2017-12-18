@@ -107,26 +107,22 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <EditText
+        android:id="@+id/reviewText"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:hint="Write your review here"
+        android:gravity="top"
         android:layout_weight="1"
-        >
+        />
 
-        <EditText
-            android:id="@+id/reviewText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_margin="8dp"
-            />
-    </ScrollView>
     <Button
         android:id="@+id/btn_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Review!"
         android:layout_gravity="right"
-        android:layout_margin="10dp"/>
+        android:layout_margin="8dp"/>
 
 </LinearLayout>
