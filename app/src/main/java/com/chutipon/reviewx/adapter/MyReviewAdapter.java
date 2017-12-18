@@ -69,7 +69,7 @@ import com.chutipon.reviewx.fragment.MyReviewFragment;
 
         @Override
         public void onClick(View view) {
-            HomeActivity.getInstance().redirectFragment(MyReviewFragment.getInstance());
+//            HomeActivity.getInstance().redirectFragment(MyReviewFragment.getInstance());
         }
     }
 }

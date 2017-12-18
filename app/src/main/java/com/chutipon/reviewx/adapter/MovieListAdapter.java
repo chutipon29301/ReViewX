@@ -9,26 +9,30 @@ import android.view.ViewGroup;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
+import com.chutipon.reviewx.activity.ReviewListActivity;
 import com.chutipon.reviewx.fragment.MovieListFragment;
 
 import com.chutipon.reviewx.fragment.ReviewListFragment;
 
+import com.chutipon.reviewx.manager.MovieReviewManager;
 import com.chutipon.reviewx.manager.MovieSuggestionManager;
-
 
 
 /**
  * Created by admin on 12/9/2017 AD.
  */
 
-    public class MovieListAdapter extends RecyclerView.Adapter< MovieListAdapter.ViewHolder> implements View.OnClickListener {
+public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> implements View.OnClickListener {
 
-   private LayoutInflater mInflater;
-    private MovieListAdapter(){
+    private static final String TAG = "MovieListAdapter";
+    private LayoutInflater mInflater;
+
+    private MovieListAdapter() {
 
     }
+
     public static MovieListAdapter getInstance() {
-        if(instance==null){
+        if (instance == null) {
             instance = new MovieListAdapter();
         }
         return instance;
@@ -36,21 +40,21 @@ import com.chutipon.reviewx.manager.MovieSuggestionManager;
 
     private static MovieListAdapter instance;
 
-    public void init(Context cont){
+    public void init(Context cont) {
         mInflater = LayoutInflater.from(cont);
-        Log.d("printming", mInflater+"");
+        Log.d("printming", mInflater + "");
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.view_movielist_custom,parent,false);
+        View view = mInflater.inflate(R.layout.view_movielist_custom, parent, false);
         parent.setOnClickListener(this);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MovieListAdapter.ViewHolder holder, int position) {
-
+        holder.bind(position);
     }
 
 
@@ -65,14 +69,21 @@ import com.chutipon.reviewx.manager.MovieSuggestionManager;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public ViewHolder(View itemView) {
+        int position;
+
+        ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
         }
 
+        void bind(int position) {
+            this.position = position;
+        }
+
         @Override
         public void onClick(View view) {
-            HomeActivity.getInstance().redirectFragment(ReviewListFragment.getInstance());
+            HomeActivity.getInstance().redirect(ReviewListActivity.class, "movieID", MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getId());
+//            HomeActivity.getInstance().redirectFragment(ReviewListFragment.getInstance());
         }
     }
 }
