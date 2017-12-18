@@ -56,11 +56,12 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
 
         movieListRecycler = rootView.findViewById(R.id.movielistRecycler);
         btnwrite = rootView.findViewById(R.id.btn_write);
+        btnwrite.setOnClickListener(this);
         MovieListAdapter.getInstance().init(getActivity().getBaseContext());
 
         movieListRecycler.setAdapter(MovieListAdapter.getInstance());
         movieListRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-        btnwrite.setOnClickListener(this);
+
 
 
     }
