@@ -114,7 +114,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         @Override
         public void onClick(View view) {
             HomeActivity.getInstance().redirect(ReviewListActivity.class, "movieID", MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getId());
-//            HomeActivity.getInstance().redirectFragment(ReviewListFragment.getInstance());
         }
     }
 }

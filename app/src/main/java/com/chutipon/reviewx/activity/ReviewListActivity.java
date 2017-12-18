@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.ReviewListFragment;
+import com.chutipon.reviewx.manager.MovieInfoManager;
 
 public class ReviewListActivity extends AppCompatActivity {
 
@@ -41,10 +42,10 @@ public class ReviewListActivity extends AppCompatActivity {
     }
 
     private void initInstance(Bundle savedInstanceState) {
-
+        MovieInfoManager.getInstance().load(movieID);
     }
 
-    public void onLoadDataComplete(){
-
+    public void onLoadMovieInfo(){
+        ReviewListFragment.getInstance().onLoadMovieInfo();
     }
 }
