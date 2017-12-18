@@ -8,27 +8,28 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chutipon.reviewx.R;
-import com.chutipon.reviewx.activity.SearchActivity;
+import com.chutipon.reviewx.activity.HomeActivity;
+import com.chutipon.reviewx.fragment.MyReviewFragment;
 
 
 /**
  * Created by admin on 12/9/2017 AD.
  */
 
-    public class SearchAdapter extends RecyclerView.Adapter< SearchAdapter.ViewHolder> implements View.OnClickListener {
+    public class MyReviewAdapter extends RecyclerView.Adapter< MyReviewAdapter.ViewHolder> implements View.OnClickListener {
 
    private LayoutInflater mInflater;
-    private SearchAdapter(){
+    private MyReviewAdapter(){
 
     }
-    public static SearchAdapter getInstance() {
+    public static MyReviewAdapter getInstance() {
         if(instance==null){
-            instance = new SearchAdapter();
+            instance = new MyReviewAdapter();
         }
         return instance;
     }
 
-    private static SearchAdapter instance;
+    private static MyReviewAdapter instance;
 
     public void init(Context cont){
         mInflater = LayoutInflater.from(cont);
@@ -38,13 +39,13 @@ import com.chutipon.reviewx.activity.SearchActivity;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.view_search_custom,parent,false);
+        View view = mInflater.inflate(R.layout.view_reviewlist_custom,parent,false);
         parent.setOnClickListener(this);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(SearchAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(MyReviewAdapter.ViewHolder holder, int position) {
 
     }
 
@@ -65,9 +66,10 @@ import com.chutipon.reviewx.activity.SearchActivity;
             itemView.setOnClickListener(this);
         }
 
+
         @Override
         public void onClick(View view) {
-//            SearchActivity.getInstance().redirect();
+            HomeActivity.getInstance().redirectFragment(MyReviewFragment.getInstance());
         }
     }
 }
