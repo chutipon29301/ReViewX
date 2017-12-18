@@ -1,7 +1,9 @@
 package com.chutipon.reviewx.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.ReviewListFragment;
@@ -10,6 +12,7 @@ public class ReviewListActivity extends AppCompatActivity {
 
     private static final String TAG = "ReviewListActivity";
     private static ReviewListActivity instance;
+    private int movieID;
 
     public static ReviewListActivity getInstance() {
         return instance;
@@ -21,6 +24,13 @@ public class ReviewListActivity extends AppCompatActivity {
         instance = this;
         setContentView(R.layout.activity_review_list);
 
+        Intent intent = getIntent();
+        movieID = intent.getIntExtra("movieID",-1);
+        Log.d(TAG, "onCreate: movieID " + movieID);
+        if (movieID == -1){
+            finish();
+        }
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, ReviewListFragment.getInstance(), "ReviewListFragment")
@@ -31,6 +41,10 @@ public class ReviewListActivity extends AppCompatActivity {
     }
 
     private void initInstance(Bundle savedInstanceState) {
+
+    }
+
+    public void onLoadDataComplete(){
 
     }
 }
