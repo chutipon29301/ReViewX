@@ -8,8 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.activity.HomeActivity;
 import com.chutipon.reviewx.fragment.MovieListFragment;
+
+import com.chutipon.reviewx.fragment.ReviewListFragment;
+
 import com.chutipon.reviewx.manager.MovieSuggestionManager;
+
 
 
 /**
@@ -59,10 +64,15 @@ import com.chutipon.reviewx.manager.MovieSuggestionManager;
 
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View view) {
+            HomeActivity.getInstance().redirectFragment(ReviewListFragment.getInstance());
+        }
     }
 }

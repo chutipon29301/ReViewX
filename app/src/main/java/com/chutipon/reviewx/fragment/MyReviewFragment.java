@@ -8,21 +8,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.adapter.MyReviewAdapter;
+import com.chutipon.reviewx.adapter.ReviewListAdapter;
 import com.chutipon.reviewx.adapter.SearchAdapter;
 
 /**
  * Created by admin on 12/9/2017 AD.
  */
 
-public class SearchFragment extends Fragment{
-    private RecyclerView searchRecycler;
-
-
-    public static SearchFragment getInstance() {
+public class MyReviewFragment extends Fragment implements View.OnClickListener {
+    private RecyclerView myReviewRecycler;
+    public static MyReviewFragment getInstance() {
         if(instance==null){
-            instance = new SearchFragment();
+            instance = new MyReviewFragment();
         }
         return instance;
     }
@@ -36,7 +37,7 @@ public class SearchFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-       View rootView = inflater.inflate(R.layout.fragment_search,container,false);
+       View rootView = inflater.inflate(R.layout.fragment_movielist,container,false);
        initInstance(rootView);
         return rootView;
     }
@@ -44,23 +45,27 @@ public class SearchFragment extends Fragment{
 
     private void initInstance(View rootView) {
 
-        searchRecycler = rootView.findViewById(R.id.searchRecycler);
+       myReviewRecycler = rootView.findViewById(R.id.reviewlistRecycler);
 
-        SearchAdapter.getInstance().init(getActivity().getBaseContext());
+        MyReviewAdapter.getInstance().init(getActivity().getBaseContext());
 
-        searchRecycler.setAdapter(SearchAdapter.getInstance());
-        searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
+        myReviewRecycler.setAdapter(MyReviewAdapter.getInstance());
+
+        myReviewRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
+
 
     }
 
 
 
-    private static SearchFragment instance;
+    private static MyReviewFragment instance;
 
-    public SearchFragment(){
-
+    public MyReviewFragment(){
     }
 
 
+    @Override
+    public void onClick(View view) {
 
+    }
 }

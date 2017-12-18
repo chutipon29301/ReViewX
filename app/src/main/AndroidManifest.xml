@@ -49,10 +49,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.HomeActivity" />
+
+        <activity android:name=".activity.SearchActivity"/>
+        <activity android:name=".activity.ReadReviewActivity"/>
+
+
         <activity android:name=".activity.PreferenceActivity" />
         <activity
             android:name=".activity.ShakeActivity"
             android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>
