@@ -59,4 +59,12 @@ public interface ApiService {
     @POST("/post/v1/getMovieInfo")
     Observable<MovieInfoDao> getMovieInfo(@Field("movieID") int movieID);
 
+    @FormUrlEncoded
+    @POST("addReadLater")
+    Observable<GeneralResponseDao> addReadLater(@Field("userID") String userID, @Field("revviewID") String reviewID);
+
+    @FormUrlEncoded
+    @POST("/post/v1/deleteReadLater")
+    Observable<GeneralResponseDao> deleteReadLater(@Field("readLaterID") String readLaterID);
+
 }
