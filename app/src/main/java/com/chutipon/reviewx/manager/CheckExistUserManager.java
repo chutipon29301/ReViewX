@@ -2,10 +2,8 @@ package com.chutipon.reviewx.manager;
 
 import android.util.Log;
 
-import com.chutipon.reviewx.activity.HomeActivity;
-import com.chutipon.reviewx.activity.MainActivity;
-import com.chutipon.reviewx.activity.PreferenceActivity;
 import com.chutipon.reviewx.dao.CheckExistUserDao;
+import com.facebook.AccessToken;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -17,8 +15,12 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class CheckExistUserManager {
-    private static CheckExistUserManager instance;
     private static final String TAG = "CheckExistUserManager";
+    private static CheckExistUserManager instance;
+
+    public interface onLoad{
+        void onCheckExistResult(boolean exist);
+    }
 
     private CheckExistUserManager() {
     }
@@ -30,8 +32,8 @@ public class CheckExistUserManager {
         return instance;
     }
 
-    public void startCheckExistUser(String facebookID) {
-        HttpManager.getInstance().getApiService().checkExistUser(facebookID)
+    public void startCheckExistUser(final CheckExistUserManager.onLoad callback) {
+        HttpManager.getInstance().getApiService().checkExistUser(AccessToken.getCurrentAccessToken().getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<CheckExistUserDao>() {
@@ -43,11 +45,8 @@ public class CheckExistUserManager {
                     @Override
                     public void onNext(CheckExistUserDao value) {
                         Log.i(TAG, "onNext: called");
-                        if (value.isExist()) {
-                            MainActivity.getInstance().redirectToPage(HomeActivity.class);
-                        } else {
-                            MainActivity.getInstance().redirectToPage(PreferenceActivity.class);
-                        }
+                        callback.onCheckExistResult(value.isExist());
+
                     }
 
                     @Override

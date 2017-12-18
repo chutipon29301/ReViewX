@@ -21,7 +21,7 @@ import com.facebook.login.widget.LoginButton;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CheckExistUserManager.onLoad {
     private CallbackManager callbackManager;
     private static final String TAG = "MainActivity";
     private static MainActivity instance;
@@ -77,10 +77,19 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    public void onCheckExistResult(boolean exist) {
+        if (exist) {
+            MainActivity.getInstance().redirectToPage(HomeActivity.class);
+        } else {
+            MainActivity.getInstance().redirectToPage(PreferenceActivity.class);
+        }
+    }
+
     private void redirect() {
         if (isLoggedIn()) {
             Log.d(TAG, "redirect: Access token " + AccessToken.getCurrentAccessToken().getUserId());
-            CheckExistUserManager.getInstance().startCheckExistUser(AccessToken.getCurrentAccessToken().getUserId());
+            CheckExistUserManager.getInstance().startCheckExistUser(this);
         }
     }
 
@@ -109,4 +118,5 @@ public class MainActivity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException ignored) {
         }
     }
+
 }
