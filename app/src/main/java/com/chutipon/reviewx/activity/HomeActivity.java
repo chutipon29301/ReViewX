@@ -22,6 +22,8 @@ import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.MapFragment;
 import com.chutipon.reviewx.fragment.MovieListFragment;
 
+import com.chutipon.reviewx.fragment.MyReviewFragment;
+import com.chutipon.reviewx.fragment.ReadLaterFragment;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.Profile;
@@ -146,14 +148,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         .commit();
                 break;
             case R.id.tab_myreview:
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.contentContainer,)
-//                        .commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer, MyReviewFragment.getInstance())
+                        .commit();
                 break;
             case R.id.tab_readLater:
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace()
-//                        .commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.contentContainer, ReadLaterFragment.getInstance())
+                        .commit();
                 break;
             case R.id.tab_tutorial:
 //                getSupportFragmentManager().beginTransaction()

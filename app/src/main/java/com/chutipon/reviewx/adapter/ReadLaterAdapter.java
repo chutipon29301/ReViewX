@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
-import com.chutipon.reviewx.fragment.MyReviewFragment;
 import com.chutipon.reviewx.fragment.ReadReviewFragment;
 
 
@@ -17,20 +16,20 @@ import com.chutipon.reviewx.fragment.ReadReviewFragment;
  * Created by admin on 12/9/2017 AD.
  */
 
-    public class MyReviewAdapter extends RecyclerView.Adapter< MyReviewAdapter.ViewHolder> implements View.OnClickListener {
+    public class ReadLaterAdapter extends RecyclerView.Adapter< ReadLaterAdapter.ViewHolder> implements View.OnClickListener {
 
    private LayoutInflater mInflater;
-    private MyReviewAdapter(){
+    private ReadLaterAdapter(){
 
     }
-    public static MyReviewAdapter getInstance() {
+    public static ReadLaterAdapter getInstance() {
         if(instance==null){
-            instance = new MyReviewAdapter();
+            instance = new ReadLaterAdapter();
         }
         return instance;
     }
 
-    private static MyReviewAdapter instance;
+    private static ReadLaterAdapter instance;
 
     public void init(Context cont){
         mInflater = LayoutInflater.from(cont);
@@ -46,7 +45,7 @@ import com.chutipon.reviewx.fragment.ReadReviewFragment;
     }
 
     @Override
-    public void onBindViewHolder(MyReviewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ReadLaterAdapter.ViewHolder holder, int position) {
 
     }
 
