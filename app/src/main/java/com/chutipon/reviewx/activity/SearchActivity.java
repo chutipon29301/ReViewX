@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.manager.SearchMovieManager;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
@@ -45,8 +46,8 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //Do some magic
-                return false;
+                SearchMovieManager.getInstance().search(newText);
+                return true;
             }
         });
 
@@ -89,5 +90,11 @@ public class SearchActivity extends AppCompatActivity {
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void onSearchResultChange() {
+        if (SearchMovieManager.getInstance().getSize() > 0) {
+            searchView.setSuggestions(SearchMovieManager.getInstance().getResultArray());
+        }
     }
 }
