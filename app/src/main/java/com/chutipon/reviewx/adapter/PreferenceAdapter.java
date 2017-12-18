@@ -56,8 +56,6 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Vi
 
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.bind(position);
-
-
     }
 
     @Override

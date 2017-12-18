@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".MainApplication"
@@ -49,16 +49,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.HomeActivity" />
-
-        <activity android:name=".activity.SearchActivity"/>
-        <activity android:name=".activity.ReadReviewActivity"/>
-
-
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.ReadReviewActivity" />
         <activity android:name=".activity.PreferenceActivity" />
         <activity
             android:name=".activity.ShakeActivity"
             android:screenOrientation="portrait" />
-
+        <activity android:name=".activity.ReviewListActivity"></activity>
     </application>
 
 </manifest>

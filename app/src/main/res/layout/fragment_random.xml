@@ -22,18 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <!--<de.hdodenhof.circleimageview.CircleImageView-->
-        <!--android:id="@+id/movieImage"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_margin="8dp"-->
-        <!--android:clickable="true"-->
-        <!--android:focusable="true"-->
-        <!--android:foreground="@drawable/selectablebutton"-->
-        <!--android:src="@drawable/fantasy" />-->
-
     <TextView
         android:freezesText="true"
         android:id="@+id/movieName"
