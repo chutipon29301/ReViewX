@@ -22,8 +22,12 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class AddUserManager {
-    private static AddUserManager instance;
     private static final String TAG = "AddUserManager";
+    private static AddUserManager instance;
+
+    public interface onLoad{
+        void onLoadComplate();
+    }
 
     private AddUserManager() {
     }
@@ -35,7 +39,7 @@ public class AddUserManager {
         return instance;
     }
 
-    public void addUser() {
+    public void addUser(final AddUserManager.onLoad callback) {
         PreferenceInfoDao preferenceInfoDao = new PreferenceInfoDao();
         ArrayList<Integer> like = new ArrayList<>();
         ArrayList<Integer> dislike = new ArrayList<>();
@@ -67,7 +71,7 @@ public class AddUserManager {
                     @Override
                     public void onNext(GeneralResponseDao value) {
                         Log.i(TAG, "onNext: called");
-                        PreferenceActivity.getInstance().redirectToPage(HomeActivity.class);
+                        callback.onLoadComplate();
                     }
 
                     @Override
