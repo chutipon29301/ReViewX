@@ -17,33 +17,18 @@
             android:layout_weight="0"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
+                android:id="@+id/movieImage"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="8dp"
-                android:foreground="@drawable/selectablebutton"
-                android:src="@drawable/fantasy"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center" >
-                <Button
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/round_button"
-                    android:text="+"/>
-
-                <Button
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/round_button"
-                    android:text="-"/>
-            </LinearLayout>
+                android:layout_height="wrap_content" />
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="8dp"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:layout_marginRight="8dp"-->
+                <!--android:foreground="@drawable/selectablebutton"-->
+                <!--android:src="@drawable/fantasy"/>-->
 
         </LinearLayout>
 
@@ -75,6 +60,8 @@
                     android:textColor="@color/secondaryLightColor"
                     android:gravity="center_vertical"/>
                 <EditText
+                    android:id="@+id/score"
+                    android:inputType="number"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     />
@@ -99,7 +86,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="awesome"
                     android:textColor="@color/secondaryLightColor"
                     android:gravity="center"/>
                 <EditText
@@ -107,7 +93,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="awesome"
                     android:textColor="@color/secondaryLightColor"
                     android:gravity="center"/>
                 <EditText
@@ -115,7 +100,6 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="awesome"
                     android:textColor="@color/secondaryLightColor"
                     android:gravity="center"/>
             </LinearLayout>
@@ -126,13 +110,23 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        >
 
         <EditText
+            android:id="@+id/reviewText"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_margin="8dp"
-            android:text="aaaaaaaaaa" />
+            />
     </ScrollView>
+    <Button
+        android:id="@+id/btn_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Review!"
+        android:layout_gravity="right"
+        android:layout_margin="10dp"/>
 
 </LinearLayout>

@@ -14,18 +14,19 @@ import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 import com.chutipon.reviewx.activity.SearchActivity;
 import com.chutipon.reviewx.adapter.MyReviewAdapter;
+import com.chutipon.reviewx.adapter.ReadLaterAdapter;
 
 /**
  * Created by admin on 12/9/2017 AD.
  */
 
-public class MyReviewFragment extends Fragment implements View.OnClickListener {
-    private RecyclerView myReviewRecycler;
+public class ReadLaterFragment extends Fragment implements View.OnClickListener {
+    private RecyclerView readLaterRecycler;
 
     FloatingActionButton btnwrite;
-    public static MyReviewFragment getInstance() {
+    public static ReadLaterFragment getInstance() {
         if(instance==null){
-            instance = new MyReviewFragment();
+            instance = new ReadLaterFragment();
         }
         return instance;
     }
@@ -47,13 +48,14 @@ public class MyReviewFragment extends Fragment implements View.OnClickListener {
 
     private void initInstance(View rootView) {
 
-       myReviewRecycler = rootView.findViewById(R.id.movielistRecycler);
+       readLaterRecycler = rootView.findViewById(R.id.movielistRecycler);
 
-        MyReviewAdapter.getInstance().init(getActivity().getBaseContext());
+            ReadLaterAdapter.getInstance().init(getActivity().getBaseContext());
 
-        myReviewRecycler.setAdapter(MyReviewAdapter.getInstance());
 
-        myReviewRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
+        readLaterRecycler.setAdapter(MyReviewAdapter.getInstance());
+
+        readLaterRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         btnwrite = rootView.findViewById(R.id.btn_write);
         btnwrite.setOnClickListener(this);
 
@@ -61,16 +63,16 @@ public class MyReviewFragment extends Fragment implements View.OnClickListener {
 
 
 
-    private static MyReviewFragment instance;
+    private static ReadLaterFragment instance;
 
-    public MyReviewFragment(){
+    public ReadLaterFragment(){
     }
 
 
     @Override
     public void onClick(View view) {
-            if(view==btnwrite){
-                HomeActivity.getInstance().redirect(SearchActivity.class);
-            }
+        if(view==btnwrite){
+            HomeActivity.getInstance().redirect(SearchActivity.class);
+        }
     }
 }
