@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.Tutorial;
 import com.chutipon.reviewx.fragment.MapFragment;
 import com.chutipon.reviewx.fragment.MovieListFragment;
 
@@ -26,6 +27,8 @@ import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.Profile;
 import com.squareup.seismic.ShakeDetector;
+
+import me.toptas.fancyshowcase.FancyShowCaseView;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ShakeDetector.Listener {
     private static final int START_SHAKE_ACTIVITY = 1;
@@ -70,7 +73,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
 
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                Tutorial.getInstance().showMenuTutorial(HomeActivity.this);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                if(MovieListFragment.getInstance().isVisible()){
+                    MovieListFragment.getInstance().showMainTutorial();
+                }
+
+            }
+        };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 //        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -83,6 +101,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView username = findViewById(R.id.username);
         username.setText(Profile.getCurrentProfile().getName());
+
     }
 
     @Override
@@ -149,9 +168,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                        .commit();
                 break;
             case R.id.tab_tutorial:
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace()
-//                        .commit();
+                FancyShowCaseView.resetAllShowOnce(this);
                 break;
         }
     }
