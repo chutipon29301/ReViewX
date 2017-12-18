@@ -13,7 +13,7 @@ import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.adapter.PreferenceAdapter;
 import com.chutipon.reviewx.manager.AddUserManager;
 
-public class PreferenceActivity extends AppCompatActivity implements View.OnClickListener {
+public class PreferenceActivity extends AppCompatActivity implements View.OnClickListener, AddUserManager.onLoad {
 
     private static final String TAG = "PreferenceActivity";
     private static PreferenceActivity instance;
@@ -47,15 +47,16 @@ public class PreferenceActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_enter:
-                AddUserManager.getInstance().addUser();
+                AddUserManager.getInstance().addUser(this);
                 break;
             default:
                 break;
         }
     }
 
-    public void redirectToPage(Class cls) {
-        Intent intent = new Intent(PreferenceActivity.this, cls);
+    @Override
+    public void onLoadComplate() {
+        Intent intent = new Intent(PreferenceActivity.this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
