@@ -19,6 +19,10 @@ public class MovieReviewManager {
     private static MovieReviewManager instance;
     private MovieReviewListDao movieReviewListDao;
 
+    public interface onLoad{
+        void onLoadReviewComplete();
+    }
+
     public static MovieReviewManager getInstance(){
         if (instance == null){
             instance = new MovieReviewManager();
@@ -29,7 +33,7 @@ public class MovieReviewManager {
     private MovieReviewManager(){
     }
 
-    public void getReview(int movieID){
+    public void getReview(int movieID, final MovieReviewManager.onLoad callback){
         HttpManager.getInstance().getApiService().getMovieReview(movieID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -53,7 +57,7 @@ public class MovieReviewManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: ");
-                        //TODO: Notify caller
+                        callback.onLoadReviewComplete();
                     }
                 });
     }

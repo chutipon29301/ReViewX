@@ -21,6 +21,10 @@ public class MovieSuggestionManager {
     private static MovieSuggestionManager instance;
     private MovieSuggestionListDao movieSuggestionListDao;
 
+    public interface onLoad{
+        void onloadComplete();
+    }
+
     public static MovieSuggestionManager getInstance() {
         if (instance == null) {
             instance = new MovieSuggestionManager();
@@ -29,6 +33,9 @@ public class MovieSuggestionManager {
     }
 
     private MovieSuggestionManager() {
+    }
+
+    public void load(final MovieSuggestionManager.onLoad callback){
         HttpManager.getInstance().getApiService().listMovieSuggestion(AccessToken.getCurrentAccessToken().getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -52,7 +59,7 @@ public class MovieSuggestionManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
-                        MovieListAdapter.getInstance().notifyDataSetChanged();
+                        callback.onloadComplete();
                     }
                 });
     }

@@ -27,6 +27,9 @@ public class LocationManager {
     }
 
     private LocationManager() {
+    }
+
+    public void load(){
         HttpManager.getInstance().getApiService().getLocation()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
