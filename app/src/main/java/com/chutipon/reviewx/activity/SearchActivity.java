@@ -9,8 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.manager.SearchMovieManager;
@@ -18,7 +16,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 
-public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
     private static SearchActivity instance;
     private MaterialSearchView searchView;
@@ -42,8 +40,12 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //Do some magic
-                return false;
+                Intent intent = new Intent(SearchActivity.this, WriteReviewActivity.class);
+                intent.putExtra("movieID", SearchMovieManager.getInstance().getSearchResultInfoDaoAtIndex(0).getId());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+                return true;
             }
 
             @Override
@@ -64,8 +66,6 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                 //Do some magic
             }
         });
-
-        searchView.setOnItemClickListener(this);
 
         searchView.setVoiceSearch(false);
     }
@@ -100,10 +100,5 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         if (SearchMovieManager.getInstance().getSize() > 0) {
             searchView.setSuggestions(SearchMovieManager.getInstance().getResultArray());
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//        Intent intent = new Intent(SearchActivity.this, )
     }
 }

@@ -19,6 +19,10 @@ public class MovieInfoManager {
     private static MovieInfoManager instance;
     private MovieInfoDao movieInfoDao;
 
+    public interface onLoad {
+        void onLoadMovieInfo();
+    }
+
     public static MovieInfoManager getInstance() {
         if (instance == null) {
             instance = new MovieInfoManager();
@@ -29,7 +33,7 @@ public class MovieInfoManager {
     private MovieInfoManager() {
     }
 
-    public void load(final int movieID) {
+    public void load(final int movieID, final MovieInfoManager.onLoad callback) {
         HttpManager.getInstance().getApiService().getMovieInfo(movieID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -53,7 +57,7 @@ public class MovieInfoManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
-                        ReviewListActivity.getInstance().onLoadMovieInfo();
+                        callback.onLoadMovieInfo();
                     }
                 });
     }
