@@ -40,43 +40,14 @@
                 android:orientation="vertical">
 
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginRight="8dp"
+                <ImageView
+                    android:id="@+id/reviewerImg"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="10dp"
                     android:foreground="@drawable/selectablebutton"
                     android:src="@drawable/fantasy"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center" >
-                    <ToggleButton
-                        android:id="@+id/like"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_margin="4dp"
-                        android:elevation="4dp"
-                        android:focusableInTouchMode="true"
-                        android:background="@drawable/round_button"
-                        android:textOff="+"
-                        android:textOn="+"/>
 
-                    <ToggleButton
-                        android:id="@+id/dislike"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_margin="4dp"
-                        android:elevation="4dp"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:background="@drawable/round_button"
-                        android:textOff="-"
-                        android:textOn="-"/>
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -154,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:text="aaaaaaaaaaaaaaaaaaaaaaaa" />
+                android:text="" />
         </ScrollView>
 
 </LinearLayout>

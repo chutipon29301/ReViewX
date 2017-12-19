@@ -17,12 +17,13 @@ import com.chutipon.reviewx.activity.ReviewListActivity;
 import com.chutipon.reviewx.manager.MovieInfoManager;
 import com.chutipon.reviewx.manager.MovieReviewManager;
 import com.chutipon.reviewx.manager.MovieSuggestionManager;
-import com.chutipon.reviewx.manager.ReviewListManager;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.squareup.picasso.Transformation;
 import com.chutipon.reviewx.manager.MovieReviewManager;
+
+import at.grabner.circleprogress.CircleProgressView;
 
 
 /**
@@ -83,10 +84,10 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
         notifyDataSetChanged();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, MovieInfoManager.onLoad {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private int position;
         private ImageView reviewerImg;
-
+        CircleProgressView scoreBar;
         private TextView reviewerName,movieName;
         private TextView firstword,secondword,thirdword;
         private TextView score;
@@ -95,6 +96,7 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
             super(itemView);
             itemView.setOnClickListener(this);
             initInstance(itemView);
+
         }
 
         private void initInstance(View itemView) {
@@ -104,7 +106,8 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
             thirdword = itemView.findViewById(R.id.thirdWord);
             score = itemView.findViewById(R.id.score);
             movieName =itemView.findViewById(R.id.movieName);
-//            reviewerImg = itemView.findViewById(R.id.reviewerImg);
+            scoreBar = itemView.findViewById(R.id.scorebar);
+            reviewerImg = itemView.findViewById(R.id.reviewerImg);
 
         }
 
@@ -117,29 +120,30 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
 
         public void bind(int position) {
             this.position = position;
-            MovieInfoManager.getInstance().load(ReviewListManager.getInstance().getMovieReviewInfoAtIndex(position).getMovieID(),this);
-//            Transformation transformation = new RoundedTransformationBuilder()
-//                    .cornerRadiusDp(30)
-//                    .oval(true)
-//                    .build();
-//            Picasso.with(itemView.getContext())
-//                    .load(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getReviewID().)
-//                    .resize(150, 150)
-//                    .centerCrop()
-//                    .transform(transformation)
-//                    .into(reviewerImg);
+            Transformation transformation = new RoundedTransformationBuilder()
+                    .cornerRadiusDp(30)
+                    .oval(true)
+                    .build();
+            Picasso.with(itemView.getContext())
+                    .load(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookPic())
+                    .resize(150, 150)
+                    .centerCrop()
+                    .transform(transformation)
+                    .into(reviewerImg);
             TextView[] words= {firstword,secondword,thirdword};
             for(int i=0;i<3;i++){
-                words[i].setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords()[i]);
+                words[i].setMaxLines(1);
+
+                words[i].setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
+
             }
-            score.setText(String.valueOf(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore()));
-            reviewerName.setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());
+
+            scoreBar.setValueAnimated(0,(long)MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore(),1000);
+            reviewerName.setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookName());
+//            movieName.setText(MovieInfoManager.getInstance().getMovieInfoDao().getTitle());
+
         }
 
 
-        @Override
-        public void onLoadMovieInfo() {
-            movieName.setText(MovieInfoManager.getInstance().getMovieInfoDao().getTitle());
-        }
     }
 }
