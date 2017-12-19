@@ -10,6 +10,4 @@
 
     <string name="base_url">http://192.168.1.38:3000/</string>
     <string name="title_activity_main2">Main2Activity</string>
-
-
 </resources>
