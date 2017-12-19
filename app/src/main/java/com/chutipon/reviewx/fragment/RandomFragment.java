@@ -8,10 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.activity.HomeActivity;
+import com.chutipon.reviewx.activity.ReviewListActivity;
 import com.chutipon.reviewx.manager.RandomMovieManager;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
@@ -23,7 +26,7 @@ public class RandomFragment extends Fragment implements RandomMovieManager.onLoa
     private static RandomFragment instance;
     private FrameLayout frameLayout;
     private TextView textView;
-    private ImageView img;
+    private ImageButton img;
 
     public static RandomFragment getInstance() {
         if (instance == null) {
@@ -53,6 +56,12 @@ public class RandomFragment extends Fragment implements RandomMovieManager.onLoa
     private void initInstance(View rootView, Bundle savedInstanceState) {
         frameLayout = rootView.findViewById(R.id.loading_screen);
         img = rootView.findViewById(R.id.movieImage);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HomeActivity.getInstance().redirect(ReviewListActivity.class,"movieID",RandomMovieManager.getInstance().getMovieSuggestionInfoDao().getId());
+            }
+        });
         textView = rootView.findViewById(R.id.movieName);
     }
 

@@ -16,12 +16,19 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/movieImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:contentDescription="Movie poster" />
+        android:contentDescription="@string/movie_poster" />
+
+    <!--<ImageView-->
+        <!--android:id="@+id/movieImage"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:contentDescription="@string/movie_poster" />-->
 
     <TextView
         android:id="@+id/movieName"
