@@ -274,6 +274,22 @@ public class RealmManager {
         return (MovieReviewInfoDao[])realmResults.toArray(new MovieReviewInfoDao[realmResults.size()]);
     }
 
+    public void deleteMovieReviewInfoDao(final String reviewID){
+        Realm realm = openLocalInstance();
+        try{
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    final RealmResults<MovieReviewInfoDao> results = realm.where(MovieReviewInfoDao.class).equalTo("reviewID",reviewID).findAll();
+                    results.deleteAllFromRealm();
+                }
+            });
+        }finally{
+            closeLocalInstance();
+        }
+        Log.i(TAG, "A MovieReviewInfoDao is deleted from Realm Database");
+    }
+
     /*
     MovieSuggestionInfoDao stuff
      */
