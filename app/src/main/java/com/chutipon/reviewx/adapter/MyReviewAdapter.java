@@ -12,7 +12,6 @@ import com.chutipon.reviewx.activity.HomeActivity;
 import com.chutipon.reviewx.activity.ReadReviewActivity;
 import com.chutipon.reviewx.manager.AddReviewManager;
 import com.chutipon.reviewx.manager.MovieReviewManager;
-import com.chutipon.reviewx.manager.ReviewListManager;
 
 
 /**
