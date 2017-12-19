@@ -66,6 +66,7 @@ public class ReadReviewActivity extends AppCompatActivity implements View.OnClic
         fullreview = findViewById(R.id.reviewText);
 
         img = findViewById(R.id.reviewerImg);
+
         reviewId =ReadReviewActivity.getInstance().getIntent().getStringExtra("reviewID");
 
         ReadLaterManager.getInstance().checkReadLater(reviewId,this);
@@ -113,7 +114,7 @@ public class ReadReviewActivity extends AppCompatActivity implements View.OnClic
             words[i].setText(movieReviewInfoDao.getThreeWords().get(i));
         }
         score.setText("Score: "+movieReviewInfoDao.getScore());
-        movieName.setText(MovieInfoManager.getInstance().getMovieInfoDao().getTitle());
+        movieName.setText(movieReviewInfoDao.getMovieName());
 
         Transformation transformation = new RoundedTransformationBuilder()
                 .cornerRadiusDp(30)
@@ -129,6 +130,7 @@ public class ReadReviewActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onLoadComplete() {
+
     }
 
     @Override

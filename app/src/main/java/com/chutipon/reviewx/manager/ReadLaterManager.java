@@ -160,6 +160,7 @@ public class ReadLaterManager {
         if (movieReviewListDao.getMovieReviewInfoDao() == null) {
             return 0;
         }
+
         return movieReviewListDao.getMovieReviewInfoDao().length;
     }
 
