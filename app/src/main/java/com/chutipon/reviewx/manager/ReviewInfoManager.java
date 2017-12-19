@@ -3,7 +3,6 @@ package com.chutipon.reviewx.manager;
 import android.util.Log;
 
 import com.chutipon.reviewx.dao.MovieReviewInfoDao;
-import com.chutipon.reviewx.dao.MovieReviewListDao;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -11,39 +10,41 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by admin on 18/12/2017 AD.
+ * Created by admin on 12/19/2017 AD.
  */
 
-public class ReviewListManager {
-    private static final String TAG = "ReviewListManager";
-    private static ReviewListManager instance;
-    private MovieReviewListDao movieReviewListDao;
+public class ReviewInfoManager {
+    private static final String TAG = "ReviewInfoManager";
+    private static ReviewInfoManager instance;
 
-    public interface OnLoad {
-        void onLoadComplete();
+    public interface onLoad {
+        void onReviewLoad(MovieReviewInfoDao movieReviewInfoDao);
     }
 
-    public static ReviewListManager getInstance() {
+    public static ReviewInfoManager getInstance() {
         if (instance == null) {
-            instance = new ReviewListManager();
+            instance = new ReviewInfoManager();
         }
         return instance;
     }
 
-    public void load(int movieID, final ReviewListManager.OnLoad callback) {
-        HttpManager.getInstance().getApiService().getMovieReview(movieID)
+    private ReviewInfoManager() {
+    }
+
+    public void load(String reviewID, final ReviewInfoManager.onLoad callback) {
+        HttpManager.getInstance().getApiService().getReview(reviewID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MovieReviewListDao>() {
+                .subscribe(new Observer<MovieReviewInfoDao>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         Log.i(TAG, "onSubscribe: called");
                     }
 
                     @Override
-                    public void onNext(MovieReviewListDao value) {
+                    public void onNext(MovieReviewInfoDao value) {
                         Log.i(TAG, "onNext: called");
-                        movieReviewListDao = value;
+                        callback.onReviewLoad(value);
                     }
 
                     @Override
@@ -54,17 +55,7 @@ public class ReviewListManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
-                        callback.onLoadComplete();
                     }
                 });
     }
-
-    public int getSize(){
-        return movieReviewListDao.getMovieReviewInfoDao().length;
-    }
-
-    public MovieReviewInfoDao getMovieReviewInfoAtIndex(int index){
-        return movieReviewListDao.getMovieReviewInfoDao()[index];
-    }
-
 }

@@ -7,8 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.manager.SearchMovieManager;
@@ -41,7 +44,6 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Intent intent = new Intent(SearchActivity.this, WriteReviewActivity.class);
-                intent.putExtra("movieID", SearchMovieManager.getInstance().getSearchResultInfoDaoAtIndex(0).getId());
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
@@ -50,7 +52,12 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                SearchMovieManager.getInstance().search(newText);
+                SearchMovieManager.getInstance().search(newText, new SearchMovieManager.onLoad() {
+                    @Override
+                    public void onLoadSearchResult(String[] result) {
+                        searchView.setSuggestions(result);
+                    }
+                });
                 return true;
             }
         });
@@ -66,7 +73,6 @@ public class SearchActivity extends AppCompatActivity {
                 //Do some magic
             }
         });
-
         searchView.setVoiceSearch(false);
     }
 
@@ -94,11 +100,5 @@ public class SearchActivity extends AppCompatActivity {
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    public void onSearchResultChange() {
-        if (SearchMovieManager.getInstance().getSize() > 0) {
-            searchView.setSuggestions(SearchMovieManager.getInstance().getResultArray());
-        }
     }
 }

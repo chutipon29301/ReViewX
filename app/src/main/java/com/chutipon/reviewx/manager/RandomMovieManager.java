@@ -3,7 +3,6 @@ package com.chutipon.reviewx.manager;
 import android.util.Log;
 
 import com.chutipon.reviewx.dao.MovieSuggestionInfoDao;
-import com.chutipon.reviewx.fragment.RandomFragment;
 import com.facebook.AccessToken;
 
 import io.reactivex.Observer;
@@ -20,6 +19,10 @@ public class RandomMovieManager {
     private static RandomMovieManager instance;
     private MovieSuggestionInfoDao movieSuggestionInfoDao;
 
+    public interface onLoad{
+        void onLoadComplete();
+    }
+
     public static RandomMovieManager getInstance() {
         if (instance == null) {
             instance = new RandomMovieManager();
@@ -30,7 +33,7 @@ public class RandomMovieManager {
     private RandomMovieManager() {
     }
 
-    public void load() {
+    public void load(final RandomMovieManager.onLoad callback) {
         HttpManager.getInstance().getApiService().getRandomMovie(AccessToken.getCurrentAccessToken().getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,7 +57,7 @@ public class RandomMovieManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
-                        RandomFragment.getInstance().loadData();
+                        callback.onLoadComplete();
                     }
                 });
     }

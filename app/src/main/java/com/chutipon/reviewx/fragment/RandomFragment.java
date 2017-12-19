@@ -18,7 +18,7 @@ import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
-public class RandomFragment extends Fragment {
+public class RandomFragment extends Fragment implements RandomMovieManager.onLoad {
     private static final String TAG = "RandomFragment";
     private static RandomFragment instance;
     private FrameLayout frameLayout;
@@ -39,7 +39,7 @@ public class RandomFragment extends Fragment {
     }
 
     private void initFragment(Bundle savedInstanceState) {
-        RandomMovieManager.getInstance().load();
+        RandomMovieManager.getInstance().load(this);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class RandomFragment extends Fragment {
         textView = rootView.findViewById(R.id.movieName);
     }
 
-    public void loadData() {
-        Log.i(TAG, "loadData: called");
+    @Override
+    public void onLoadComplete() {
         frameLayout.setVisibility(View.GONE);
         Transformation transformation = new RoundedTransformationBuilder()
                 .cornerRadiusDp(30)

@@ -2,46 +2,37 @@ package com.chutipon.reviewx.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 import com.chutipon.reviewx.activity.ReadReviewActivity;
-import com.chutipon.reviewx.activity.ReviewListActivity;
 import com.chutipon.reviewx.manager.MovieInfoManager;
-import com.chutipon.reviewx.manager.MovieReviewManager;
-import com.chutipon.reviewx.manager.MovieSuggestionManager;
 import com.chutipon.reviewx.manager.ReadLaterManager;
-import com.chutipon.reviewx.util.Contextor;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
-
-import org.w3c.dom.Text;
-
-import at.grabner.circleprogress.CircleProgressView;
 
 
 /**
  * Created by admin on 12/9/2017 AD.
  */
 
-    public class ReadLaterAdapter extends RecyclerView.Adapter< ReadLaterAdapter.ViewHolder> implements View.OnClickListener {
+public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.ViewHolder> implements View.OnClickListener, ReadLaterManager.onLoad {
 
-   private LayoutInflater mInflater;
-    private ReadLaterAdapter(){
+    private LayoutInflater mInflater;
+
+    private ReadLaterAdapter() {
 
     }
+
     public static ReadLaterAdapter getInstance() {
-        if(instance==null){
+        if (instance == null) {
             instance = new ReadLaterAdapter();
         }
         return instance;
@@ -49,15 +40,16 @@ import at.grabner.circleprogress.CircleProgressView;
 
     private static ReadLaterAdapter instance;
 
-    public void init(Context cont){
+    public void init(Context cont) {
         mInflater = LayoutInflater.from(cont);
-        Log.d("printming", mInflater+"");
+        Log.d("printming", mInflater + "");
+        ReadLaterManager.getInstance().loadReadLaterMovieReviewList(this);
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.view_reviewlist_custom,parent,false);
+        View view = mInflater.inflate(R.layout.view_reviewlist_custom, parent, false);
         parent.setOnClickListener(this);
         return new ViewHolder(view);
     }
@@ -68,10 +60,11 @@ import at.grabner.circleprogress.CircleProgressView;
     }
 
 
-
     @Override
     public int getItemCount() {
+        Log.d("itemcount", "" + ReadLaterManager.getInstance().getSize());
         return ReadLaterManager.getInstance().getSize();
+
     }
 
     @Override
@@ -79,11 +72,16 @@ import at.grabner.circleprogress.CircleProgressView;
 
     }
 
+    @Override
+    public void onLoadComplete() {
+        notifyDataSetChanged();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, MovieInfoManager.onLoad {
 
         private int position;
-        private ImageView imageView;
-        private TextView movieName,score,reviewerName,firstword,secondword,thirdword;
+        private ImageView moviePic;
+        private TextView score, reviewerName, firstword, secondword, thirdword;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -92,9 +90,9 @@ import at.grabner.circleprogress.CircleProgressView;
         }
 
         private void initInstance(View itemView) {
-            imageView = itemView.findViewById(R.id.reviewerImg);
-            movieName = itemView.findViewById(R.id.movieName);
-            reviewerName=itemView.findViewById(R.id.reviewerName);
+
+            moviePic = itemView.findViewById(R.id.reviewerImg);
+            reviewerName = itemView.findViewById(R.id.reviewerName);
             firstword = itemView.findViewById(R.id.firstWord);
             secondword = itemView.findViewById(R.id.secondWord);
             thirdword = itemView.findViewById(R.id.thirdWord);
@@ -102,16 +100,14 @@ import at.grabner.circleprogress.CircleProgressView;
         }
 
 
-
         @Override
         public void onClick(View view) {
-            HomeActivity.getInstance().redirect(ReadReviewActivity.class,"reviewID",ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getReviewID());
+            HomeActivity.getInstance().redirect(ReadReviewActivity.class, "reviewID", ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getReviewID());
 
         }
 
         public void bind(int position) {
             this.position = position;
-            MovieInfoManager.getInstance().load(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getMovieID(),this);
 
             TextView[] words= {firstword,secondword,thirdword};
             for(int i=0;i<3;i++){
@@ -126,7 +122,15 @@ import at.grabner.circleprogress.CircleProgressView;
 
         @Override
         public void onLoadMovieInfo() {
-            movieName.setText(MovieInfoManager.getInstance().getMovieInfoDao().getTitle());
+
+            reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());
+
+            score.setText("Score: " + ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
+            TextView[] words = {firstword, secondword, thirdword};
+            for (int i = 0; i < 3; i++) {
+                words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
+            }
+            reviewerName.setText(MovieInfoManager.getInstance().getMovieInfoDao().getTitle());
             Transformation transformation = new RoundedTransformationBuilder()
                     .cornerRadiusDp(30)
                     .oval(true)
@@ -136,7 +140,7 @@ import at.grabner.circleprogress.CircleProgressView;
                     .resize(150, 150)
                     .centerCrop()
                     .transform(transformation)
-                    .into(imageView);
+                    .into(moviePic);
 
 
         }

@@ -18,7 +18,10 @@ import io.reactivex.schedulers.Schedulers;
 public class SearchMovieManager {
     private static final String TAG = "SearchMovieManager";
     private static SearchMovieManager instance;
-    private SearchResultListDao searchResultListDao;
+
+    public interface onLoad {
+        void onLoadSearchResult(String[] result);
+    }
 
     public static SearchMovieManager getInstance() {
         if (instance == null) {
@@ -30,7 +33,7 @@ public class SearchMovieManager {
     private SearchMovieManager() {
     }
 
-    public void search(String key) {
+    public void search(String key, final SearchMovieManager.onLoad callback) {
         HttpManager.getInstance().getApiService().searchMovie(key)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -43,7 +46,11 @@ public class SearchMovieManager {
                     @Override
                     public void onNext(SearchResultListDao value) {
                         Log.i(TAG, "onNext: called");
-                        searchResultListDao = value;
+                        String[] result = new String[value.getSearchResultInfoDaos().length];
+                        for (int i = 0; i < value.getSearchResultInfoDaos().length; i++) {
+                            result[i] = value.getSearchResultInfoDaos()[i].getTitle();
+                        }
+                        callback.onLoadSearchResult(result);
                     }
 
                     @Override
@@ -54,30 +61,7 @@ public class SearchMovieManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
-                        SearchActivity.getInstance().onSearchResultChange();
                     }
                 });
-    }
-
-    public int getSize() {
-        if (searchResultListDao == null) {
-            return 0;
-        }
-        if (searchResultListDao.getSearchResultInfoDaos() == null) {
-            return 0;
-        }
-        return searchResultListDao.getSearchResultInfoDaos().length;
-    }
-
-    public SearchResultInfoDao getSearchResultInfoDaoAtIndex(int index) {
-        return searchResultListDao.getSearchResultInfoDaos()[index];
-    }
-
-    public String[] getResultArray() {
-        String[] result = new String[searchResultListDao.getSearchResultInfoDaos().length];
-        for (int i = 0; i < searchResultListDao.getSearchResultInfoDaos().length; i++) {
-            result[i] = searchResultListDao.getSearchResultInfoDaos()[i].getTitle();
-        }
-        return result;
     }
 }
