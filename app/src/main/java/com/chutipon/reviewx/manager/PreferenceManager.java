@@ -4,8 +4,6 @@ import android.util.Log;
 
 import com.chutipon.reviewx.adapter.PreferenceAdapter;
 import com.chutipon.reviewx.dao.GenreListDao;
-import com.chutipon.reviewx.dao.PreferenceInfoDao;
-import com.chutipon.reviewx.dao.PreferenceListDao;
 import com.chutipon.reviewx.util.PreferenceUtil;
 
 import io.reactivex.Observer;

@@ -6,8 +6,6 @@ import com.chutipon.reviewx.dao.MovieReviewInfoDao;
 import com.chutipon.reviewx.dao.MovieReviewListDao;
 import com.facebook.AccessToken;
 
-import java.lang.reflect.AccessibleObject;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;

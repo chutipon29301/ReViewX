@@ -2,7 +2,6 @@ package com.chutipon.reviewx.manager;
 
 import android.util.Log;
 
-import com.chutipon.reviewx.adapter.MovieListAdapter;
 import com.chutipon.reviewx.dao.MovieSuggestionInfoDao;
 import com.chutipon.reviewx.dao.MovieSuggestionListDao;
 import com.facebook.AccessToken;
