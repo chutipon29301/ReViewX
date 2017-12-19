@@ -11,7 +11,7 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class MovieSuggestionInfoDao extends RealmObject{
-    @PrimaryKey @SerializedName("id")               private int id;
+    @PrimaryKey @SerializedName("id")   private int id;
     @SerializedName("vote_average")     private double voteAverage;
     @SerializedName("title")            private String title;
     @SerializedName("poster_path")      private String posterPath;

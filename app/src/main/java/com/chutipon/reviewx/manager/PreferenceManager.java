@@ -4,8 +4,6 @@ import android.util.Log;
 
 import com.chutipon.reviewx.adapter.PreferenceAdapter;
 import com.chutipon.reviewx.dao.GenreListDao;
-import com.chutipon.reviewx.dao.PreferenceInfoDao;
-import com.chutipon.reviewx.dao.PreferenceListDao;
 import com.chutipon.reviewx.util.PreferenceUtil;
 
 import io.reactivex.Observer;
@@ -62,5 +60,15 @@ public class PreferenceManager {
 
     public GenreListDao getGenreListDao() {
         return genreListDao;
+    }
+
+    public int getSize(){
+        if (genreListDao == null){
+            return 0;
+        }
+        if (genreListDao.getGenres() == null){
+            return 0;
+        }
+        return genreListDao.getGenres().length;
     }
 }

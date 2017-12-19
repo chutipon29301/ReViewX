@@ -2,8 +2,6 @@ package com.chutipon.reviewx.manager;
 
 import android.util.Log;
 
-import com.chutipon.reviewx.activity.HomeActivity;
-import com.chutipon.reviewx.activity.PreferenceActivity;
 import com.chutipon.reviewx.dao.GeneralResponseDao;
 import com.chutipon.reviewx.dao.PreferenceInfoDao;
 import com.chutipon.reviewx.dao.PreferenceListDao;

@@ -24,8 +24,10 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/genrePic"
         android:gravity="center"
+        android:textColor="@color/white"
         android:paddingBottom="10dp"
-        android:background="#88000000"
+        android:background="#706c6a6a"
+        android:layout_margin="20dp"
         android:text="Genre"
         android:textStyle="bold"/>
 

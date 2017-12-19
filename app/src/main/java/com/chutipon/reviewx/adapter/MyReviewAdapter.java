@@ -12,9 +12,6 @@ import android.widget.TextView;
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 import com.chutipon.reviewx.activity.ReadReviewActivity;
-import com.chutipon.reviewx.activity.ReviewListActivity;
-import com.chutipon.reviewx.manager.AddReviewManager;
-import com.chutipon.reviewx.manager.MovieInfoManager;
 import com.chutipon.reviewx.manager.MovieReviewManager;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
@@ -27,13 +24,13 @@ import at.grabner.circleprogress.CircleProgressView;
  * Created by admin on 12/9/2017 AD.
  */
 
-public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHolder> implements View.OnClickListener, MovieReviewManager.onLoad {
+public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHolder> implements MovieReviewManager.onLoad {
 
     private static final String TAG = "MyReviewAdapter";
+    private static MyReviewAdapter instance;
     private LayoutInflater mInflater;
 
     private MyReviewAdapter() {
-
     }
 
     public static MyReviewAdapter getInstance() {
@@ -43,37 +40,29 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHo
         return instance;
     }
 
-    private static MyReviewAdapter instance;
 
     public void init(Context cont) {
         mInflater = LayoutInflater.from(cont);
-        Log.d("printming", mInflater + "");
+        MovieReviewManager.getInstance().getMyReview(this);
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.view_reviewlist_custom, parent, false);
-        parent.setOnClickListener(this);
-        MovieReviewManager.getInstance().getMyReview(this);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyReviewAdapter.ViewHolder holder, int position) {
         holder.bind(position);
-
     }
 
 
     @Override
     public int getItemCount() {
+        Log.d(TAG, "getItemCount: itemCount " + MovieReviewManager.getInstance().getSize());
         return MovieReviewManager.getInstance().getSize();
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 
     @Override
@@ -84,7 +73,7 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private int position;
         private ImageView reviewerImg;
-        CircleProgressView scoreBar;
+        private CircleProgressView scoreBar;
         private TextView reviewerName, movieName;
         private TextView firstword, secondword, thirdword;
         private TextView score;

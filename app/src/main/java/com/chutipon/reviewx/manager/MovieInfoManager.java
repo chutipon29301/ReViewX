@@ -2,7 +2,6 @@ package com.chutipon.reviewx.manager;
 
 import android.util.Log;
 
-import com.chutipon.reviewx.activity.ReviewListActivity;
 import com.chutipon.reviewx.dao.MovieInfoDao;
 
 import io.reactivex.Observer;

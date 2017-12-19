@@ -1,7 +1,5 @@
 package com.chutipon.reviewx;
 
-import com.chutipon.reviewx.dao.PreferenceDao;
-
 import io.realm.DynamicRealm;
 import io.realm.RealmMigration;
 import io.realm.RealmSchema;

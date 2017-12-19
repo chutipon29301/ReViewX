@@ -14,13 +14,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -32,10 +25,26 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />
 
+        <provider
+            android:name="br.com.mauker.materialsearchview.db.HistoryProvider"
+            android:authorities="br.com.mauker.materialsearchview.searchhistorydatabase"
+            android:exported="false"
+            android:protectionLevel="signature"
+            android:syncable="true"/>
+
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
+
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -48,25 +57,21 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeActivity" />
 
+        <activity android:name=".activity.HomeActivity" />
 
         <activity android:name=".activity.WriteReviewActivity" />
 
-        <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.ReadReviewActivity" />
+
         <activity android:name=".activity.PreferenceActivity" />
+
         <activity
             android:name=".activity.ShakeActivity"
             android:screenOrientation="portrait" />
+
         <activity android:name=".activity.ReviewListActivity"/>
 
-        <provider
-            android:name="br.com.mauker.materialsearchview.db.HistoryProvider"
-            android:authorities="br.com.mauker.materialsearchview.searchhistorydatabase"
-            android:exported="false"
-            android:protectionLevel="signature"
-            android:syncable="true"/>
     </application>
 
 </manifest>

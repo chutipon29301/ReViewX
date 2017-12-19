@@ -1,6 +1,5 @@
 package com.chutipon.reviewx.activity;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -16,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
@@ -24,10 +24,15 @@ import com.chutipon.reviewx.fragment.MapFragment;
 import com.chutipon.reviewx.fragment.MovieListFragment;
 import com.chutipon.reviewx.fragment.MyReviewFragment;
 import com.chutipon.reviewx.fragment.ReadLaterFragment;
+import com.chutipon.reviewx.manager.MovieSuggestionManager;
 import com.chutipon.reviewx.manager.SearchMovieManager;
+import com.chutipon.reviewx.util.Contextor;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.Profile;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.squareup.seismic.ShakeDetector;
 
 import br.com.mauker.materialsearchview.MaterialSearchView;
@@ -36,13 +41,14 @@ import retrofit2.http.HEAD;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ShakeDetector.Listener, SearchMovieManager.onLoad {
     private static final int START_SHAKE_ACTIVITY = 1;
+    private static final String TAG = "HomeActivity";
     private static boolean shakeActivityRunning = false;
-    private static String TAG = "HomeActivity";
     private static HomeActivity instance;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private AccessTokenTracker accessTokenTracker;
     private MaterialSearchView searchView;
+    private ImageView imageView;
 
     public static HomeActivity getInstance() {
         return instance;
@@ -61,6 +67,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
         initListener();
         initInstance(savedInstanceState);
+
     }
 
     private void initListener() {
@@ -81,7 +88,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer){
-
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -107,11 +113,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tab_readLater).setOnClickListener(this);
         findViewById(R.id.tab_tutorial).setOnClickListener(this);
 
+        imageView =findViewById(R.id.userPic);
+
         TextView username = findViewById(R.id.username);
+
         username.setText(Profile.getCurrentProfile().getName());
 
 
         searchView = findViewById(R.id.search_view);
+        searchView.clearAll();
 
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
@@ -130,13 +140,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectMovie = searchView.getSuggestionAtPosition(i);
-//                Log.d(TAG, "onItemClick: name " + selectMovie);
-//                Log.d(TAG, "onItemClick: id " + SearchMovieManager.getInstance().getMovieIDForKey(selectMovie));
                 Intent intent = new Intent(HomeActivity.this, WriteReviewActivity.class);
                 intent.putExtra("movieID",SearchMovieManager.getInstance().getMovieIDForKey(selectMovie));
                 startActivity(intent);
             }
         });
+
+        Transformation transformation = new RoundedTransformationBuilder()
+                .cornerRadiusDp(30)
+                .oval(true)
+                .build();
+        Picasso.with(Contextor.getInstance().getContext())
+                .load(Profile.getCurrentProfile().getProfilePictureUri(150,150))
+                .resize(150, 150)
+                .centerCrop()
+                .transform(transformation)
+                .into(imageView);
     }
 
     @Override
@@ -188,7 +207,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Log.d(TAG, "onClick: " + view.getId());
         switch (view.getId()) {
             case R.id.tab_explore:
                 getSupportFragmentManager().beginTransaction()

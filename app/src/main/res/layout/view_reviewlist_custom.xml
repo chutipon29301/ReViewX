@@ -28,7 +28,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
-                android:src="@drawable/fantasy"/>
+                />
 
 
         </LinearLayout>
@@ -56,17 +56,29 @@
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/scorebar"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignBaseline="@id/reviewerName"
-                android:layout_marginRight="10dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_alignBaseline="@id/releaseDateLabel"
                 android:layout_alignParentRight="true"
-                CircleProgressView:cpv_textSize="15sp"
+                CircleProgressView:cpv_textSize="14sp"
                 CircleProgressView:cpv_blockCount="100"
                 CircleProgressView:cpv_blockScale="0.9"
-                android:layout_gravity="right"
+                CircleProgressView:cpv_barColor="@color/primaryColor"
+                CircleProgressView:cpv_barWidth="8dp"
+                CircleProgressView:cpv_barStrokeCap="Round"
+                CircleProgressView:cpv_rimWidth="10dp"
+                CircleProgressView:cpv_innerContourColor="@color/secondaryLightColor"
+                CircleProgressView:cpv_outerContourColor="@color/secondaryLightColor"
+                CircleProgressView:cpv_rimColor="@color/secondaryLightColor"
+                CircleProgressView:cpv_direction="CCW"
+                CircleProgressView:cpv_unit="%"
+                CircleProgressView:cpv_unitPosition="right_top"
+                CircleProgressView:cpv_showUnit="true"
+                CircleProgressView:cpv_unitSize="8sp"
                 />
-
 
             <LinearLayout
 

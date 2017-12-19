@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
-import com.chutipon.reviewx.activity.SearchActivity;
-import com.chutipon.reviewx.adapter.MyReviewAdapter;
 import com.chutipon.reviewx.adapter.ReadLaterAdapter;
 
 /**
@@ -21,11 +19,11 @@ import com.chutipon.reviewx.adapter.ReadLaterAdapter;
  */
 
 public class ReadLaterFragment extends Fragment implements View.OnClickListener {
-    private RecyclerView readLaterRecycler;
+    private static final String TAg = "ReadLaterFragment";
+    private static ReadLaterFragment instance;
 
-    FloatingActionButton btnwrite;
     public static ReadLaterFragment getInstance() {
-        if(instance==null){
+        if (instance == null) {
             instance = new ReadLaterFragment();
         }
         return instance;
@@ -33,44 +31,35 @@ public class ReadLaterFragment extends Fragment implements View.OnClickListener 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-       View rootView = inflater.inflate(R.layout.fragment_movielist,container,false);
-       initInstance(rootView);
+        View rootView = inflater.inflate(R.layout.fragment_movielist, container, false);
+        initInstance(rootView);
         return rootView;
     }
 
-
     private void initInstance(View rootView) {
-
-       readLaterRecycler = rootView.findViewById(R.id.movielistRecycler);
+        RecyclerView readLaterRecycler = rootView.findViewById(R.id.movielistRecycler);
         ReadLaterAdapter.getInstance().init(getActivity().getBaseContext());
-
         readLaterRecycler.setAdapter(ReadLaterAdapter.getInstance());
-
         readLaterRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-        btnwrite = rootView.findViewById(R.id.btn_write);
-        btnwrite.setOnClickListener(this);
+        FloatingActionButton btnWrite = rootView.findViewById(R.id.btn_write);
+        btnWrite.setOnClickListener(this);
 
     }
-
-
-
-    private static ReadLaterFragment instance;
-
-    public ReadLaterFragment(){
-    }
-
 
     @Override
     public void onClick(View view) {
-        if(view==btnwrite){
-            HomeActivity.getInstance().redirect(SearchActivity.class);
+        switch (view.getId()) {
+            case R.id.btn_write:
+                HomeActivity.getInstance().triggerSearch();
+                break;
+            default:
+                break;
         }
     }
 }
