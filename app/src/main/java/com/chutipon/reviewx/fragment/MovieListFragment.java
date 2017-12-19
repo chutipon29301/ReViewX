@@ -23,7 +23,6 @@ import me.toptas.fancyshowcase.FancyShowCaseView;
 
 public class MovieListFragment extends Fragment implements View.OnClickListener {
     private static MovieListFragment instance;
-    private RecyclerView movieListRecycler;
     private FloatingActionButton btnwrite;
 
     public static MovieListFragment getInstance() {
@@ -42,7 +41,7 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
     }
 
     private void initInstance(View rootView) {
-        movieListRecycler = rootView.findViewById(R.id.movielistRecycler);
+        RecyclerView movieListRecycler = rootView.findViewById(R.id.movielistRecycler);
         btnwrite = rootView.findViewById(R.id.btn_write);
         MovieListAdapter.getInstance().init(getActivity().getBaseContext());
 
