@@ -22,6 +22,7 @@ import me.toptas.fancyshowcase.FancyShowCaseView;
  */
 
 public class MovieListFragment extends Fragment implements View.OnClickListener {
+    private static final String TAG = "MovieListFragment";
     private static MovieListFragment instance;
     private FloatingActionButton btnwrite;
 

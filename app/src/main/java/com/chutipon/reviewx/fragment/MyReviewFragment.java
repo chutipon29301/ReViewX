@@ -20,6 +20,7 @@ import com.chutipon.reviewx.adapter.MyReviewAdapter;
 
 public class MyReviewFragment extends Fragment implements View.OnClickListener {
 
+    private static final String TAG = "MyReviewFragment";
     private static MyReviewFragment instance;
 
     public static MyReviewFragment getInstance() {

@@ -15,6 +15,7 @@ import com.chutipon.reviewx.R;
  */
 
 public class MapFragment extends Fragment{
+    private static final String TAG = "MapFragment";
     private static MapFragment instance;
 
     public static MapFragment getInstance(){

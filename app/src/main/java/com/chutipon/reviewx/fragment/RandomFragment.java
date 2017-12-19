@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 public class RandomFragment extends Fragment implements RandomMovieManager.onLoad {
+
     private static final String TAG = "RandomFragment";
     private static RandomFragment instance;
     private FrameLayout frameLayout;
@@ -40,11 +40,6 @@ public class RandomFragment extends Fragment implements RandomMovieManager.onLoa
 
     private void initFragment(Bundle savedInstanceState) {
         RandomMovieManager.getInstance().load(this);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 
     @Nullable
