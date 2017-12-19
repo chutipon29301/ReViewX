@@ -22,33 +22,26 @@ import me.toptas.fancyshowcase.FancyShowCaseView;
  */
 
 public class MovieListFragment extends Fragment implements View.OnClickListener {
+    private static MovieListFragment instance;
     private RecyclerView movieListRecycler;
-    FloatingActionButton btnwrite;
+    private FloatingActionButton btnwrite;
 
     public static MovieListFragment getInstance() {
-        if(instance==null){
+        if (instance == null) {
             instance = new MovieListFragment();
         }
         return instance;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-       View rootView = inflater.inflate(R.layout.fragment_movielist,container,false);
-       initInstance(rootView);
+        View rootView = inflater.inflate(R.layout.fragment_movielist, container, false);
+        initInstance(rootView);
         return rootView;
     }
 
-
     private void initInstance(View rootView) {
-
         movieListRecycler = rootView.findViewById(R.id.movielistRecycler);
         btnwrite = rootView.findViewById(R.id.btn_write);
         MovieListAdapter.getInstance().init(getActivity().getBaseContext());
@@ -59,24 +52,14 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
         showMainTutorial();
     }
 
-
-
-    private static MovieListFragment instance;
-
-    public MovieListFragment(){
-
-    }
-
-
     @Override
     public void onClick(View view) {
-        if(view==btnwrite){
-//            HomeActivity.getInstance().redirect(SearchActivity.class);
+        if (view == btnwrite) {
             HomeActivity.getInstance().triggerSearch();
         }
     }
 
-    public void showMainTutorial(){
+    public void showMainTutorial() {
         //for some reasons calling this from Tutorial doesn't work RIP
         final FancyShowCaseView showWelcome = new FancyShowCaseView.Builder(getActivity())
                 .title("Welcome to ReviewX!")
