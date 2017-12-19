@@ -27,12 +27,6 @@ public class MapFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_map,container,false);
-        initInstance(rootView,savedInstanceState);
-        return rootView;
-    }
-
-    private void initInstance(View rootView, Bundle savedInstanceState) {
-
+        return inflater.inflate(R.layout.fragment_map,container,false);
     }
 }
