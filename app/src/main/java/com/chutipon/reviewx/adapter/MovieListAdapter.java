@@ -124,7 +124,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             for(int i=0;i<MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().size();i++){
                 genrestr+= MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().get(i)+" ";
             }
-//            genre.setText(genrestr);
+            genre.setText(genrestr);
 
             genre.setScroller(new Scroller(Contextor.getInstance().getContext()));
             genre.setHorizontallyScrolling(true);

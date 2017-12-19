@@ -37,6 +37,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private static boolean shakeActivityRunning = false;
     private static String TAG = "HomeActivity";
     private static HomeActivity instance;
+    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private AccessTokenTracker accessTokenTracker;
 
@@ -74,21 +75,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+        drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer){
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 Tutorial.getInstance().showMenuTutorial(HomeActivity.this);
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                if(MovieListFragment.getInstance().isVisible()){
-                    MovieListFragment.getInstance().showMainTutorial();
-                }
-
             }
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -165,24 +157,30 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer, MovieListFragment.getInstance())
                         .commit();
+                drawerLayout.closeDrawers();
+                MovieListFragment.getInstance().showMainTutorial();
                 break;
             case R.id.tab_nearby:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer, MapFragment.getInstance())
                         .commit();
+                drawerLayout.closeDrawers();
                 break;
             case R.id.tab_myreview:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer, MyReviewFragment.getInstance())
                         .commit();
+                drawerLayout.closeDrawers();
                 break;
             case R.id.tab_readLater:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer, ReadLaterFragment.getInstance())
                         .commit();
+                drawerLayout.closeDrawers();
                 break;
             case R.id.tab_tutorial:
                 FancyShowCaseView.resetAllShowOnce(this);
+                drawerLayout.closeDrawers();
                 break;
         }
     }
