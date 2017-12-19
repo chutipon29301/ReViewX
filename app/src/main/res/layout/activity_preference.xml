@@ -38,22 +38,20 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3" />
+            android:layout_weight="6" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3" />
+
 
         <Button
             android:id="@+id/btn_enter"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_gravity="right"
             android:layout_marginBottom="20dp"
             android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:text="Enter" />
+            android:text="Enter"
+            android:background="@color/primaryColor"/>
 
 
     </LinearLayout>
