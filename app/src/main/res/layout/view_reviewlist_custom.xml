@@ -23,8 +23,8 @@
 
             <ImageView
                 android:id="@+id/reviewerImg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
@@ -41,30 +41,24 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/movieName"
+                android:id="@+id/reviewerName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Movie Name"
+                android:text="Reviewer Name"
                 android:textStyle="bold"
                 android:textSize="20sp"
+                android:layout_marginTop="10dp"
                 android:autoSizeTextType="uniform"
                 android:autoSizeStepGranularity="2sp"
                 android:autoSizeMaxTextSize="20sp"
                 android:autoSizeMinTextSize="8sp"
                 android:gravity="center_vertical"/>
 
-            <TextView
-                android:id="@+id/reviewerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/movieName"
-                android:gravity="center_vertical"
-                android:text="Reviewer: " />
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/scorebar"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_alignBaseline="@id/movieName"
+                android:layout_alignBaseline="@id/reviewerName"
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
                 CircleProgressView:cpv_textSize="15sp"
@@ -72,16 +66,7 @@
                 CircleProgressView:cpv_blockScale="0.9"
                 android:layout_gravity="right"
                 />
-             <TextView
-                        android:id="@+id/score"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:paddingBottom="30dp"
-                 android:layout_marginRight="20dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="%Score "
-                        android:gravity="center_vertical"/>
+
 
             <LinearLayout
 

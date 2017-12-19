@@ -2,10 +2,12 @@ package com.chutipon.reviewx.manager.http;
 
 import com.chutipon.reviewx.dao.AddReviewDao;
 import com.chutipon.reviewx.dao.CheckExistUserDao;
+import com.chutipon.reviewx.dao.CheckReadLaterDao;
 import com.chutipon.reviewx.dao.GeneralResponseDao;
 import com.chutipon.reviewx.dao.GenreListDao;
 import com.chutipon.reviewx.dao.LocationListDao;
 import com.chutipon.reviewx.dao.MovieInfoDao;
+import com.chutipon.reviewx.dao.MovieReviewInfoDao;
 import com.chutipon.reviewx.dao.MovieReviewListDao;
 import com.chutipon.reviewx.dao.MovieSuggestionInfoDao;
 import com.chutipon.reviewx.dao.MovieSuggestionListDao;
@@ -61,15 +63,26 @@ public interface ApiService {
     Observable<MovieInfoDao> getMovieInfo(@Field("movieID") int movieID);
 
     @FormUrlEncoded
-    @POST("addReadLater")
-    Observable<GeneralResponseDao> addReadLater(@Field("userID") String userID, @Field("revviewID") String reviewID);
+    @POST("/post/v1/addReadLater")
+    Observable<GeneralResponseDao> addReadLater(@Field("userID") String userID, @Field("reviewID") String reviewID);
 
     @FormUrlEncoded
     @POST("/post/v1/deleteReadLater")
-    Observable<GeneralResponseDao> deleteReadLater(@Field("readLaterID") String readLaterID);
+    Observable<GeneralResponseDao> deleteReadLater(@Field("userID") String userID, @Field("reviewID") String reviewID);
 
     @FormUrlEncoded
     @POST("/post/v1/listReadLaterReview")
     Observable<MovieReviewListDao> getReadLaterMovieReviewList(@Field("userID") String userID);
 
+    @FormUrlEncoded
+    @POST("/post/v1/getReview")
+    Observable<MovieReviewInfoDao> getReview(@Field("reviewID") String reviewID);
+
+    @FormUrlEncoded
+    @POST("/post/v1/listMyReview")
+    Observable<MovieReviewListDao> getMyReview(@Field("userID") String userID);
+
+    @FormUrlEncoded
+    @POST("/post/v1/isInReadLater")
+    Observable<CheckReadLaterDao> checkReadLater(@Field("userID") String userID, @Field("reviewID") String reviewID);
 }

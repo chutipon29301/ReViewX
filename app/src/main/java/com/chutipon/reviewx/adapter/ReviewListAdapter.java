@@ -96,6 +96,7 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
             super(itemView);
             itemView.setOnClickListener(this);
             initInstance(itemView);
+
         }
 
         private void initInstance(View itemView) {
@@ -106,7 +107,7 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
             score = itemView.findViewById(R.id.score);
             movieName =itemView.findViewById(R.id.movieName);
             scoreBar = itemView.findViewById(R.id.scorebar);
-//            reviewerImg = itemView.findViewById(R.id.reviewerImg);
+            reviewerImg = itemView.findViewById(R.id.reviewerImg);
 
         }
 
@@ -119,24 +120,26 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
 
         public void bind(int position) {
             this.position = position;
-
-//            Transformation transformation = new RoundedTransformationBuilder()
-//                    .cornerRadiusDp(30)
-//                    .oval(true)
-//                    .build();
-//            Picasso.with(itemView.getContext())
-//                    .load(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getReviewID().)
-//                    .resize(150, 150)
-//                    .centerCrop()
-//                    .transform(transformation)
-//                    .into(reviewerImg);
+            Transformation transformation = new RoundedTransformationBuilder()
+                    .cornerRadiusDp(30)
+                    .oval(true)
+                    .build();
+            Picasso.with(itemView.getContext())
+                    .load(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookPic())
+                    .resize(150, 150)
+                    .centerCrop()
+                    .transform(transformation)
+                    .into(reviewerImg);
             TextView[] words= {firstword,secondword,thirdword};
             for(int i=0;i<3;i++){
+                words[i].setMaxLines(1);
                 words[i].setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords()[i]);
             }
 
             scoreBar.setValueAnimated(0,(long)MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore(),1000);
-            reviewerName.setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());
+            reviewerName.setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookName());
+//            movieName.setText(MovieInfoManager.getInstance().getMovieInfoDao().getTitle());
+
         }
 
 
