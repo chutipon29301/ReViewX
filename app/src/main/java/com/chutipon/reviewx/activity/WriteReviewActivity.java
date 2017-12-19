@@ -14,7 +14,6 @@ import android.widget.Scroller;
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.dao.AddReviewDao;
 import com.chutipon.reviewx.manager.AddReviewManager;
-import com.chutipon.reviewx.manager.HttpManager;
 import com.chutipon.reviewx.manager.MovieInfoManager;
 import com.facebook.AccessToken;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
@@ -29,13 +28,13 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
     private static final String TAG = "WriteReviewActivity";
     private static WriteReviewActivity instance;
     private int movieID;
-    EditText score;
-    EditText firstWord;
-    EditText secondWord;
-    EditText thirdWord;
-    Button reviewBtn;
-    EditText questionEntry;
-    ImageView movieImage;
+    private EditText score;
+    private EditText firstWord;
+    private EditText secondWord;
+    private EditText thirdWord;
+    private Button reviewBtn;
+    private EditText questionEntry;
+    private ImageView movieImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

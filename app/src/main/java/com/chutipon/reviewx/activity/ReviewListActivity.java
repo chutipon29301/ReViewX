@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.ReviewListFragment;
@@ -57,5 +56,4 @@ public class ReviewListActivity extends AppCompatActivity implements MovieInfoMa
         intent.putExtra(key, value);
         startActivity(intent);
     }
-
 }

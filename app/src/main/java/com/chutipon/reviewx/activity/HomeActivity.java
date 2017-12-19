@@ -1,6 +1,5 @@
 package com.chutipon.reviewx.activity;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -35,8 +34,8 @@ import me.toptas.fancyshowcase.FancyShowCaseView;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ShakeDetector.Listener, SearchMovieManager.onLoad {
     private static final int START_SHAKE_ACTIVITY = 1;
+    private static final String TAG = "HomeActivity";
     private static boolean shakeActivityRunning = false;
-    private static String TAG = "HomeActivity";
     private static HomeActivity instance;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private AccessTokenTracker accessTokenTracker;
@@ -126,8 +125,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectMovie = searchView.getSuggestionAtPosition(i);
-//                Log.d(TAG, "onItemClick: name " + selectMovie);
-//                Log.d(TAG, "onItemClick: id " + SearchMovieManager.getInstance().getMovieIDForKey(selectMovie));
                 Intent intent = new Intent(HomeActivity.this, WriteReviewActivity.class);
                 intent.putExtra("movieID",SearchMovieManager.getInstance().getMovieIDForKey(selectMovie));
                 startActivity(intent);
