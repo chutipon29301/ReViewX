@@ -72,7 +72,7 @@ public class ReadReviewActivity extends AppCompatActivity implements View.OnClic
         ReadLaterManager.getInstance().checkReadLater(reviewId,this);
 
 
-
+//        movieName.setText(MovieInfoManager.getInstance().getMovieInfoDao().getTitle());
 
 
     }
@@ -114,7 +114,9 @@ public class ReadReviewActivity extends AppCompatActivity implements View.OnClic
             words[i].setText(movieReviewInfoDao.getThreeWords().get(i));
         }
         score.setText("Score: "+movieReviewInfoDao.getScore());
-        movieName.setText(movieReviewInfoDao.getMovieName());
+        movieName.setText(""+movieReviewInfoDao.getMovieName());
+        Log.d("moviename",movieReviewInfoDao.getMovieName()+"");
+Log.d("moviename",movieReviewInfoDao.getMovieID()+"");
 
         Transformation transformation = new RoundedTransformationBuilder()
                 .cornerRadiusDp(30)
