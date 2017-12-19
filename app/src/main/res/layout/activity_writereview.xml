@@ -24,7 +24,8 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:foreground="@drawable/selectablebutton" />
+                android:foreground="@drawable/selectablebutton"
+                android:contentDescription="@string/movie_or_profile_image" />
 
         </LinearLayout>
 
@@ -38,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
-                android:text="Movie"
+                android:text="@string/movie"
                 android:textColor="@color/secondaryLightColor"
                 android:textStyle="bold" />
 
@@ -53,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="score"
+                    android:text="@string/score"
                     android:textColor="@color/secondaryLightColor" />
 
                 <EditText
@@ -66,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="/100"
+                    android:text="@string/_100"
                     android:textColor="@color/secondaryLightColor" />
 
             </LinearLayout>
@@ -118,8 +119,8 @@
         android:id="@+id/btn_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_margin="8dp"
-        android:text="Review!" />
+        android:text="@string/review" />
 
 </LinearLayout>

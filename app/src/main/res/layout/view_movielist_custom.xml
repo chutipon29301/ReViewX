@@ -1,104 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:layout_marginBottom="1dp"
     android:background="@drawable/border">
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/moviePic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerVertical="true"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/selectablebutton"
+        android:contentDescription="@string/movie_or_profile_image" />
+
+    <TextView
+        android:id="@+id/movieName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="1dp">
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/moviePic"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/moviePic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerVertical="true"
-            android:layout_margin="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="@drawable/selectablebutton" />
+    <at.grabner.circleprogress.CircleProgressView
+        android:id="@+id/scorebar"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignBaseline="@id/releaseDateLabel"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
+        CircleProgressView:cpv_barColor="@color/primaryColor"
+        CircleProgressView:cpv_barStrokeCap="Round"
+        CircleProgressView:cpv_barWidth="8dp"
+        CircleProgressView:cpv_blockCount="100"
+        CircleProgressView:cpv_blockScale="0.9"
+        CircleProgressView:cpv_direction="CCW"
+        CircleProgressView:cpv_innerContourColor="@color/secondaryLightColor"
+        CircleProgressView:cpv_outerContourColor="@color/secondaryLightColor"
+        CircleProgressView:cpv_rimColor="@color/secondaryLightColor"
+        CircleProgressView:cpv_rimWidth="10dp"
+        CircleProgressView:cpv_showUnit="true"
+        CircleProgressView:cpv_textSize="14sp"
+        CircleProgressView:cpv_unit="%"
+        CircleProgressView:cpv_unitPosition="right_top"
+        CircleProgressView:cpv_unitSize="8sp" />
 
-        <TextView
-            android:id="@+id/movieName"
+    <TextView
+        android:id="@+id/releaseDateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/movieName"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/moviePic"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/releaseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/releaseDateLabel"
+        android:layout_toEndOf="@id/moviePic"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/releaseDate"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/moviePic"
+        android:scrollbars="none">
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/moviePic"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <at.grabner.circleprogress.CircleProgressView
-            android:id="@+id/scorebar"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_alignBaseline="@id/releaseDateLabel"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="12dp"
-            CircleProgressView:cpv_barColor="@color/primaryColor"
-            CircleProgressView:cpv_barStrokeCap="Round"
-            CircleProgressView:cpv_barWidth="8dp"
-            CircleProgressView:cpv_blockCount="100"
-            CircleProgressView:cpv_blockScale="0.9"
-            CircleProgressView:cpv_direction="CCW"
-            CircleProgressView:cpv_innerContourColor="@color/secondaryLightColor"
-            CircleProgressView:cpv_outerContourColor="@color/secondaryLightColor"
-            CircleProgressView:cpv_rimColor="@color/secondaryLightColor"
-            CircleProgressView:cpv_rimWidth="10dp"
-            CircleProgressView:cpv_showUnit="true"
-            CircleProgressView:cpv_textSize="14sp"
-            CircleProgressView:cpv_unit="%"
-            CircleProgressView:cpv_unitPosition="right_top"
-            CircleProgressView:cpv_unitSize="8sp" />
-
-        <TextView
-            android:id="@+id/releaseDateLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/movieName"
-            android:layout_marginTop="4dp"
-            android:layout_toEndOf="@id/moviePic"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/releaseDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/releaseDateLabel"
-            android:layout_toEndOf="@id/moviePic"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/releaseDate"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@id/moviePic"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/genreDes"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/genreDes"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textColor="#696969"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </HorizontalScrollView>
-
-
-    </RelativeLayout>
+                android:maxLines="1"
+                android:textColor="#696969"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </HorizontalScrollView>
 
 
 </RelativeLayout>

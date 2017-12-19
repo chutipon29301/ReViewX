@@ -19,7 +19,8 @@
             android:clickable="true"
             android:focusable="true"
             android:padding="10dp"
-            android:src="@drawable/ic_bookmark_border_black_24dp" />
+            android:src="@drawable/ic_bookmark_border_black_24dp"
+            android:contentDescription="@string/bookmark" />
 
     </FrameLayout>
 
@@ -28,7 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:background="@color/primaryColor"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -41,7 +43,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
-                android:foreground="@drawable/selectablebutton" />
+                android:foreground="@drawable/selectablebutton"
+                android:contentDescription="@string/movie_or_profile_image" />
 
         </LinearLayout>
 

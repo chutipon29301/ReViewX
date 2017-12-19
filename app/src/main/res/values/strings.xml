@@ -11,4 +11,19 @@
     <string name="base_url">http://192.168.1.38:3000/</string>
   
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="explore">Explore</string>
+    <string name="near_by">Near by</string>
+    <string name="my_review">My review</string>
+    <string name="read_later">Read Later</string>
+    <string name="overlay_tutorial">Overlay tutorial</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="select_your_favorite_genre">Select your favorite genre</string>
+    <string name="enter">Enter</string>
+    <string name="movie">Movie</string>
+    <string name="score">score</string>
+    <string name="_100">/100</string>
+    <string name="review">Review!</string>
+    <string name="movie_or_profile_image">Movie or Profile image</string>
+    <string name="randomizer">Randomizer</string>
+    <string name="bookmark">bookmark</string>
 </resources>
