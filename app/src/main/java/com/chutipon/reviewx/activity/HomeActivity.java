@@ -140,6 +140,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra(key, value);
         startActivity(intent);
     }
+    public void redirect(Class cls, String key, String value) {
+        Intent intent = new Intent(HomeActivity.this, cls);
+        intent.putExtra(key, value);
+        startActivity(intent);
+    }
 
     public void redirectFragment(Fragment frag) {
         getSupportFragmentManager().beginTransaction()

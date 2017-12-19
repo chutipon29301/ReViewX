@@ -51,4 +51,7 @@ dependencies {
     compile 'com.github.faruktoptas:FancyShowCaseView:1.0.0'
     compile 'com.scalified:fab:1.1.3'
     implementation 'com.android.support:design:27.0.1'
+    compile 'com.github.jakob-grabner:Circle-Progress-View:v1.3'
+
+
 }

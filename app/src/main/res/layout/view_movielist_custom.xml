@@ -2,69 +2,101 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/border"
-    android:gravity="center">
+    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/border">
 
-
-
-    <ImageView
-        android:layout_centerVertical="true"
-        android:id="@+id/moviePic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_margin="8dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="@drawable/selectablebutton"
-        android:src="@drawable/fantasy"/>
-
-    <TextView
-        android:id="@+id/movieName"
-        android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:layout_toRightOf="@id/moviePic"
-        android:layout_marginTop="10dp"
-        android:autoSizeTextType="uniform"
-        android:autoSizeStepGranularity="2sp"
-        android:autoSizeMaxTextSize="20sp"
-        android:autoSizeMinTextSize="8sp"
-        android:textSize="20sp"
-        android:text="Movie Name"
-        android:textStyle="bold"/>
-    <TextView
-        android:id="@+id/releaseDate"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/movieName"
-        android:layout_toRightOf="@id/moviePic"
-        android:layout_marginTop="14dp"
-        android:textSize="15sp"
-        android:text="Released Date"
-        android:textStyle="bold"/>
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="1dp">
 
-    <TextView
-        android:id="@+id/score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/genreDes"
-        android:layout_alignBottom="@id/genreDes"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="24dp"
-        android:text="Score"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        <ImageView
+            android:layout_centerVertical="true"
+            android:id="@+id/moviePic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/selectablebutton"
+            android:src="@drawable/fantasy"/>
 
-    <TextView
-        android:id="@+id/genreDes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/releaseDate"
-        android:layout_marginTop="14dp"
-        android:textSize="15sp"
+            <TextView
+                android:id="@+id/movieName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/moviePic"
+                android:layout_marginTop="10dp"
+                android:textSize="20sp"
+                android:text="Movie Name"
+                android:textStyle="bold"/>
+            <at.grabner.circleprogress.CircleProgressView
+                android:id="@+id/scorebar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignBaseline="@id/movieName"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                CircleProgressView:cpv_textSize="15sp"
+                CircleProgressView:cpv_blockCount="100"
+                CircleProgressView:cpv_blockScale="0.9"
+                />
+            <TextView
+                android:id="@+id/releaseDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/movieName"
+                android:layout_toRightOf="@id/moviePic"
+                android:layout_marginTop="20dp"
+                android:textSize="15sp"
+                android:text="Released Date"
+                android:textStyle="bold"/>
 
-        android:layout_toRightOf="@id/moviePic"
-        android:text="Genre"
-        android:textStyle="bold"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/releaseDate"
+            android:layout_toRightOf="@id/moviePic">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/genreDes"
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Genre"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/score"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="5dp"
+                    android:text="Score"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+
+
+    </RelativeLayout>
+
 
 
 </RelativeLayout>
