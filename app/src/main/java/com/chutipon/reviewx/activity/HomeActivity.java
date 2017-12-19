@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
@@ -24,10 +25,15 @@ import com.chutipon.reviewx.fragment.MapFragment;
 import com.chutipon.reviewx.fragment.MovieListFragment;
 import com.chutipon.reviewx.fragment.MyReviewFragment;
 import com.chutipon.reviewx.fragment.ReadLaterFragment;
+import com.chutipon.reviewx.manager.MovieSuggestionManager;
 import com.chutipon.reviewx.manager.SearchMovieManager;
+import com.chutipon.reviewx.util.Contextor;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.Profile;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 import com.squareup.seismic.ShakeDetector;
 
 import br.com.mauker.materialsearchview.MaterialSearchView;
@@ -41,6 +47,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private AccessTokenTracker accessTokenTracker;
     private MaterialSearchView searchView;
+    private ImageView imageView;
 
     public static HomeActivity getInstance() {
         return instance;
@@ -59,6 +66,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
         initListener();
         initInstance(savedInstanceState);
+
     }
 
     private void initListener() {
@@ -75,6 +83,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void initInstance(Bundle savedInstanceState) {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer) {
@@ -102,7 +112,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tab_readLater).setOnClickListener(this);
         findViewById(R.id.tab_tutorial).setOnClickListener(this);
 
+        imageView =findViewById(R.id.userPic);
+
         TextView username = findViewById(R.id.username);
+
         username.setText(Profile.getCurrentProfile().getName());
 
 
@@ -132,6 +145,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
             }
         });
+
+        Transformation transformation = new RoundedTransformationBuilder()
+                .cornerRadiusDp(30)
+                .oval(true)
+                .build();
+        Picasso.with(Contextor.getInstance().getContext())
+                .load(Profile.getCurrentProfile().getProfilePictureUri(150,150))
+                .resize(150, 150)
+                .centerCrop()
+                .transform(transformation)
+                .into(imageView);
     }
 
     @Override

@@ -46,7 +46,7 @@
                     android:layout_height="100dp"
                     android:layout_margin="10dp"
                     android:foreground="@drawable/selectablebutton"
-                    android:src="@drawable/fantasy"/>
+                    />
 
 
             </LinearLayout>
@@ -65,7 +65,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Movie"
                     android:textColor="@color/secondaryLightColor"
                     android:textStyle="bold"
                     android:textSize="20sp"
@@ -76,7 +75,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="Score"
                     android:textSize="16sp"
                     android:textColor="@color/secondaryLightColor"
                     android:gravity="center_vertical"/>
@@ -91,7 +89,6 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="awesome"
                         android:textColor="@color/secondaryLightColor"
                         android:gravity="center_vertical"/>
                     <TextView
@@ -99,7 +96,6 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="awesome"
                         android:textColor="@color/secondaryLightColor"
                         android:gravity="center_vertical"/>
                     <TextView
@@ -107,7 +103,6 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="awesome"
                         android:textColor="@color/secondaryLightColor"
                         android:gravity="center_vertical"/>
                 </LinearLayout>
