@@ -100,7 +100,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             movieName = itemView.findViewById(R.id.movieName);
             releaseDate = itemView.findViewById(R.id.releaseDate);
             scoreBar = itemView.findViewById(R.id.scorebar);
-            score = itemView.findViewById(R.id.score);
             genre = itemView.findViewById(R.id.genreDes);
         }
 
@@ -121,8 +120,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             movieName.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getTitle());
             releaseDate.setText("Release Date: " + MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
             score.setText("%Score ");
-
-            scoreBar.setValueAnimated(0, (long) (MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage() * 10), 1000);
+            releaseDate.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
+            scoreBar.setValueAnimated(0, (long) (MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()*10),1000);
             scoreBar.setText(String.valueOf(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()));
 
             StringBuilder genreString = new StringBuilder("Genre: ");
