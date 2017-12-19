@@ -3,6 +3,7 @@ package com.chutipon.reviewx.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
@@ -23,9 +25,13 @@ import com.chutipon.reviewx.fragment.ReviewListFragment;
 import com.chutipon.reviewx.manager.MovieReviewManager;
 import com.chutipon.reviewx.manager.MovieSuggestionManager;
 import com.chutipon.reviewx.manager.PreferenceManager;
+import com.chutipon.reviewx.util.Contextor;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+
+import at.grabner.circleprogress.CircleProgressView;
+import at.markushi.ui.CircleButton;
 
 
 /**
@@ -80,6 +86,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         private int position;
         private ImageView imageView;
         private TextView movieName, releaseDate,score;
+        CircleProgressView scoreBar;
+        TextView genre;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -92,7 +100,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             imageView = itemView.findViewById(R.id.moviePic);
             movieName = itemView.findViewById(R.id.movieName);
             releaseDate = itemView.findViewById(R.id.releaseDate);
+            scoreBar = itemView.findViewById(R.id.scorebar);
             score = itemView.findViewById(R.id.score);
+            genre = itemView.findViewById(R.id.genreDes);
         }
 
         void bind(int position) {
@@ -108,9 +118,19 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
                     .transform(transformation)
                     .into(imageView);
             movieName.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getTitle());
-            releaseDate.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
-            score.setText(String.valueOf(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()));
+            releaseDate.setText("Release Date: "+MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
+            score.setText("%Score ");
+            scoreBar.setValueAnimated(0, (long) (MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()*10),1000);
+            scoreBar.setText(String.valueOf(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()));
+            String genrestr = "Genre: ";
+            for(int i=0;i<MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().length;i++){
+                genrestr+= MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName()[i]+" ";
+            }
+            genre.setText(genrestr);
 
+            genre.setScroller(new Scroller(Contextor.getInstance().getContext()));
+            genre.setHorizontallyScrolling(true);
+            genre.setMovementMethod(new ScrollingMovementMethod());
         }
 
         @Override

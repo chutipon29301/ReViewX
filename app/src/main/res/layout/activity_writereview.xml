@@ -6,8 +6,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/primaryColor"
         android:orientation="horizontal">
 
@@ -19,16 +19,13 @@
 
             <ImageView
                 android:id="@+id/movieImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <!--<de.hdodenhof.circleimageview.CircleImageView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginLeft="8dp"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:layout_marginRight="8dp"-->
-                <!--android:foreground="@drawable/selectablebutton"-->
-                <!--android:src="@drawable/fantasy"/>-->
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:foreground="@drawable/selectablebutton"
+                android:src="@drawable/fantasy" />
 
         </LinearLayout>
 
@@ -78,8 +75,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:orientation="horizontal">
                 <EditText
                     android:id="@+id/firstWord"
@@ -110,12 +107,9 @@
     <EditText
         android:id="@+id/reviewText"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:hint="Write your review here"
-        android:gravity="top"
-        android:layout_weight="1"
-        />
+        android:layout_height="0dp"
+        android:layout_weight="2"/> >
+
 
     <Button
         android:id="@+id/btn_review"
