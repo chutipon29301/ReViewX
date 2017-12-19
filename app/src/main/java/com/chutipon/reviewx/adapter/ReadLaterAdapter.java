@@ -17,6 +17,8 @@ import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import at.grabner.circleprogress.CircleProgressView;
+
 
 /**
  * Created by admin on 12/9/2017 AD.
@@ -69,6 +71,7 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
         private int position;
         private ImageView moviePic;
         private TextView score, reviewerName, firstword, secondword, thirdword;
+        private CircleProgressView scoreBar;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -82,7 +85,7 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
             firstword = itemView.findViewById(R.id.firstWord);
             secondword = itemView.findViewById(R.id.secondWord);
             thirdword = itemView.findViewById(R.id.thirdWord);
-            score = itemView.findViewById(R.id.score);
+            scoreBar = itemView.findViewById(R.id.scorebar);
         }
 
         void bind(int position) {
@@ -92,7 +95,7 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
                 words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
             }
             reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());
-            score.setText("Score: " + ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
+//            score.setText("Score: " + ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
         }
 
         @Override
@@ -103,22 +106,25 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
         @Override
         public void onLoadMovieInfo() {
             reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());
-            score.setText("Score: " + ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
+//            score.setText("Score: " + ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
+            reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookName());
+
             TextView[] words = {firstword, secondword, thirdword};
             for (int i = 0; i < 3; i++) {
                 words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
             }
-            reviewerName.setText(MovieInfoManager.getInstance().getMovieInfoDao().getTitle());
             Transformation transformation = new RoundedTransformationBuilder()
                     .cornerRadiusDp(30)
                     .oval(true)
                     .build();
             Picasso.with(itemView.getContext())
-                    .load(MovieInfoManager.getInstance().getMovieInfoDao().getPosterPath())
+                    .load(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getMoviePic())
                     .resize(150, 150)
                     .centerCrop()
                     .transform(transformation)
                     .into(moviePic);
+            scoreBar.setValueAnimated(0,ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore(),1000);
+
         }
     }
 }

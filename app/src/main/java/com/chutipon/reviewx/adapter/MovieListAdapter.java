@@ -84,7 +84,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private int position;
         private ImageView imageView;
-        private TextView movieName, releaseDate, score;
+        private TextView movieName, releaseDate;
         private CircleProgressView scoreBar;
         private TextView genre;
 
@@ -119,7 +119,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
 
             movieName.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getTitle());
             releaseDate.setText("Release Date: " + MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
-            score.setText("%Score ");
             releaseDate.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
             scoreBar.setValueAnimated(0, (long) (MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()*10),1000);
             scoreBar.setText(String.valueOf(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()));

@@ -20,7 +20,7 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/selectablebutton"
-            android:src="@drawable/fantasy"/>
+            />
 
         <TextView
             android:id="@+id/movieName"

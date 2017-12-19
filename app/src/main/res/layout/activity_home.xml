@@ -48,16 +48,16 @@
             android:orientation="horizontal">
 
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/moviePic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/userPic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_margin="8dp"
                 android:background="@color/primaryColor"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/selectablebutton"
-                android:src="@drawable/fantasy" />
+                 />
 
             <TextView
 

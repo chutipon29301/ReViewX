@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.dao.MovieReviewInfoDao;
-import com.chutipon.reviewx.manager.MovieInfoManager;
 import com.chutipon.reviewx.manager.MovieReviewManager;
 import com.chutipon.reviewx.manager.ReadLaterManager;
 import com.chutipon.reviewx.manager.ReviewInfoManager;
@@ -93,8 +92,8 @@ public class ReadReviewActivity extends AppCompatActivity implements View.OnClic
         for (int i = 0; i < 3; i++) {
             words[i].setText(movieReviewInfoDao.getThreeWords().get(i));
         }
-        score.setText("Score: " + movieReviewInfoDao.getScore());
-        movieName.setText(MovieInfoManager.getInstance().getMovieInfoDao().getTitle());
+        score.setText("Score: "+movieReviewInfoDao.getScore());
+        movieName.setText(""+movieReviewInfoDao.getMovieName());
 
         Transformation transformation = new RoundedTransformationBuilder()
                 .cornerRadiusDp(30)
@@ -121,7 +120,6 @@ public class ReadReviewActivity extends AppCompatActivity implements View.OnClic
         } else {
             bookmark.setSelected(false);
             bookmark.setImageDrawable(Contextor.getInstance().getContext().getResources().getDrawable(R.drawable.ic_bookmark_border_black_24dp));
-
         }
     }
 }
