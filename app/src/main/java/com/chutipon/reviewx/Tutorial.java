@@ -2,6 +2,7 @@ package com.chutipon.reviewx;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -37,6 +38,26 @@ public class Tutorial {
                 .add(showReview)
                 .add(showLater)
                 .add(showTutorial).show();
+    }
+
+    public void showReviewTutorial(final Activity activity){
+        final FancyShowCaseView showScore = buildRoundRect(activity, activity.findViewById(R.id.score),"You give your score of the movie");
+        final FancyShowCaseView showThree = buildRoundRect(activity, activity.findViewById(R.id.threeWords),"Here you give three words for the movie");
+        final FancyShowCaseView showWrite = new FancyShowCaseView.Builder(activity)
+                .focusOn(activity.findViewById(R.id.reviewText))
+                .focusShape(FocusShape.ROUNDED_RECTANGLE)
+                .roundRectRadius(20)
+                .title("And here you write your own review")
+                .titleGravity(Gravity.TOP)
+                .showOnce("showWriteReviewDefinitely")
+                .build();
+        final FancyShowCaseView showButton = buildRoundRect(activity, activity.findViewById(R.id.btn_review),"When you finished, press here");
+
+        new FancyShowCaseQueue().add(showScore)
+                .add(showThree)
+                .add(showWrite)
+                .add(showButton)
+                .show();
     }
 
     public FancyShowCaseView build(final Activity activity, View view, final String text){
