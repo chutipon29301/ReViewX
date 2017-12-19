@@ -10,13 +10,13 @@ import io.realm.RealmObject;
  */
 
 public class LocationListDao {
-    @SerializedName("locations")    private RealmList<LocationInfoDao> locations;
+    @SerializedName("locations")    private LocationInfoDao[] locations;
 
-    public RealmList<LocationInfoDao> getLocations() {
+    public LocationInfoDao[] getLocations() {
         return locations;
     }
 
-    public void setLocations(RealmList<LocationInfoDao> locations) {
+    public void setLocations(LocationInfoDao[] locations) {
         this.locations = locations;
     }
 }

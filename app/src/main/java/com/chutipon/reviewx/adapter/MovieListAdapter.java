@@ -123,8 +123,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             scoreBar.setValueAnimated(0, (long) (MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()*10),1000);
             scoreBar.setText(String.valueOf(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()));
             String genrestr = "Genre: ";
-            for(int i=0;i<MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().length;i++){
-                genrestr+= MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName()[i]+" ";
+            for(int i=0;i<MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().size();i++){
+                genrestr+= MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().get(i)+" ";
             }
             genre.setText(genrestr);
 

@@ -58,7 +58,7 @@ public class LocationManager {
     }
 
     public LocationInfoDao getInfoAtIndex(int index) {
-        return locationListDao.getLocations().get(index);
+        return locationListDao.getLocations()[index];
     }
 
     public int getLocationsSize() {
@@ -68,6 +68,6 @@ public class LocationManager {
         if (locationListDao.getLocations() == null) {
             return 0;
         }
-        return locationListDao.getLocations().size();
+        return locationListDao.getLocations().length;
     }
 }
