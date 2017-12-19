@@ -115,7 +115,7 @@ import at.grabner.circleprogress.CircleProgressView;
 
             TextView[] words= {firstword,secondword,thirdword};
             for(int i=0;i<3;i++){
-                words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords()[i]);
+                words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
             }
 
             reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());

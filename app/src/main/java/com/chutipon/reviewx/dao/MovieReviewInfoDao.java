@@ -2,17 +2,21 @@ package com.chutipon.reviewx.dao;
 
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by admin on 17/12/2017 AD.
  */
 
-public class MovieReviewInfoDao {
+public class MovieReviewInfoDao extends RealmObject{
     @SerializedName("facebookID")           private String facebookID;
     @SerializedName("movieID")              private int movieID;
-    @SerializedName("threeWords")           private String threeWords[];
+    @SerializedName("threeWords")           private RealmList<String> threeWords;
     @SerializedName("review")               private String review;
     @SerializedName("score")                private int score;
-    @SerializedName("reviewID")             private String reviewID;
+    @PrimaryKey @SerializedName("reviewID") private String reviewID;
 
     public String getFacebookID() {
         return facebookID;
@@ -30,11 +34,11 @@ public class MovieReviewInfoDao {
         this.movieID = movieID;
     }
 
-    public String[] getThreeWords() {
+    public RealmList<String> getThreeWords() {
         return threeWords;
     }
 
-    public void setThreeWords(String[] threeWords) {
+    public void setThreeWords(RealmList<String> threeWords) {
         this.threeWords = threeWords;
     }
 

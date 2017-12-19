@@ -130,7 +130,7 @@ public class ReviewListAdapter extends RecyclerView.Adapter<ReviewListAdapter.Vi
 //                    .into(reviewerImg);
             TextView[] words= {firstword,secondword,thirdword};
             for(int i=0;i<3;i++){
-                words[i].setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords()[i]);
+                words[i].setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
             }
             score.setText(String.valueOf(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore()));
             reviewerName.setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());

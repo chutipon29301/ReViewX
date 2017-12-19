@@ -4,10 +4,15 @@ import android.util.Log;
 
 import com.chutipon.reviewx.dao.LocationInfoDao;
 import com.chutipon.reviewx.dao.LocationListDao;
+import com.chutipon.reviewx.dao.MovieReviewInfoDao;
+import com.chutipon.reviewx.dao.MovieReviewListDao;
+import com.chutipon.reviewx.dao.MovieSuggestionInfoDao;
+import com.chutipon.reviewx.dao.MovieSuggestionListDao;
 import com.chutipon.reviewx.dao.PreferenceDao;
 
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 /**
@@ -18,8 +23,14 @@ public class RealmManager {
     private static final String TAG = "RealmManager";
     private static RealmManager instance;
     private final ThreadLocal<Realm> localRealm = new ThreadLocal<>();
+    private RealmResults realmResults;
     private PreferenceDao preferenceDao;
     private LocationInfoDao locationInfoDao;
+    private LocationListDao locationListDao;
+    private MovieReviewInfoDao movieReviewInfoDao;
+    private MovieReviewListDao movieReviewListDao;
+    private MovieSuggestionInfoDao movieSuggestionInfoDao;
+    private MovieSuggestionListDao movieSuggestionListDao;
 
     RealmManager(){}
 
@@ -33,6 +44,25 @@ public class RealmManager {
     /*
     PreferenceDao stuff
      */
+
+    public void storePreferenceDao(final PreferenceDao pd){
+        runTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(pd);
+            }
+        }, new Realm.Transaction.OnSuccess(){
+            @Override
+            public void onSuccess(){
+                Log.i(TAG, "PreferenceDao is stored successfully.");
+            }
+        }, new Realm.Transaction.OnError(){
+            @Override
+            public void onError(Throwable error){
+                Log.e(TAG, "ERROR in storePreferenceDao()");
+            }
+        });
+    }
 
     public void storePreferenceDao(int userID, String rank) {
         preferenceDao = new PreferenceDao();
@@ -70,6 +100,26 @@ public class RealmManager {
     LocationInfoDao stuff
      */
 
+    public void storeLocationInfoDao(final LocationInfoDao lid){
+        //TODO:Test
+        runTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(lid);
+            }
+        }, new Realm.Transaction.OnSuccess(){
+            @Override
+            public void onSuccess(){
+                Log.i(TAG, "LocationInfoDao is stored successfully.");
+            }
+        }, new Realm.Transaction.OnError(){
+            @Override
+            public void onError(Throwable error){
+                Log.e(TAG, "ERROR in storeLocationInfoDao()");
+            }
+        });
+    }
+
     public void storeLocationInfoDao(String name, double latitude, double longitude, String locationID){
         locationInfoDao = new LocationInfoDao();
         locationInfoDao.setName(name);
@@ -94,9 +144,15 @@ public class RealmManager {
         });
     }
 
+    public void storeAllLocationInfoDao(LocationInfoDao[] lidArray){
+        for(LocationInfoDao lid : lidArray){
+            storeLocationInfoDao(lid);
+        }
+    }
+
     public void storeAllLocationInfoDao(LocationListDao locationListDao){
         for(LocationInfoDao lid : locationListDao.getLocations()){
-            storeLocationInfoDao(lid.getName(), lid.getLatitude(), lid.getLongitude(), lid.getLocationID());
+            storeLocationInfoDao(lid);
         }
     }
 
@@ -108,6 +164,192 @@ public class RealmManager {
             }
         });
         return locationInfoDao;
+    }
+
+    public LocationInfoDao[] findAllLocationInfoDao(){
+        Realm realm = openLocalInstance();
+        try{
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realmResults = realm.where(LocationInfoDao.class).findAll();
+                }
+            });
+        }finally{
+            closeLocalInstance();
+        }
+        return (LocationInfoDao[])realmResults.toArray(new LocationInfoDao[realmResults.size()]);
+    }
+
+    /*
+    MovieReviewInfoDao stuff
+     */
+
+    public void storeMovieReviewInfoDao(final MovieReviewInfoDao mrid){
+        runTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(mrid);
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "MovieReviewInfoDao is stored successfully.");
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Log.e(TAG, "ERROR in MovieReviewInfoDao");
+            }
+        });
+    }
+
+    public void storeMovieReviewInfoDao(String facebookID, int movieID, RealmList<String> threeWords, String review, int score, String reviewID){
+        movieReviewInfoDao = new MovieReviewInfoDao();
+        movieReviewInfoDao.setFacebookID(facebookID);
+        movieReviewInfoDao.setMovieID(movieID);
+        movieReviewInfoDao.setThreeWords(threeWords);
+        movieReviewInfoDao.setReview(review);
+        movieReviewInfoDao.setScore(score);
+        movieReviewInfoDao.setReviewID(reviewID);
+        runTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(movieReviewInfoDao);
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "MovieReviewInfoDao is stored successfully.");
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Log.e(TAG, "ERROR in MovieReviewInfoDao");
+            }
+        });
+    }
+
+    public void storeAllMovieReviewInfoDao(MovieReviewInfoDao[] mridArray){
+        for (MovieReviewInfoDao mrid : mridArray){
+            storeMovieReviewInfoDao(mrid);
+        }
+    }
+
+    public void storeAllMoviewReviewInfoDao(MovieReviewListDao mrld){
+        for (MovieReviewInfoDao mrid : mrld.getMovieReviewInfoDao()){
+            storeMovieReviewInfoDao(mrid);
+        }
+    }
+
+    public MovieReviewInfoDao findMovieReviewInfoDao(final String reviewID){
+        runTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                movieReviewInfoDao = realm.where(MovieReviewInfoDao.class).equalTo("reviewID", reviewID).findFirst();
+            }
+        });
+        return movieReviewInfoDao;
+    }
+
+    public MovieReviewInfoDao[] findAllMovieReviewInfoDao(){
+        Realm realm = openLocalInstance();
+        try{
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realmResults = realm.where(MovieReviewInfoDao.class).findAll();
+                }
+            });
+        }finally{
+            closeLocalInstance();
+        }
+        return (MovieReviewInfoDao[])realmResults.toArray(new MovieReviewInfoDao[realmResults.size()]);
+    }
+
+    /*
+    MovieSuggestionInfoDao stuff
+     */
+    public void storeMovieSuggestionInfoDao(final MovieSuggestionInfoDao msid){
+        runTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(msid);
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "MovieSuggestionInfoDao is stored successfully.");
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Log.e(TAG, "ERROR in MovieSuggestionInfoDao");
+            }
+        });
+    }
+
+    public void storeMovieSuggestionInfoDao(int id, double voteAverage, String title, String posterPath, String releaseDate, RealmList<String> genreName){
+        movieSuggestionInfoDao = new MovieSuggestionInfoDao();
+        movieSuggestionInfoDao.setId(id);
+        movieSuggestionInfoDao.setVoteAverage(voteAverage);
+        movieSuggestionInfoDao.setTitle(title);
+        movieSuggestionInfoDao.setPosterPath(posterPath);
+        movieSuggestionInfoDao.setReleaseDate(releaseDate);
+        movieSuggestionInfoDao.setGenreName(genreName);
+        runTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.copyToRealmOrUpdate(movieSuggestionInfoDao);
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Log.i(TAG, "MovieReviewInfoDao is stored successfully.");
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Log.e(TAG, "ERROR in MovieReviewInfoDao");
+            }
+        });
+    }
+
+    public void storeAllMovieSuggestionInfoDao(MovieSuggestionInfoDao[] msidArray){
+        for (MovieSuggestionInfoDao msid : msidArray){
+            storeMovieSuggestionInfoDao(msid);
+        }
+    }
+
+    public void storeAllMoviewSuggestionInfoDao(MovieSuggestionListDao msld){
+        for (MovieSuggestionInfoDao msid : msld.getMovieSuggestionInfoDao()){
+            storeMovieSuggestionInfoDao(msid);
+        }
+    }
+
+    public MovieSuggestionInfoDao findMovieSuggestionInfoDao(final int id){
+        runTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                movieSuggestionInfoDao = realm.where(MovieSuggestionInfoDao.class).equalTo("id", id).findFirst();
+            }
+        });
+        return movieSuggestionInfoDao;
+    }
+
+    public MovieSuggestionInfoDao[] findAllMovieSuggestionInfoDao(){
+        Realm realm = openLocalInstance();
+        try{
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realmResults = realm.where(MovieSuggestionInfoDao.class).findAll();
+                }
+            });
+        }finally{
+            closeLocalInstance();
+        }
+        return (MovieSuggestionInfoDao[])realmResults.toArray(new MovieSuggestionInfoDao[realmResults.size()]);
     }
 
     /**
