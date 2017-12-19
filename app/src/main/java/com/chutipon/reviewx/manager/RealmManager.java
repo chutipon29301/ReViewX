@@ -154,12 +154,17 @@ public class RealmManager {
     }
 
     public LocationInfoDao findLocationInfoDao(final String locationID){
-        runTransaction(new Realm.Transaction(){
-            @Override
-            public void execute(Realm realm){
-                locationInfoDao = realm.where(LocationInfoDao.class).equalTo("locationID", locationID).findFirst();
-            }
-        });
+        Realm realm = openLocalInstance();
+        try{
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    locationInfoDao = realm.where(LocationInfoDao.class).equalTo("locationID",locationID).findFirst();
+                }
+            });
+        }finally{
+            closeLocalInstance();
+        }
         return locationInfoDao;
     }
 
@@ -240,12 +245,17 @@ public class RealmManager {
     }
 
     public MovieReviewInfoDao findMovieReviewInfoDao(final String reviewID){
-        runTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                movieReviewInfoDao = realm.where(MovieReviewInfoDao.class).equalTo("reviewID", reviewID).findFirst();
-            }
-        });
+        Realm realm = openLocalInstance();
+        try{
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    movieReviewInfoDao = realm.where(MovieReviewInfoDao.class).equalTo("reviewID",reviewID).findFirst();
+                }
+            });
+        }finally{
+            closeLocalInstance();
+        }
         return movieReviewInfoDao;
     }
 
@@ -325,12 +335,17 @@ public class RealmManager {
     }
 
     public MovieSuggestionInfoDao findMovieSuggestionInfoDao(final int id){
-        runTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                movieSuggestionInfoDao = realm.where(MovieSuggestionInfoDao.class).equalTo("id", id).findFirst();
-            }
-        });
+        Realm realm = openLocalInstance();
+        try{
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    movieSuggestionInfoDao = realm.where(MovieSuggestionInfoDao.class).equalTo("id",id).findFirst();
+                }
+            });
+        }finally{
+            closeLocalInstance();
+        }
         return movieSuggestionInfoDao;
     }
 
