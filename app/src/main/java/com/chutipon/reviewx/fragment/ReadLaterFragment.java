@@ -49,11 +49,9 @@ public class ReadLaterFragment extends Fragment implements View.OnClickListener 
     private void initInstance(View rootView) {
 
        readLaterRecycler = rootView.findViewById(R.id.movielistRecycler);
+        ReadLaterAdapter.getInstance().init(getActivity().getBaseContext());
 
-            ReadLaterAdapter.getInstance().init(getActivity().getBaseContext());
-
-
-        readLaterRecycler.setAdapter(MyReviewAdapter.getInstance());
+        readLaterRecycler.setAdapter(ReadLaterAdapter.getInstance());
 
         readLaterRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         btnwrite = rootView.findViewById(R.id.btn_write);

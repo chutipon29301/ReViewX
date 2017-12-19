@@ -13,6 +13,11 @@ import io.realm.annotations.PrimaryKey;
 public class MovieReviewInfoDao extends RealmObject{
     @SerializedName("facebookID")           private String facebookID;
     @SerializedName("movieID")              private int movieID;
+    @SerializedName("movieName")              private String movieName;
+    @SerializedName("moviePic")              private String moviePic;
+    @SerializedName("facebookPic")          private String facebookPic;
+    @SerializedName("facebookName")         private String facebookName;
+
     @SerializedName("threeWords")           private RealmList<String> threeWords;
     @SerializedName("review")               private String review;
     @SerializedName("score")                private int score;
@@ -64,5 +69,37 @@ public class MovieReviewInfoDao extends RealmObject{
 
     public void setReviewID(String reviewID) {
         this.reviewID = reviewID;
+    }
+
+    public String getFacebookPic() {
+        return facebookPic;
+    }
+
+    public void setFacebookPic(String facebookPic) {
+        this.facebookPic = facebookPic;
+    }
+
+    public String getFacebookName() {
+        return facebookName;
+    }
+
+    public void setFacebookName(String facebookName) {
+        this.facebookName = facebookName;
+    }
+
+    public String getMovieName() {
+        return movieName;
+    }
+
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
+
+    public String getMoviePic() {
+        return moviePic;
+    }
+
+    public void setMoviePic(String moviePic) {
+        this.moviePic = moviePic;
     }
 }

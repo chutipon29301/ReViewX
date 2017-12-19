@@ -33,8 +33,8 @@
                 android:textStyle="bold"/>
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/scorebar"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_alignBaseline="@id/movieName"
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"

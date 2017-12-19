@@ -14,7 +14,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:orientation="vertical">
 
             <ImageView
@@ -30,25 +29,26 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="0dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            >
 
             <TextView
                 android:id="@+id/movieName"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:text="Movie"
                 android:textColor="@color/secondaryLightColor"
                 android:textStyle="bold"
+                android:layout_marginTop="20dp"
                 android:gravity="center_vertical"/>
 
             <LinearLayout
+                android:id="@+id/linearscore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/movieName"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
@@ -76,6 +76,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_margin="10dp"
                 android:orientation="horizontal">
                 <EditText
@@ -100,7 +101,7 @@
                     android:textColor="@color/secondaryLightColor"
                     android:gravity="center"/>
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -108,7 +109,7 @@
         android:id="@+id/reviewText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"/> >
+        android:layout_weight="3"/> >
 
 
     <Button
