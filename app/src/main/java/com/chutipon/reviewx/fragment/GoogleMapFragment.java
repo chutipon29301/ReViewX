@@ -48,6 +48,7 @@ public class GoogleMapFragment extends SupportMapFragment implements OnMapReadyC
         super.onCreate(bundle);
         instance = this;
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        LocationManager.getInstance().load();
     }
 
     @Override
@@ -148,4 +149,5 @@ public class GoogleMapFragment extends SupportMapFragment implements OnMapReadyC
                     .title(LocationManager.getInstance().getInfoAtIndex(i).getName()));
         }
     }
+
 }

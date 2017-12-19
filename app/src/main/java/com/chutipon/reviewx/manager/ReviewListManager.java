@@ -11,29 +11,26 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by admin on 17/12/2017 AD.
+ * Created by admin on 18/12/2017 AD.
  */
 
-public class MovieReviewManager {
-    private static final String TAG = "MovieReviewManager";
-    private static MovieReviewManager instance;
+public class ReviewListManager {
+    private static final String TAG = "ReviewListManager";
+    private static ReviewListManager instance;
     private MovieReviewListDao movieReviewListDao;
 
-    public interface onLoad{
-        void onLoadReviewComplete();
+    public interface OnLoad {
+        void onLoadComplete();
     }
 
-    public static MovieReviewManager getInstance(){
-        if (instance == null){
-            instance = new MovieReviewManager();
+    public static ReviewListManager getInstance() {
+        if (instance == null) {
+            instance = new ReviewListManager();
         }
         return instance;
     }
 
-    private MovieReviewManager(){
-    }
-
-    public void getReview(int movieID, final MovieReviewManager.onLoad callback){
+    public void load(int movieID, final ReviewListManager.OnLoad callback) {
         HttpManager.getInstance().getApiService().getMovieReview(movieID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -56,23 +53,18 @@ public class MovieReviewManager {
 
                     @Override
                     public void onComplete() {
-                        Log.i(TAG, "onComplete: ");
-                        callback.onLoadReviewComplete();
+                        Log.i(TAG, "onComplete: called");
+                        callback.onLoadComplete();
                     }
                 });
     }
 
     public int getSize(){
-        if (movieReviewListDao == null){
-            return 0;
-        }
-        if (movieReviewListDao.getMovieReviewInfoDao() == null){
-            return 0;
-        }
         return movieReviewListDao.getMovieReviewInfoDao().length;
     }
 
-    public MovieReviewInfoDao getMovieReviewInfoDaoAtIndex(int index){
+    public MovieReviewInfoDao getMovieReviewInfoAtIndex(int index){
         return movieReviewListDao.getMovieReviewInfoDao()[index];
     }
+
 }

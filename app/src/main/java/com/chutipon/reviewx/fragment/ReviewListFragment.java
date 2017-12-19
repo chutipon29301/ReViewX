@@ -59,8 +59,7 @@ public class ReviewListFragment extends Fragment implements View.OnClickListener
     private void initInstance(View rootView) {
 
         reviewListRecycler = rootView.findViewById(R.id.reviewlistRecycler);
-        ReviewListAdapter.getInstance().init(getActivity().getBaseContext());
-
+        ReviewListAdapter.getInstance().init(getActivity().getBaseContext(), getArguments().getInt("movieID"));
         reviewListRecycler.setAdapter(ReviewListAdapter.getInstance());
 
         reviewListRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
@@ -83,6 +82,8 @@ public class ReviewListFragment extends Fragment implements View.OnClickListener
     private static ReviewListFragment instance;
 
     public ReviewListFragment(){
+        Bundle args = new Bundle();
+        setArguments(args);
     }
 
 
@@ -106,5 +107,9 @@ public class ReviewListFragment extends Fragment implements View.OnClickListener
         description.setText("Description: "+MovieInfoManager.getInstance().getMovieInfoDao().getOverview());
         runtime.setText("Runtime: "+MovieInfoManager.getInstance().getMovieInfoDao().getRuntime());
         releaseDate.setText("Release Date: "+MovieInfoManager.getInstance().getMovieInfoDao().getReleaseDate());
+    }
+
+    public void onLoadMovieReview(){
+
     }
 }

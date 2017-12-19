@@ -2,8 +2,8 @@ package com.chutipon.reviewx.manager;
 
 import android.util.Log;
 
-import com.chutipon.reviewx.activity.ReviewListActivity;
-import com.chutipon.reviewx.dao.MovieInfoDao;
+import com.chutipon.reviewx.dao.AddReviewDao;
+import com.chutipon.reviewx.dao.GeneralResponseDao;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -14,39 +14,37 @@ import io.reactivex.schedulers.Schedulers;
  * Created by admin on 18/12/2017 AD.
  */
 
-public class MovieInfoManager {
-    private static final String TAG = "MovieInfoManager";
-    private static MovieInfoManager instance;
-    private MovieInfoDao movieInfoDao;
+public class AddReviewManager {
+    private static final String TAG = "AddReviewManager";
+    private static AddReviewManager instance;
 
-    public interface onLoad {
-        void onLoadMovieInfo();
+    public interface onLoadComplete {
+        void onLoadComplete();
     }
 
-    public static MovieInfoManager getInstance() {
+    public static AddReviewManager getInstance() {
         if (instance == null) {
-            instance = new MovieInfoManager();
+            instance = new AddReviewManager();
         }
         return instance;
     }
 
-    private MovieInfoManager() {
+    private AddReviewManager() {
     }
 
-    public void load(final int movieID, final MovieInfoManager.onLoad callback) {
-        HttpManager.getInstance().getApiService().getMovieInfo(movieID)
+    public void addReview(AddReviewDao addReviewDao, final AddReviewManager.onLoadComplete callback) {
+        HttpManager.getInstance().getApiService().addReview(addReviewDao)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<MovieInfoDao>() {
+                .subscribe(new Observer<GeneralResponseDao>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         Log.i(TAG, "onSubscribe: called");
                     }
 
                     @Override
-                    public void onNext(MovieInfoDao value) {
+                    public void onNext(GeneralResponseDao value) {
                         Log.i(TAG, "onNext: called");
-                        movieInfoDao = value;
                     }
 
                     @Override
@@ -57,12 +55,8 @@ public class MovieInfoManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
-                        callback.onLoadMovieInfo();
+                        callback.onLoadComplete();
                     }
                 });
-    }
-
-    public MovieInfoDao getMovieInfoDao() {
-        return movieInfoDao;
     }
 }

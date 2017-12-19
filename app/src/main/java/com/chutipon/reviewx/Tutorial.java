@@ -26,15 +26,6 @@ public class Tutorial {
         return instance;
     }
 
-    public void showMainTutorial(final Activity activity){
-        final FancyShowCaseView showWelcome = new FancyShowCaseView.Builder(activity).title("Welcome to ReviewX!").build();
-        final FancyShowCaseView showWrite = new FancyShowCaseView.Builder(activity).title("Welcome to ReviewX!").focusOn(activity.findViewById(R.id.btn_write)).build();
-        //TODO: Add FancyShowCaseView for menu button
-        final FancyShowCaseView showMenu = null;
-        new FancyShowCaseQueue().add(showWelcome).add(showWrite).show();
-
-    }
-
     public void showMenuTutorial(final Activity activity){
         final FancyShowCaseView showExplore = buildRoundRect(activity, activity.findViewById(R.id.tab_explore), "Explore is where you can look through your movie choices");
         final FancyShowCaseView showNear = buildRoundRect(activity, activity.findViewById(R.id.tab_nearby),"You can see near by cinemas here");
@@ -59,7 +50,7 @@ public class Tutorial {
                         ((TextView)activity.findViewById(R.id.tutorialText)).setText(text);
                     }
                 })
-//                .showOnce(""+view.getId())
+                .showOnce(""+view.getId())
                 .build();
     }
 
@@ -74,7 +65,7 @@ public class Tutorial {
                 })
                 .focusShape(FocusShape.ROUNDED_RECTANGLE)
                 .roundRectRadius(20)
-//                .showOnce(""+view.getId())
+                .showOnce(""+view.getId())
                 .build();
     }
 }

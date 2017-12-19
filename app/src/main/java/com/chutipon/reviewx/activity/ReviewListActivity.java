@@ -1,8 +1,8 @@
 package com.chutipon.reviewx.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -10,7 +10,7 @@ import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.fragment.ReviewListFragment;
 import com.chutipon.reviewx.manager.MovieInfoManager;
 
-public class ReviewListActivity extends AppCompatActivity {
+public class ReviewListActivity extends AppCompatActivity implements MovieInfoManager.onLoad{
 
     private static final String TAG = "ReviewListActivity";
     private static ReviewListActivity instance;
@@ -27,13 +27,14 @@ public class ReviewListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review_list);
 
         Intent intent = getIntent();
-        movieID = intent.getIntExtra("movieID",-1);
+        movieID = intent.getIntExtra("movieID", -1);
         Log.d(TAG, "onCreate: movieID " + movieID);
-        if (movieID == -1){
+        if (movieID == -1) {
             finish();
         }
 
         if (savedInstanceState == null) {
+            ReviewListFragment.getInstance().getArguments().putInt("movieID", movieID);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, ReviewListFragment.getInstance(), "ReviewListFragment")
                     .commit();
@@ -43,10 +44,18 @@ public class ReviewListActivity extends AppCompatActivity {
     }
 
     private void initInstance(Bundle savedInstanceState) {
-        MovieInfoManager.getInstance().load(movieID);
+        MovieInfoManager.getInstance().load(movieID, this);
     }
 
-    public void onLoadMovieInfo(){
+    @Override
+    public void onLoadMovieInfo() {
         ReviewListFragment.getInstance().onLoadMovieInfo();
     }
+
+    public void redirect(Class cls, String key, String value) {
+        Intent intent = new Intent(ReviewListActivity.this, cls);
+        intent.putExtra(key, value);
+        startActivity(intent);
+    }
+
 }

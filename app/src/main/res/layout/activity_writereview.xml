@@ -17,15 +17,15 @@
             android:layout_weight="0"
             android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
+                android:id="@+id/movieImage"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
                 android:foreground="@drawable/selectablebutton"
-                android:src="@drawable/fantasy"/>
-
+                android:src="@drawable/fantasy" />
 
         </LinearLayout>
 
@@ -104,26 +104,19 @@
 
     </LinearLayout>
 
-    <ScrollView
+    <EditText
+        android:id="@+id/reviewText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
-        >
+        android:layout_weight="2"/> >
 
-        <EditText
-            android:id="@+id/reviewText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_margin="8dp"
-            />
-    </ScrollView>
+
     <Button
         android:id="@+id/btn_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Review!"
         android:layout_gravity="right"
-        android:layout_margin="10dp"/>
+        android:layout_margin="8dp"/>
 
 </LinearLayout>

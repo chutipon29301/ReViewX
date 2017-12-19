@@ -40,8 +40,12 @@ public class SearchActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //Do some magic
-                return false;
+                Intent intent = new Intent(SearchActivity.this, WriteReviewActivity.class);
+                intent.putExtra("movieID", SearchMovieManager.getInstance().getSearchResultInfoDaoAtIndex(0).getId());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
+                return true;
             }
 
             @Override

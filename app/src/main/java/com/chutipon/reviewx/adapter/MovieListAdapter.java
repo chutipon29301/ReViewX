@@ -38,13 +38,13 @@ import at.markushi.ui.CircleButton;
  * Created by admin on 12/9/2017 AD.
  */
 
-public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> implements View.OnClickListener {
+public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> implements MovieSuggestionManager.onLoad {
 
     private static final String TAG = "MovieListAdapter";
+    private static MovieListAdapter instance;
     private LayoutInflater mInflater;
 
     private MovieListAdapter() {
-
     }
 
     public static MovieListAdapter getInstance() {
@@ -54,20 +54,16 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         return instance;
     }
 
-    private static MovieListAdapter instance;
-
     public void init(Context cont) {
         mInflater = LayoutInflater.from(cont);
+        MovieSuggestionManager.getInstance().load(this);
         Log.d("printming", mInflater + "");
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.view_movielist_custom, parent, false);
-        parent.setOnClickListener(this);
         return new ViewHolder(view);
-
-
     }
 
     @Override
@@ -82,12 +78,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     }
 
     @Override
-    public void onClick(View view) {
-
+    public void onloadComplete() {
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         private int position;
         private ImageView imageView;
         private TextView movieName, releaseDate,score;
@@ -142,6 +137,5 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         public void onClick(View view) {
             HomeActivity.getInstance().redirect(ReviewListActivity.class, "movieID", MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getId());
         }
-
     }
 }
