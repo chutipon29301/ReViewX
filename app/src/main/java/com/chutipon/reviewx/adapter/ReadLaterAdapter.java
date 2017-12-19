@@ -2,32 +2,21 @@ package com.chutipon.reviewx.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 import com.chutipon.reviewx.activity.ReadReviewActivity;
-import com.chutipon.reviewx.activity.ReviewListActivity;
 import com.chutipon.reviewx.manager.MovieInfoManager;
-import com.chutipon.reviewx.manager.MovieReviewManager;
-import com.chutipon.reviewx.manager.MovieSuggestionManager;
 import com.chutipon.reviewx.manager.ReadLaterManager;
-import com.chutipon.reviewx.util.Contextor;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
-
-import org.w3c.dom.Text;
-
-import at.grabner.circleprogress.CircleProgressView;
 
 
 /**
@@ -54,6 +43,7 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
     public void init(Context cont) {
         mInflater = LayoutInflater.from(cont);
         Log.d("printming", mInflater + "");
+        ReadLaterManager.getInstance().loadReadLaterMovieReviewList(this);
     }
 
 
@@ -61,8 +51,6 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.view_reviewlist_custom, parent, false);
         parent.setOnClickListener(this);
-        ReadLaterManager.getInstance().loadReadLaterMovieReviewList(this);
-
         return new ViewHolder(view);
     }
 
