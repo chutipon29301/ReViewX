@@ -26,11 +26,8 @@ public class RealmManager {
     private RealmResults realmResults;
     private PreferenceDao preferenceDao;
     private LocationInfoDao locationInfoDao;
-    private LocationListDao locationListDao;
     private MovieReviewInfoDao movieReviewInfoDao;
-    private MovieReviewListDao movieReviewListDao;
     private MovieSuggestionInfoDao movieSuggestionInfoDao;
-    private MovieSuggestionListDao movieSuggestionListDao;
 
     RealmManager(){}
 

@@ -85,7 +85,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private int position;
         private ImageView imageView;
-        private TextView movieName, releaseDate,score;
+        private TextView movieName, releaseDate;
         CircleProgressView scoreBar;
         TextView genre;
 
@@ -101,7 +101,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             movieName = itemView.findViewById(R.id.movieName);
             releaseDate = itemView.findViewById(R.id.releaseDate);
             scoreBar = itemView.findViewById(R.id.scorebar);
-            score = itemView.findViewById(R.id.score);
             genre = itemView.findViewById(R.id.genreDes);
         }
 
@@ -118,15 +117,14 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
                     .transform(transformation)
                     .into(imageView);
             movieName.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getTitle());
-            releaseDate.setText("Release Date: "+MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
-            score.setText("%Score ");
+            releaseDate.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
             scoreBar.setValueAnimated(0, (long) (MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()*10),1000);
             scoreBar.setText(String.valueOf(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()));
-            String genrestr = "Genre: ";
+            String genrestr = "";
             for(int i=0;i<MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().size();i++){
                 genrestr+= MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().get(i)+" ";
             }
-            genre.setText(genrestr);
+//            genre.setText(genrestr);
 
             genre.setScroller(new Scroller(Contextor.getInstance().getContext()));
             genre.setHorizontallyScrolling(true);

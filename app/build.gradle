@@ -53,5 +53,4 @@ dependencies {
     implementation 'com.android.support:design:27.0.1'
     compile 'com.github.jakob-grabner:Circle-Progress-View:v1.3'
 
-
 }
