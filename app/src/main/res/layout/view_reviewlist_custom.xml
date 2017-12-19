@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:CircleProgressView="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/border"
     android:gravity="center">
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:layout_margin="8dp"
+            android:layout_weight="0"
             android:orientation="vertical">
 
             <ImageView
@@ -26,97 +23,89 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
-                />
-
+                android:layout_marginTop="8dp" />
 
         </LinearLayout>
-
 
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/reviewerName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Reviewer Name"
-                android:textStyle="bold"
-                android:textSize="20sp"
                 android:layout_marginTop="10dp"
-                android:autoSizeTextType="uniform"
-                android:autoSizeStepGranularity="2sp"
                 android:autoSizeMaxTextSize="20sp"
                 android:autoSizeMinTextSize="8sp"
-                android:gravity="center_vertical"/>
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <at.grabner.circleprogress.CircleProgressView
                 android:id="@+id/scorebar"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="12dp"
-                android:layout_marginRight="12dp"
                 android:layout_alignBaseline="@id/releaseDateLabel"
-                android:layout_alignParentRight="true"
-                CircleProgressView:cpv_textSize="14sp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="12dp"
+                CircleProgressView:cpv_barColor="@color/primaryColor"
+                CircleProgressView:cpv_barStrokeCap="Round"
+                CircleProgressView:cpv_barWidth="8dp"
                 CircleProgressView:cpv_blockCount="100"
                 CircleProgressView:cpv_blockScale="0.9"
-                CircleProgressView:cpv_barColor="@color/primaryColor"
-                CircleProgressView:cpv_barWidth="8dp"
-                CircleProgressView:cpv_barStrokeCap="Round"
-                CircleProgressView:cpv_rimWidth="10dp"
+                CircleProgressView:cpv_direction="CCW"
                 CircleProgressView:cpv_innerContourColor="@color/secondaryLightColor"
                 CircleProgressView:cpv_outerContourColor="@color/secondaryLightColor"
                 CircleProgressView:cpv_rimColor="@color/secondaryLightColor"
-                CircleProgressView:cpv_direction="CCW"
+                CircleProgressView:cpv_rimWidth="10dp"
+                CircleProgressView:cpv_showUnit="true"
+                CircleProgressView:cpv_textSize="14sp"
                 CircleProgressView:cpv_unit="%"
                 CircleProgressView:cpv_unitPosition="right_top"
-                CircleProgressView:cpv_showUnit="true"
-                CircleProgressView:cpv_unitSize="8sp"
-                />
+                CircleProgressView:cpv_unitSize="8sp" />
 
             <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="8dp"
-                android:paddingBottom="10dp"
-                android:orientation="horizontal">
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp">
+
                 <TextView
                     android:id="@+id/firstWord"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="awesome"
+                    android:gravity="center_vertical" />
 
-                    android:gravity="center_vertical"/>
                 <TextView
                     android:id="@+id/secondWord"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="awesome"
+                    android:gravity="center_vertical" />
 
-                    android:gravity="center_vertical"/>
                 <TextView
                     android:id="@+id/thirdWord"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="awesome"
+                    android:gravity="center_vertical" />
 
-                    android:gravity="center_vertical"/>
             </LinearLayout>
+
         </RelativeLayout>
 
     </LinearLayout>
-
-
 
 </RelativeLayout>
