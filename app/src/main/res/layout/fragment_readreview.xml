@@ -1,126 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondaryLightColor">
+    android:background="@color/secondaryLightColor"
+    android:orientation="vertical">
 
-   <FrameLayout
-       android:layout_width="match_parent"
-       android:layout_height="50dp"
-       android:background="@color/primaryDarkColor"
-       >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/primaryDarkColor">
 
-       <ImageButton
-           android:id="@+id/btn_bookmark"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_gravity="right|center"
-           android:padding="10dp"
-           android:clickable="true"
-           android:focusable="true"
-           android:src="@drawable/ic_bookmark_border_black_24dp"
-           android:background="@color/primaryDarkColor"
-           />
+        <ImageButton
+            android:id="@+id/btn_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:background="@color/primaryDarkColor"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="10dp"
+            android:src="@drawable/ic_bookmark_border_black_24dp"
+            android:contentDescription="@string/bookmark" />
 
-   </FrameLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:background="@color/primaryColor"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:background="@color/primaryColor"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:orientation="vertical">
-
-
-                <ImageView
-                    android:id="@+id/reviewerImg"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="10dp"
-                    android:foreground="@drawable/selectablebutton"
-                    />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
-
-
-
-                <TextView
-                    android:id="@+id/movieName"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/secondaryLightColor"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:gravity="center_vertical"/>
-
-                <TextView
-                    android:id="@+id/score"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:textSize="16sp"
-                    android:textColor="@color/secondaryLightColor"
-                    android:gravity="center_vertical"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/firstWord"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:textColor="@color/secondaryLightColor"
-                        android:gravity="center_vertical"/>
-                    <TextView
-                        android:id="@+id/secondWord"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:textColor="@color/secondaryLightColor"
-                        android:gravity="center_vertical"/>
-                    <TextView
-                        android:id="@+id/thirdWord"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:textColor="@color/secondaryLightColor"
-                        android:gravity="center_vertical"/>
-                </LinearLayout>
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/reviewerImg"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:foreground="@drawable/selectablebutton"
+                android:contentDescription="@string/movie_or_profile_image" />
 
         </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/reviewText"
+                android:id="@+id/movieName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="" />
-        </ScrollView>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/secondaryLightColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/secondaryLightColor"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/firstWord"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/secondaryLightColor" />
+
+                <TextView
+                    android:id="@+id/secondWord"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/secondaryLightColor" />
+
+                <TextView
+                    android:id="@+id/thirdWord"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/secondaryLightColor" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/reviewText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="" />
+    </ScrollView>
 
 </LinearLayout>

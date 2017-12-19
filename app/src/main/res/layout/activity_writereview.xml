@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondaryLightColor">
+    android:background="@color/secondaryLightColor"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,28 +22,26 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
                 android:foreground="@drawable/selectablebutton"
-               />
+                android:contentDescription="@string/movie_or_profile_image" />
 
         </LinearLayout>
 
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/movieName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Movie"
-                android:textColor="@color/secondaryLightColor"
-                android:textStyle="bold"
                 android:layout_marginTop="20dp"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:text="@string/movie"
+                android:textColor="@color/secondaryLightColor"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/linearscore"
@@ -50,28 +49,28 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/movieName"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="score"
-                    android:textColor="@color/secondaryLightColor"
-                    android:gravity="center_vertical"/>
+                    android:gravity="center_vertical"
+                    android:text="@string/score"
+                    android:textColor="@color/secondaryLightColor" />
+
                 <EditText
                     android:id="@+id/score"
-                    android:inputType="number"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    />
+                    android:inputType="number" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="/100"
-                    android:textColor="@color/secondaryLightColor"
-                    android:gravity="center_vertical"/>
-
+                    android:gravity="center_vertical"
+                    android:text="@string/_100"
+                    android:textColor="@color/secondaryLightColor" />
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,28 +78,33 @@
                 android:layout_alignParentBottom="true"
                 android:layout_margin="10dp"
                 android:orientation="horizontal">
+
                 <EditText
                     android:id="@+id/firstWord"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/secondaryLightColor"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:textColor="@color/secondaryLightColor" />
+
                 <EditText
                     android:id="@+id/secondWord"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/secondaryLightColor"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:textColor="@color/secondaryLightColor" />
+
                 <EditText
                     android:id="@+id/thirdWord"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:textColor="@color/secondaryLightColor"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:textColor="@color/secondaryLightColor" />
+
             </LinearLayout>
+
         </RelativeLayout>
 
     </LinearLayout>
@@ -109,15 +113,14 @@
         android:id="@+id/reviewText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"/> >
-
+        android:layout_weight="3" />
 
     <Button
         android:id="@+id/btn_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Review!"
-        android:layout_gravity="right"
-        android:layout_margin="8dp"/>
+        android:layout_gravity="end"
+        android:layout_margin="8dp"
+        android:text="@string/review" />
 
 </LinearLayout>
