@@ -57,7 +57,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     public void init(Context cont) {
         mInflater = LayoutInflater.from(cont);
         MovieSuggestionManager.getInstance().load(this);
-        Log.d("printming", mInflater + "");
+        Log.i(TAG, "init: mInflater " + mInflater);
     }
 
     @Override
@@ -70,7 +70,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     public void onBindViewHolder(MovieListAdapter.ViewHolder holder, int position) {
         holder.bind(position);
     }
-
 
     @Override
     public int getItemCount() {
@@ -85,9 +84,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private int position;
         private ImageView imageView;
-        private TextView movieName, releaseDate,score;
-        CircleProgressView scoreBar;
-        TextView genre;
+        private TextView movieName, releaseDate, score;
+        private CircleProgressView scoreBar;
+        private TextView genre;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -107,6 +106,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
 
         void bind(int position) {
             this.position = position;
+
             Transformation transformation = new RoundedTransformationBuilder()
                     .cornerRadiusDp(30)
                     .oval(true)
@@ -117,17 +117,19 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
                     .centerCrop()
                     .transform(transformation)
                     .into(imageView);
-            movieName.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getTitle());
-            releaseDate.setText("Release Date: "+MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
-            score.setText("%Score ");
-            scoreBar.setValueAnimated(0, (long) (MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()*10),1000);
-            scoreBar.setText(String.valueOf(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()));
-            String genrestr = "Genre: ";
-            for(int i=0;i<MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().size();i++){
-                genrestr+= MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().get(i)+" ";
-            }
-            genre.setText(genrestr);
 
+            movieName.setText(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getTitle());
+            releaseDate.setText("Release Date: " + MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getReleaseDate());
+            score.setText("%Score ");
+
+            scoreBar.setValueAnimated(0, (long) (MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage() * 10), 1000);
+            scoreBar.setText(String.valueOf(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getVoteAverage()));
+
+            StringBuilder genreString = new StringBuilder("Genre: ");
+            for (int i = 0; i < MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().size(); i++) {
+                genreString.append(MovieSuggestionManager.getInstance().getMovieSuggestionInfoAtIndex(position).getGenreName().get(i)).append(" ");
+            }
+            genre.setText(genreString.toString());
             genre.setScroller(new Scroller(Contextor.getInstance().getContext()));
             genre.setHorizontallyScrolling(true);
             genre.setMovementMethod(new ScrollingMovementMethod());
