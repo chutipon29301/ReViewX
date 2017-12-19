@@ -1,6 +1,5 @@
 package com.chutipon.reviewx.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,17 +12,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.chutipon.reviewx.R;
-import com.chutipon.reviewx.Tutorial;
 import com.chutipon.reviewx.activity.HomeActivity;
-
-import com.chutipon.reviewx.activity.SearchActivity;
 import com.chutipon.reviewx.adapter.MovieListAdapter;
-import com.scalified.fab.ActionButton;
 
-import at.markushi.ui.CircleButton;
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
 import me.toptas.fancyshowcase.FocusShape;
@@ -92,7 +85,8 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         if(view==btnwrite){
-            HomeActivity.getInstance().redirect(SearchActivity.class);
+//            HomeActivity.getInstance().redirect(SearchActivity.class);
+            HomeActivity.getInstance().triggerSearch();
         }
     }
 

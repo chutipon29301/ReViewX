@@ -2,9 +2,9 @@ package com.chutipon.reviewx.manager;
 
 import android.util.Log;
 
-import com.chutipon.reviewx.activity.SearchActivity;
-import com.chutipon.reviewx.dao.SearchResultInfoDao;
 import com.chutipon.reviewx.dao.SearchResultListDao;
+
+import java.util.HashMap;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -18,6 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 public class SearchMovieManager {
     private static final String TAG = "SearchMovieManager";
     private static SearchMovieManager instance;
+    private HashMap<String, Integer> searchResult;
 
     public interface onLoad {
         void onLoadSearchResult(String[] result);
@@ -31,6 +32,7 @@ public class SearchMovieManager {
     }
 
     private SearchMovieManager() {
+        searchResult = new HashMap<>();
     }
 
     public void search(String key, final SearchMovieManager.onLoad callback) {
@@ -49,6 +51,7 @@ public class SearchMovieManager {
                         String[] result = new String[value.getSearchResultInfoDaos().length];
                         for (int i = 0; i < value.getSearchResultInfoDaos().length; i++) {
                             result[i] = value.getSearchResultInfoDaos()[i].getTitle();
+                            searchResult.put(value.getSearchResultInfoDaos()[i].getTitle(),value.getSearchResultInfoDaos()[i].getId());
                         }
                         callback.onLoadSearchResult(result);
                     }
@@ -63,5 +66,9 @@ public class SearchMovieManager {
                         Log.i(TAG, "onComplete: called");
                     }
                 });
+    }
+
+    public int getMovieIDForKey(String key){
+        return searchResult.get(key);
     }
 }

@@ -7,17 +7,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.manager.SearchMovieManager;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
+
+import br.com.mauker.materialsearchview.MaterialSearchView;
 
 public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
@@ -40,14 +41,28 @@ public class SearchActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         searchView = findViewById(R.id.search_view);
+        Button button = findViewById(R.id.search);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchView.openSearch();
+            }
+        });
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchView.openSearch();
+            }
+        });
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Intent intent = new Intent(SearchActivity.this, WriteReviewActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                finish();
-                return true;
+//                Intent intent = new Intent(SearchActivity.this, WriteReviewActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                startActivity(intent);
+//                finish();
+//                return true;
+                return false;
             }
 
             @Override
@@ -55,35 +70,33 @@ public class SearchActivity extends AppCompatActivity {
                 SearchMovieManager.getInstance().search(newText, new SearchMovieManager.onLoad() {
                     @Override
                     public void onLoadSearchResult(String[] result) {
-                        searchView.setSuggestions(result);
+//                        searchView.setSuggestions(result);
+                        searchView.addSuggestions(result);
                     }
                 });
                 return true;
             }
         });
 
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-                //Do some magic
-            }
+//        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+//            @Override
+//            public void onSearchViewShown() {
+//                //Do some magic
+//            }
+//
+//            @Override
+//            public void onSearchViewClosed() {
+//                //Do some magic
+//            }
+//        });
+//        searchView.setVoiceSearch(false);
 
+        searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onSearchViewClosed() {
-                //Do some magic
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
             }
         });
-        searchView.setVoiceSearch(false);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-
-        MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
-
-        return true;
     }
 
     @Override

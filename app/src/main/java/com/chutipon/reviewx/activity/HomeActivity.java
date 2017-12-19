@@ -1,14 +1,13 @@
 package com.chutipon.reviewx.activity;
 
+import android.app.SearchManager;
 import android.content.Context;
-
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,23 +15,26 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.Tutorial;
 import com.chutipon.reviewx.fragment.MapFragment;
 import com.chutipon.reviewx.fragment.MovieListFragment;
-
 import com.chutipon.reviewx.fragment.MyReviewFragment;
 import com.chutipon.reviewx.fragment.ReadLaterFragment;
+import com.chutipon.reviewx.manager.SearchMovieManager;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.Profile;
 import com.squareup.seismic.ShakeDetector;
 
+import br.com.mauker.materialsearchview.MaterialSearchView;
 import me.toptas.fancyshowcase.FancyShowCaseView;
+import retrofit2.http.HEAD;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ShakeDetector.Listener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ShakeDetector.Listener, SearchMovieManager.onLoad {
     private static final int START_SHAKE_ACTIVITY = 1;
     private static boolean shakeActivityRunning = false;
     private static String TAG = "HomeActivity";
@@ -40,6 +42,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private AccessTokenTracker accessTokenTracker;
+    private MaterialSearchView searchView;
 
     public static HomeActivity getInstance() {
         return instance;
@@ -75,16 +78,27 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         drawerLayout = findViewById(R.id.drawerLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer){
+
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 Tutorial.getInstance().showMenuTutorial(HomeActivity.this);
             }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                if (MovieListFragment.getInstance().isVisible()) {
+                    MovieListFragment.getInstance().showMainTutorial();
+                }
+
+            }
+
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
-//        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         findViewById(R.id.tab_explore).setOnClickListener(this);
@@ -96,6 +110,33 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         TextView username = findViewById(R.id.username);
         username.setText(Profile.getCurrentProfile().getName());
 
+
+        searchView = findViewById(R.id.search_view);
+
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                SearchMovieManager.getInstance().search(newText,HomeActivity.this);
+                return false;
+            }
+        });
+
+        searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectMovie = searchView.getSuggestionAtPosition(i);
+//                Log.d(TAG, "onItemClick: name " + selectMovie);
+//                Log.d(TAG, "onItemClick: id " + SearchMovieManager.getInstance().getMovieIDForKey(selectMovie));
+                Intent intent = new Intent(HomeActivity.this, WriteReviewActivity.class);
+                intent.putExtra("movieID",SearchMovieManager.getInstance().getMovieIDForKey(selectMovie));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -132,16 +173,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra(key, value);
         startActivity(intent);
     }
+
     public void redirect(Class cls, String key, String value) {
         Intent intent = new Intent(HomeActivity.this, cls);
         intent.putExtra(key, value);
         startActivity(intent);
-    }
-
-    public void redirectFragment(Fragment frag) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contentContainer, frag)
-                .commit();
     }
 
     @Override
@@ -152,6 +188,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        Log.d(TAG, "onClick: " + view.getId());
         switch (view.getId()) {
             case R.id.tab_explore:
                 getSupportFragmentManager().beginTransaction()
@@ -208,5 +245,23 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(HomeActivity.this, ShakeActivity.class);
             startActivityForResult(intent, START_SHAKE_ACTIVITY);
         }
+    }
+
+    public void triggerSearch() {
+        searchView.openSearch();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (searchView.isOpen()) {
+            searchView.closeSearch();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onLoadSearchResult(String[] result) {
+        searchView.addSuggestions(result);
     }
 }
