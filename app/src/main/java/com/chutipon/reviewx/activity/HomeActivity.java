@@ -195,7 +195,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         .replace(R.id.contentContainer, MovieListFragment.getInstance())
                         .commit();
                 drawerLayout.closeDrawers();
-                MovieListFragment.getInstance().showMainTutorial();
                 break;
             case R.id.tab_nearby:
                 getSupportFragmentManager().beginTransaction()
@@ -217,6 +216,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.tab_tutorial:
                 FancyShowCaseView.resetAllShowOnce(this);
+                if(!MovieListFragment.getInstance().isVisible()){
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.contentContainer, MovieListFragment.getInstance())
+                            .commit();
+                }
                 drawerLayout.closeDrawers();
                 break;
         }
