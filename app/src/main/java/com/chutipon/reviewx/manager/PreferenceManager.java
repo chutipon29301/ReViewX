@@ -63,4 +63,14 @@ public class PreferenceManager {
     public GenreListDao getGenreListDao() {
         return genreListDao;
     }
+
+    public int getSize(){
+        if (genreListDao == null){
+            return 0;
+        }
+        if (genreListDao.getGenres() == null){
+            return 0;
+        }
+        return genreListDao.getGenres().length;
+    }
 }

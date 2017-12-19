@@ -2,7 +2,6 @@ package com.chutipon.reviewx.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +22,13 @@ import com.squareup.picasso.Transformation;
  * Created by admin on 12/9/2017 AD.
  */
 
-public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.ViewHolder> implements View.OnClickListener, ReadLaterManager.onLoad {
+public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.ViewHolder> implements ReadLaterManager.onLoad {
 
+    private static final String TAG = "ReadLaterAdapter";
+    private static ReadLaterAdapter instance;
     private LayoutInflater mInflater;
 
     private ReadLaterAdapter() {
-
     }
 
     public static ReadLaterAdapter getInstance() {
@@ -38,19 +38,14 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
         return instance;
     }
 
-    private static ReadLaterAdapter instance;
-
     public void init(Context cont) {
         mInflater = LayoutInflater.from(cont);
-        Log.d("printming", mInflater + "");
         ReadLaterManager.getInstance().loadReadLaterMovieReviewList(this);
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.view_reviewlist_custom, parent, false);
-        parent.setOnClickListener(this);
         return new ViewHolder(view);
     }
 
@@ -59,17 +54,9 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
         holder.bind(position);
     }
 
-
     @Override
     public int getItemCount() {
-        Log.d("itemcount", "" + ReadLaterManager.getInstance().getSize());
         return ReadLaterManager.getInstance().getSize();
-
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 
     @Override
@@ -83,14 +70,13 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
         private ImageView moviePic;
         private TextView score, reviewerName, firstword, secondword, thirdword;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             initInstance(itemView);
         }
 
         private void initInstance(View itemView) {
-
             moviePic = itemView.findViewById(R.id.reviewerImg);
             reviewerName = itemView.findViewById(R.id.reviewerName);
             firstword = itemView.findViewById(R.id.firstWord);
@@ -99,32 +85,24 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
             score = itemView.findViewById(R.id.score);
         }
 
+        void bind(int position) {
+            this.position = position;
+            TextView[] words = {firstword, secondword, thirdword};
+            for (int i = 0; i < 3; i++) {
+                words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
+            }
+            reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());
+            score.setText("Score: " + ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
+        }
 
         @Override
         public void onClick(View view) {
             HomeActivity.getInstance().redirect(ReadReviewActivity.class, "reviewID", ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getReviewID());
-
-        }
-
-        public void bind(int position) {
-            this.position = position;
-
-            TextView[] words= {firstword,secondword,thirdword};
-            for(int i=0;i<3;i++){
-                words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
-            }
-
-            reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());
-
-            score.setText("Score: "+ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
-
         }
 
         @Override
         public void onLoadMovieInfo() {
-
             reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());
-
             score.setText("Score: " + ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
             TextView[] words = {firstword, secondword, thirdword};
             for (int i = 0; i < 3; i++) {
@@ -141,9 +119,6 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
                     .centerCrop()
                     .transform(transformation)
                     .into(moviePic);
-
-
         }
-
     }
 }

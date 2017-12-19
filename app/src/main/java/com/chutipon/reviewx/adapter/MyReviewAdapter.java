@@ -2,7 +2,6 @@ package com.chutipon.reviewx.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,6 @@ import android.widget.TextView;
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 import com.chutipon.reviewx.activity.ReadReviewActivity;
-import com.chutipon.reviewx.activity.ReviewListActivity;
-import com.chutipon.reviewx.manager.AddReviewManager;
-import com.chutipon.reviewx.manager.MovieInfoManager;
 import com.chutipon.reviewx.manager.MovieReviewManager;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
@@ -30,10 +26,10 @@ import at.grabner.circleprogress.CircleProgressView;
 public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHolder> implements View.OnClickListener, MovieReviewManager.onLoad {
 
     private static final String TAG = "MyReviewAdapter";
+    private static MyReviewAdapter instance;
     private LayoutInflater mInflater;
 
     private MyReviewAdapter() {
-
     }
 
     public static MyReviewAdapter getInstance() {
@@ -43,11 +39,9 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHo
         return instance;
     }
 
-    private static MyReviewAdapter instance;
 
     public void init(Context cont) {
         mInflater = LayoutInflater.from(cont);
-        Log.d("printming", mInflater + "");
     }
 
 

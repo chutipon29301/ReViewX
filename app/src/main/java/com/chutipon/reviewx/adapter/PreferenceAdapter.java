@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
-import com.chutipon.reviewx.dao.PreferenceInfoDao;
 import com.chutipon.reviewx.manager.PreferenceManager;
 import com.chutipon.reviewx.util.Contextor;
 import com.chutipon.reviewx.util.PreferenceUtil;
@@ -24,12 +23,11 @@ import com.squareup.picasso.Transformation;
  * Created by admin on 12/9/2017 AD.
  */
 
-
 public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.ViewHolder> {
 
+    private static final String TAG = "PreferenceAdapter";
     private static PreferenceAdapter instance;
     private LayoutInflater mInflater;
-    private static final String TAG = "PreferenceAdapter";
 
     private PreferenceAdapter() {
 
@@ -49,9 +47,7 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.view_genre_custom, parent, false);
-
         return new ViewHolder(view);
-
     }
 
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -60,21 +56,12 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Vi
 
     @Override
     public int getItemCount() {
-
-        if (PreferenceManager.getInstance().getGenreListDao() == null) {
-            return 0;
-        }
-        if (PreferenceManager.getInstance().getGenreListDao().getGenres() == null) {
-            return 0;
-        }
-        return PreferenceManager.getInstance().getGenreListDao().getGenres().length;
-
+        return PreferenceManager.getInstance().getSize();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        ImageButton img;
-        int position;
+        private ImageButton img;
+        private int position;
         private TextView txtGenre;
 
         ViewHolder(View itemView) {
@@ -104,16 +91,11 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Vi
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onClick(View view) {
-
             img.setSelected(!img.isSelected());
-
             if (img.isSelected()) {
-                //Handle selected state change
-//                PreferenceUtil.getInstance().addLike(PreferenceManager.getInstance().getGenreListDao().getGenres()[position].getGenreID());
                 PreferenceUtil.getInstance().setValue(position, true);
                 img.setBackground(Contextor.getInstance().getContext().getDrawable(R.drawable.circle_background));
             } else {
-//                PreferenceUtil.getInstance().addDislike(PreferenceManager.getInstance().getGenreListDao().getGenres()[position].getGenreID());
                 PreferenceUtil.getInstance().setValue(position, false);
                 img.setBackgroundColor(Color.TRANSPARENT);
             }

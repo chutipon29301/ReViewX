@@ -107,6 +107,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
 
         searchView = findViewById(R.id.search_view);
+        searchView.clearAll();
 
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
