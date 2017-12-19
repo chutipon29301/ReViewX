@@ -59,7 +59,14 @@
         <activity
             android:name=".activity.ShakeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.ReviewListActivity"></activity>
+        <activity android:name=".activity.ReviewListActivity"/>
+
+        <provider
+            android:name="br.com.mauker.materialsearchview.db.HistoryProvider"
+            android:authorities="br.com.mauker.materialsearchview.searchhistorydatabase"
+            android:exported="false"
+            android:protectionLevel="signature"
+            android:syncable="true"/>
     </application>
 
 </manifest>
