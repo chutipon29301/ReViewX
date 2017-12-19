@@ -121,6 +121,14 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
         public void bind(int position) {
             this.position = position;
 
+            TextView[] words= {firstword,secondword,thirdword};
+            for(int i=0;i<3;i++){
+                words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
+            }
+
+            reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());
+
+            score.setText("Score: "+ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
 
         }
 
@@ -132,7 +140,7 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
             score.setText("Score: " + ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
             TextView[] words = {firstword, secondword, thirdword};
             for (int i = 0; i < 3; i++) {
-                words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords()[i]);
+                words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
             }
             reviewerName.setText(MovieInfoManager.getInstance().getMovieInfoDao().getTitle());
             Transformation transformation = new RoundedTransformationBuilder()

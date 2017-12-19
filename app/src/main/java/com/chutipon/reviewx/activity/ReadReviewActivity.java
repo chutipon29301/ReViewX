@@ -110,7 +110,7 @@ public class ReadReviewActivity extends AppCompatActivity implements View.OnClic
         fullreview.setText(movieReviewInfoDao.getReview());
         TextView[] words = {firstword,secondword,thirdword};
         for (int i=0;i<3;i++){
-            words[i].setText(movieReviewInfoDao.getThreeWords()[i]);
+            words[i].setText(movieReviewInfoDao.getThreeWords().get(i));
         }
         score.setText("Score: "+movieReviewInfoDao.getScore());
         movieName.setText(MovieInfoManager.getInstance().getMovieInfoDao().getTitle());

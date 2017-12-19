@@ -127,7 +127,7 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHo
             TextView[] words = {firstword, secondword, thirdword};
             for (int i = 0; i < 3; i++) {
                 words[i].setMaxLines(1);
-                words[i].setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords()[i]);
+                words[i].setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
             }
             scoreBar.setValueAnimated(0,(long)MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore(),1000);
             movieName.setText(MovieReviewManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getMovieName());
