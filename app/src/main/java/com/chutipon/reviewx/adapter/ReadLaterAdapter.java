@@ -70,7 +70,10 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
 
         private int position;
         private ImageView moviePic;
-        private TextView score, reviewerName, firstword, secondword, thirdword;
+        private TextView reviewerName;
+        private TextView firstWord;
+        private TextView secondWord;
+        private TextView thirdWord;
         private CircleProgressView scoreBar;
 
         ViewHolder(View itemView) {
@@ -82,34 +85,16 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
         private void initInstance(View itemView) {
             moviePic = itemView.findViewById(R.id.reviewerImg);
             reviewerName = itemView.findViewById(R.id.reviewerName);
-            firstword = itemView.findViewById(R.id.firstWord);
-            secondword = itemView.findViewById(R.id.secondWord);
-            thirdword = itemView.findViewById(R.id.thirdWord);
+            firstWord = itemView.findViewById(R.id.firstWord);
+            secondWord = itemView.findViewById(R.id.secondWord);
+            thirdWord = itemView.findViewById(R.id.thirdWord);
             scoreBar = itemView.findViewById(R.id.scorebar);
         }
 
         void bind(int position) {
             this.position = position;
-            TextView[] words = {firstword, secondword, thirdword};
-            for (int i = 0; i < 3; i++) {
-                words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
-            }
-            reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());
-//            score.setText("Score: " + ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
-        }
-
-        @Override
-        public void onClick(View view) {
-            HomeActivity.getInstance().redirect(ReadReviewActivity.class, "reviewID", ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getReviewID());
-        }
-
-        @Override
-        public void onLoadMovieInfo() {
-            reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookID());
-//            score.setText("Score: " + ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore());
             reviewerName.setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getFacebookName());
-
-            TextView[] words = {firstword, secondword, thirdword};
+            TextView[] words = {firstWord, secondWord, thirdWord};
             for (int i = 0; i < 3; i++) {
                 words[i].setText(ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getThreeWords().get(i));
             }
@@ -124,7 +109,15 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
                     .transform(transformation)
                     .into(moviePic);
             scoreBar.setValueAnimated(0,ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore(),1000);
+        }
 
+        @Override
+        public void onClick(View view) {
+            HomeActivity.getInstance().redirect(ReadReviewActivity.class, "reviewID", ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getReviewID());
+        }
+
+        @Override
+        public void onLoadMovieInfo() {
         }
     }
 }

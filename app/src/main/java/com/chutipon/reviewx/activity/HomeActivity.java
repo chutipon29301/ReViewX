@@ -205,7 +205,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Log.d(TAG, "onClick: " + view.getId());
         switch (view.getId()) {
             case R.id.tab_explore:
                 getSupportFragmentManager().beginTransaction()
