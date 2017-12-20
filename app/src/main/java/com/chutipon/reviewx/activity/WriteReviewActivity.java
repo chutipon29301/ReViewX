@@ -3,15 +3,19 @@ package com.chutipon.reviewx.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputFilter;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Scroller;
 
+import com.chutipon.reviewx.MinMaxFilter;
 import com.chutipon.reviewx.R;
+import com.chutipon.reviewx.Tutorial;
 import com.chutipon.reviewx.dao.AddReviewDao;
 import com.chutipon.reviewx.manager.AddReviewManager;
 import com.chutipon.reviewx.manager.MovieInfoManager;
@@ -21,6 +25,9 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
+
+import me.toptas.fancyshowcase.FancyShowCaseView;
+import me.toptas.fancyshowcase.FocusShape;
 
 
 public class WriteReviewActivity extends AppCompatActivity implements View.OnClickListener, MovieInfoManager.onLoad, AddReviewManager.onLoadComplete {
@@ -64,6 +71,7 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
         secondWord.setHorizontallyScrolling(true);
         thirdWord.setHorizontallyScrolling(true);
         score.setMaxLines(1);
+        score.setFilters(new InputFilter[]{new MinMaxFilter(this,"0","100")});
         movieImage = findViewById(R.id.movieImage);
 
         questionEntry = findViewById(R.id.reviewText);
@@ -73,6 +81,7 @@ public class WriteReviewActivity extends AppCompatActivity implements View.OnCli
         questionEntry.setMovementMethod(new ScrollingMovementMethod());
         reviewBtn.setOnClickListener(this);
 
+        Tutorial.getInstance().showReviewTutorial(this);
     }
 
     @Override

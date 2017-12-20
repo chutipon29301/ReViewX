@@ -59,6 +59,7 @@
         android:layout_below="@id/movieName"
         android:layout_marginTop="4dp"
         android:layout_toEndOf="@id/moviePic"
+        android:text="@string/releaseLabel"
         android:textSize="14sp" />
 
     <TextView

@@ -2,14 +2,10 @@
     <string name="app_name">ReViewX</string>
     <string name="facebook_app_id">134837027180827</string>
     <string name="fb_login_protocol_scheme">fb134837027180827</string>
-
     <string name="google_api_key">AIzaSyCzzVHY7aZTK6eHMe0sm4B8FXXPjfLfo0k</string>
-
     <string name="open_drawer">Open Menu</string>
     <string name="close_drawer">Close Menu</string>
-
     <string name="base_url">http://35.196.223.145:3000/</string>
-  
     <string name="title_activity_main2">Main2Activity</string>
     <string name="explore">Explore</string>
     <string name="near_by">Near by</string>
@@ -20,11 +16,12 @@
     <string name="select_your_favorite_genre">Select your favorite genre</string>
     <string name="enter">Enter</string>
     <string name="movie">Movie</string>
-    <string name="score">score</string>
+    <string name="score">Score</string>
     <string name="_100">/100</string>
     <string name="review">Review!</string>
     <string name="movie_or_profile_image">Movie or Profile image</string>
     <string name="randomizer">Randomizer</string>
     <string name="bookmark">bookmark</string>
     <string name="movie_poster">Movie poster</string>
+    <string name="releaseLabel">Release Date:</string>
 </resources>

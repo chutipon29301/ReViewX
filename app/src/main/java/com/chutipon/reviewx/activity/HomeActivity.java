@@ -37,12 +37,14 @@ import com.squareup.seismic.ShakeDetector;
 
 import br.com.mauker.materialsearchview.MaterialSearchView;
 import me.toptas.fancyshowcase.FancyShowCaseView;
+import retrofit2.http.HEAD;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener, ShakeDetector.Listener, SearchMovieManager.onLoad {
     private static final int START_SHAKE_ACTIVITY = 1;
     private static final String TAG = "HomeActivity";
     private static boolean shakeActivityRunning = false;
     private static HomeActivity instance;
+    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private AccessTokenTracker accessTokenTracker;
     private MaterialSearchView searchView;
@@ -84,9 +86,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
 
 
-
-        DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer) {
+        drawerLayout = findViewById(R.id.drawerLayout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout, R.string.open_drawer, R.string.close_drawer){
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -101,6 +102,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
             }
+
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -210,24 +212,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer, MovieListFragment.getInstance())
                         .commit();
+                drawerLayout.closeDrawers();
                 break;
             case R.id.tab_nearby:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer, MapFragment.getInstance())
                         .commit();
+                drawerLayout.closeDrawers();
                 break;
             case R.id.tab_myreview:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer, MyReviewFragment.getInstance())
                         .commit();
+                drawerLayout.closeDrawers();
                 break;
             case R.id.tab_readLater:
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.contentContainer, ReadLaterFragment.getInstance())
                         .commit();
+                drawerLayout.closeDrawers();
                 break;
             case R.id.tab_tutorial:
                 FancyShowCaseView.resetAllShowOnce(this);
+                if(!MovieListFragment.getInstance().isVisible()){
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.contentContainer, MovieListFragment.getInstance())
+                            .commit();
+                }
+                drawerLayout.closeDrawers();
                 break;
         }
     }

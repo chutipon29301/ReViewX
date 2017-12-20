@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +19,15 @@ import com.chutipon.reviewx.adapter.MovieListAdapter;
 
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
+import me.toptas.fancyshowcase.FocusShape;
 
 /**
  * Created by admin on 12/9/2017 AD.
  */
 
 public class MovieListFragment extends Fragment implements View.OnClickListener {
+    private RecyclerView movieListRecycler;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private static final String TAG = "MovieListFragment";
     private static MovieListFragment instance;
     private FloatingActionButton btnwrite;
@@ -42,13 +48,22 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
     }
 
     private void initInstance(View rootView) {
-        RecyclerView movieListRecycler = rootView.findViewById(R.id.movielistRecycler);
+        movieListRecycler = rootView.findViewById(R.id.movielistRecycler);
         btnwrite = rootView.findViewById(R.id.btn_write);
         MovieListAdapter.getInstance().init(getActivity().getBaseContext());
 
         movieListRecycler.setAdapter(MovieListAdapter.getInstance());
         movieListRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         btnwrite.setOnClickListener(this);
+
+        swipeRefreshLayout = rootView.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                movieListRecycler.setAdapter(MovieListAdapter.getInstance());
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         showMainTutorial();
     }
 
@@ -65,13 +80,24 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
                 .title("Welcome to ReviewX!")
                 .showOnce("showWelcome")
                 .build();
+        final FancyShowCaseView showMovieList = new FancyShowCaseView.Builder(getActivity())
+                .title("Here movies are suggested according to your preference")
+                .showOnce("showMovieList")
+                .build();
         final FancyShowCaseView showWrite = new FancyShowCaseView.Builder(getActivity())
                 .focusOn(btnwrite)
                 .title("You can write your review here")
                 .showOnce("showWrite")
                 .build();
-        //TODO: Add FancyShowCaseView for menu button
-        final FancyShowCaseView showMenu = null;
-        new FancyShowCaseQueue().add(showWelcome).add(showWrite).show();
+        final FancyShowCaseView showMenu = new FancyShowCaseView.Builder(getActivity())
+                .title("← You can open menu here")
+                .titleSize(20, TypedValue.COMPLEX_UNIT_SP)
+                .titleGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL)
+                .showOnce("showMenu")
+                .build();
+        new FancyShowCaseQueue().add(showWelcome)
+                .add(showMovieList)
+                .add(showWrite)
+                .add(showMenu).show();
     }
 }
