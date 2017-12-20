@@ -20,7 +20,7 @@ public class MovieSuggestionManager {
     private static MovieSuggestionManager instance;
     private MovieSuggestionListDao movieSuggestionListDao;
 
-    public interface onLoad{
+    public interface onLoad {
         void onloadComplete();
     }
 
@@ -32,11 +32,13 @@ public class MovieSuggestionManager {
     }
 
     private MovieSuggestionManager() {
-        movieSuggestionListDao = new MovieSuggestionListDao();
-        movieSuggestionListDao.setMovieSuggestionInfoDao(RealmManager.getInstance().findAllMovieSuggestionInfoDao());
+//        if (RealmManager.getInstance().findAllMovieSuggestionInfoDao() != null) {
+//            movieSuggestionListDao = new MovieSuggestionListDao();
+//            movieSuggestionListDao.setMovieSuggestionInfoDao(RealmManager.getInstance().findAllMovieSuggestionInfoDao());
+//        }
     }
 
-    public void load(final MovieSuggestionManager.onLoad callback){
+    public void load(final MovieSuggestionManager.onLoad callback) {
         HttpManager.getInstance().getApiService().listMovieSuggestion(AccessToken.getCurrentAccessToken().getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -60,23 +62,23 @@ public class MovieSuggestionManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
-                        RealmManager.getInstance().storeAllMovieSuggestionInfoDao(movieSuggestionListDao);
+//                        RealmManager.getInstance().storeAllMovieSuggestionInfoDao(movieSuggestionListDao);
                         callback.onloadComplete();
                     }
                 });
     }
 
-    public int getSize(){
-        if (movieSuggestionListDao == null){
-            return  0;
+    public int getSize() {
+        if (movieSuggestionListDao == null) {
+            return 0;
         }
-        if (movieSuggestionListDao.getMovieSuggestionInfoDao() == null){
+        if (movieSuggestionListDao.getMovieSuggestionInfoDao() == null) {
             return 0;
         }
         return movieSuggestionListDao.getMovieSuggestionInfoDao().length;
     }
 
-    public MovieSuggestionInfoDao getMovieSuggestionInfoAtIndex(int index){
+    public MovieSuggestionInfoDao getMovieSuggestionInfoAtIndex(int index) {
         return movieSuggestionListDao.getMovieSuggestionInfoDao()[index];
     }
 

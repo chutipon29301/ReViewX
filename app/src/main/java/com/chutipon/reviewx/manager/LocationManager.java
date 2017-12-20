@@ -27,11 +27,13 @@ public class LocationManager {
     }
 
     private LocationManager() {
-        locationListDao = new LocationListDao();
-        locationListDao.setLocations(RealmManager.getInstance().findAllLocationInfoDao());
+//        if (RealmManager.getInstance().findAllLocationInfoDao() != null) {
+//            locationListDao = new LocationListDao();
+//            locationListDao.setLocations(RealmManager.getInstance().findAllLocationInfoDao());
+//        }
     }
 
-    public void load(){
+    public void load() {
         HttpManager.getInstance().getApiService().getLocation()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,7 +56,7 @@ public class LocationManager {
 
                     @Override
                     public void onComplete() {
-                        RealmManager.getInstance().storeAllLocationInfoDao(locationListDao);
+//                        RealmManager.getInstance().storeAllLocationInfoDao(locationListDao);
                         Log.i(TAG, "onComplete: called");
                     }
                 });

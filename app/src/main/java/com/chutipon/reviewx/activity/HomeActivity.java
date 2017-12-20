@@ -25,6 +25,7 @@ import com.chutipon.reviewx.fragment.MovieListFragment;
 import com.chutipon.reviewx.fragment.MyReviewFragment;
 import com.chutipon.reviewx.fragment.ReadLaterFragment;
 import com.chutipon.reviewx.manager.MovieSuggestionManager;
+import com.chutipon.reviewx.manager.RealmManager;
 import com.chutipon.reviewx.manager.SearchMovieManager;
 import com.chutipon.reviewx.util.Contextor;
 import com.facebook.AccessToken;
