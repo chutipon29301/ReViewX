@@ -72,6 +72,9 @@
 
         <activity android:name=".activity.ReviewListActivity"/>
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d5fec8ac1f77256eeba2c2447bdba146f09a1f32" />
     </application>
 
 </manifest>
