@@ -27,6 +27,8 @@ public class LocationManager {
     }
 
     private LocationManager() {
+        locationListDao = new LocationListDao();
+        locationListDao.setLocations(RealmManager.getInstance().findAllLocationInfoDao());
     }
 
     public void load(){
@@ -52,6 +54,7 @@ public class LocationManager {
 
                     @Override
                     public void onComplete() {
+                        RealmManager.getInstance().storeAllLocationInfoDao(locationListDao);
                         Log.i(TAG, "onComplete: called");
                     }
                 });
