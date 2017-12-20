@@ -7,8 +7,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:background="@color/primaryColor"
         android:orientation="horizontal">
 
@@ -21,25 +21,26 @@
                 android:id="@+id/movieImage"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_margin="8dp"
                 android:foreground="@drawable/selectablebutton"
                 android:contentDescription="@string/movie_or_profile_image" />
 
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/movieName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:text="@string/movie"
+                android:textSize="20sp"
                 android:textColor="@color/secondaryLightColor"
                 android:textStyle="bold" />
 
@@ -47,7 +48,7 @@
                 android:id="@+id/linearscore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/movieName"
+                android:layout_weight="0"
                 android:orientation="horizontal">
 
                 <TextView
@@ -55,6 +56,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/score"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:textColor="@color/secondaryLightColor" />
 
                 <EditText
@@ -68,15 +71,17 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/_100"
+                    android:textSize="18sp"
                     android:textColor="@color/secondaryLightColor" />
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/threeWords"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="4dp"
                 android:orientation="horizontal">
 
                 <EditText
@@ -105,7 +110,7 @@
 
             </LinearLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -113,14 +118,18 @@
         android:id="@+id/reviewText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3" />
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:hint="Write your review here"
+        android:gravity="top"/>
 
     <Button
         android:id="@+id/btn_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginRight="4dp"
         android:text="@string/review" />
 
 </LinearLayout>
