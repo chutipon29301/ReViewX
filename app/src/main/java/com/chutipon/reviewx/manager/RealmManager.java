@@ -238,7 +238,7 @@ public class RealmManager {
         }
     }
 
-    public void storeAllMoviewReviewInfoDao(MovieReviewListDao mrld){
+    public void storeAllMovieReviewInfoDao(MovieReviewListDao mrld){
         for (MovieReviewInfoDao mrid : mrld.getMovieReviewInfoDao()){
             storeMovieReviewInfoDao(mrid);
         }
@@ -344,7 +344,7 @@ public class RealmManager {
         }
     }
 
-    public void storeAllMoviewSuggestionInfoDao(MovieSuggestionListDao msld){
+    public void storeAllMovieSuggestionInfoDao(MovieSuggestionListDao msld){
         for (MovieSuggestionInfoDao msid : msld.getMovieSuggestionInfoDao()){
             storeMovieSuggestionInfoDao(msid);
         }

@@ -20,21 +20,23 @@ public class MovieReviewManager {
     private static MovieReviewManager instance;
     private MovieReviewListDao movieReviewListDao;
 
-    public interface onLoad{
+    public interface onLoad {
         void onLoadReviewComplete();
     }
 
-    public static MovieReviewManager getInstance(){
-        if (instance == null){
+    public static MovieReviewManager getInstance() {
+        if (instance == null) {
             instance = new MovieReviewManager();
         }
         return instance;
     }
 
-    private MovieReviewManager(){
+    private MovieReviewManager() {
+        movieReviewListDao = new MovieReviewListDao();
+        movieReviewListDao.setMovieReviewInfoDao(RealmManager.getInstance().findAllMovieReviewInfoDao());
     }
 
-    public void getReview(int movieID, final MovieReviewManager.onLoad callback){
+    public void getReview(int movieID, final MovieReviewManager.onLoad callback) {
         HttpManager.getInstance().getApiService().getMovieReview(movieID)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -63,7 +65,7 @@ public class MovieReviewManager {
                 });
     }
 
-    public void getMyReview(final MovieReviewManager.onLoad callback){
+    public void getMyReview(final MovieReviewManager.onLoad callback) {
         HttpManager.getInstance().getApiService().getMyReview(AccessToken.getCurrentAccessToken().getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -81,28 +83,29 @@ public class MovieReviewManager {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "onError: " + e.getMessage() );
+                        Log.e(TAG, "onError: " + e.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
+                        RealmManager.getInstance().storeAllMovieReviewInfoDao(movieReviewListDao);
                         callback.onLoadReviewComplete();
                     }
                 });
     }
 
-    public int getSize(){
-        if (movieReviewListDao == null){
+    public int getSize() {
+        if (movieReviewListDao == null) {
             return 0;
         }
-        if (movieReviewListDao.getMovieReviewInfoDao() == null){
+        if (movieReviewListDao.getMovieReviewInfoDao() == null) {
             return 0;
         }
         return movieReviewListDao.getMovieReviewInfoDao().length;
     }
 
-    public MovieReviewInfoDao getMovieReviewInfoDaoAtIndex(int index){
+    public MovieReviewInfoDao getMovieReviewInfoDaoAtIndex(int index) {
         return movieReviewListDao.getMovieReviewInfoDao()[index];
     }
 }
