@@ -23,13 +23,29 @@ public class RealmManager {
     private static final String TAG = "RealmManager";
     private static RealmManager instance;
     private final ThreadLocal<Realm> localRealm = new ThreadLocal<>();
-    private RealmResults realmResults;
+    private Realm realm;
+//    private RealmResults realmResults;
     private PreferenceDao preferenceDao;
     private LocationInfoDao locationInfoDao;
     private MovieReviewInfoDao movieReviewInfoDao;
     private MovieSuggestionInfoDao movieSuggestionInfoDao;
 
-    RealmManager(){}
+    RealmManager(){realm = Realm.getDefaultInstance();}
+
+    public void deleteAllFromRealm(){
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                realm.deleteAll();
+            }
+        });
+        Log.i(TAG, "Realm Database is deleted");
+    }
+
+    public void closeRealm(){
+        realm.close();
+        Log.i(TAG, "Realm is closed");
+    }
 
     public synchronized static RealmManager getInstance(){
         if(instance == null){
@@ -154,33 +170,12 @@ public class RealmManager {
     }
 
     public LocationInfoDao findLocationInfoDao(final String locationID){
-        Realm realm = openLocalInstance();
-        try{
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    locationInfoDao = realm.where(LocationInfoDao.class).equalTo("locationID",locationID).findFirst();
-                }
-            });
-        }finally{
-            closeLocalInstance();
-        }
-        return locationInfoDao;
+        return realm.where(LocationInfoDao.class).equalTo("locationID", locationID).findFirst();
     }
 
     public LocationInfoDao[] findAllLocationInfoDao(){
-        Realm realm = openLocalInstance();
-        try{
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    realmResults = realm.where(LocationInfoDao.class).findAll();
-                }
-            });
-        }finally{
-            closeLocalInstance();
-        }
-        return (LocationInfoDao[])realmResults.toArray(new LocationInfoDao[realmResults.size()]);
+        final RealmResults<LocationInfoDao> realmResults = realm.where(LocationInfoDao.class).findAll();
+        return realmResults.toArray(new LocationInfoDao[realmResults.size()]);
     }
 
     /*
@@ -245,33 +240,12 @@ public class RealmManager {
     }
 
     public MovieReviewInfoDao findMovieReviewInfoDao(final String reviewID){
-        Realm realm = openLocalInstance();
-        try{
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    movieReviewInfoDao = realm.where(MovieReviewInfoDao.class).equalTo("reviewID",reviewID).findFirst();
-                }
-            });
-        }finally{
-            closeLocalInstance();
-        }
-        return movieReviewInfoDao;
+        return realm.where(MovieReviewInfoDao.class).equalTo("reviewID", reviewID).findFirst();
     }
 
     public MovieReviewInfoDao[] findAllMovieReviewInfoDao(){
-        Realm realm = openLocalInstance();
-        try{
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    realmResults = realm.where(MovieReviewInfoDao.class).findAll();
-                }
-            });
-        }finally{
-            closeLocalInstance();
-        }
-        return (MovieReviewInfoDao[])realmResults.toArray(new MovieReviewInfoDao[realmResults.size()]);
+        final RealmResults<MovieReviewInfoDao> realmResults = realm.where(MovieReviewInfoDao.class).findAll();
+        return realmResults.toArray(new MovieReviewInfoDao[realmResults.size()]);
     }
 
     public void deleteMovieReviewInfoDao(final String reviewID){
@@ -288,6 +262,22 @@ public class RealmManager {
             closeLocalInstance();
         }
         Log.i(TAG, "A MovieReviewInfoDao is deleted from Realm Database");
+    }
+
+    public void deleteAllMovieReviewInfoDao(){
+        Realm realm = openLocalInstance();
+        try{
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    final RealmResults<MovieReviewInfoDao> results = realm.where(MovieReviewInfoDao.class).findAll();
+                    results.deleteAllFromRealm();
+                }
+            });
+        }finally{
+            closeLocalInstance();
+        }
+        Log.i(TAG, "All MovieReviewInfoDao is deleted from Realm Database");
     }
 
     /*
@@ -351,39 +341,49 @@ public class RealmManager {
     }
 
     public MovieSuggestionInfoDao findMovieSuggestionInfoDao(final int id){
-        Realm realm = openLocalInstance();
-        try{
-            realm.executeTransaction(new Realm.Transaction() {
-                @Override
-                public void execute(Realm realm) {
-                    movieSuggestionInfoDao = realm.where(MovieSuggestionInfoDao.class).equalTo("id",id).findFirst();
-                }
-            });
-        }finally{
-            closeLocalInstance();
-        }
-        return movieSuggestionInfoDao;
+        return realm.where(MovieSuggestionInfoDao.class).equalTo("id", id).findFirst();
     }
 
     public MovieSuggestionInfoDao[] findAllMovieSuggestionInfoDao(){
+        final RealmResults<MovieSuggestionInfoDao> realmResults = realm.where(MovieSuggestionInfoDao.class).findAll();
+        return realmResults.toArray(new MovieSuggestionInfoDao[realmResults.size()]);
+    }
+
+    public void deleteMovieSuggestionInfoDao(final String id){
         Realm realm = openLocalInstance();
         try{
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
-                    realmResults = realm.where(MovieSuggestionInfoDao.class).findAll();
+                    final RealmResults<MovieSuggestionInfoDao> results = realm.where(MovieSuggestionInfoDao.class).equalTo("id",id).findAll();
+                    results.deleteAllFromRealm();
                 }
             });
         }finally{
             closeLocalInstance();
         }
-        return (MovieSuggestionInfoDao[])realmResults.toArray(new MovieSuggestionInfoDao[realmResults.size()]);
+        Log.i(TAG, "A MovieSuggestionInfoDao is deleted from Realm Database");
+    }
+
+    public void deleteAllMovieSuggestionInfoDao(){
+        Realm realm = openLocalInstance();
+        try{
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    final RealmResults<MovieSuggestionInfoDao> results = realm.where(MovieSuggestionInfoDao.class).findAll();
+                    results.deleteAllFromRealm();
+                }
+            });
+        }finally{
+            closeLocalInstance();
+        }
+        Log.i(TAG, "All MovieSuggestionInfoDao is deleted from Realm Database");
     }
 
     /**
-     *  All hail EpicPandaForce on StackOverflow.
-     *  My design might work, but it will have problems with Thread sooner or later.
-     *  Better safe than sorry.
+     *  By EpicPandaForce from StackOverflow
+     *  Sadly it doesn't always work
      */
     public Realm openLocalInstance() {
         Realm realm = Realm.getDefaultInstance();
