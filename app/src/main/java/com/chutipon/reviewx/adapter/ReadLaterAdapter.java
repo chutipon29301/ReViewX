@@ -29,6 +29,11 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
     private static final String TAG = "ReadLaterAdapter";
     private static ReadLaterAdapter instance;
     private LayoutInflater mInflater;
+    private ReadLaterManager.onLoad callback;
+
+    public interface onLoad {
+        void onLoadComplete();
+    }
 
     private ReadLaterAdapter() {
     }
@@ -40,8 +45,14 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
         return instance;
     }
 
-    public void init(Context cont) {
+    public void init(Context cont, ReadLaterManager.onLoad callback) {
         mInflater = LayoutInflater.from(cont);
+        this.callback = callback;
+        ReadLaterManager.getInstance().loadReadLaterMovieReviewList(this);
+    }
+
+    public void refresh(ReadLaterManager.onLoad callback) {
+        this.callback = callback;
         ReadLaterManager.getInstance().loadReadLaterMovieReviewList(this);
     }
 
@@ -64,6 +75,7 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
     @Override
     public void onLoadComplete() {
         notifyDataSetChanged();
+        callback.onLoadComplete();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, MovieInfoManager.onLoad {
@@ -108,7 +120,7 @@ public class ReadLaterAdapter extends RecyclerView.Adapter<ReadLaterAdapter.View
                     .centerCrop()
                     .transform(transformation)
                     .into(moviePic);
-            scoreBar.setValueAnimated(0,ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore(),1000);
+            scoreBar.setValueAnimated(0, ReadLaterManager.getInstance().getMovieReviewInfoDaoAtIndex(position).getScore(), 1000);
         }
 
         @Override

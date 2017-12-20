@@ -21,7 +21,7 @@ public class MovieSuggestionManager {
     private MovieSuggestionListDao movieSuggestionListDao;
 
     public interface onLoad {
-        void onloadComplete();
+        void onLoadComplete();
     }
 
     public static MovieSuggestionManager getInstance() {
@@ -63,7 +63,7 @@ public class MovieSuggestionManager {
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
 //                        RealmManager.getInstance().storeAllMovieSuggestionInfoDao(movieSuggestionListDao);
-                        callback.onloadComplete();
+                        callback.onLoadComplete();
                     }
                 });
     }

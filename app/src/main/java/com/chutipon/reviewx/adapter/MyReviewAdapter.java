@@ -29,6 +29,11 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHo
     private static final String TAG = "MyReviewAdapter";
     private static MyReviewAdapter instance;
     private LayoutInflater mInflater;
+    private MyReviewAdapter.onLoad callback;
+
+    public interface onLoad{
+        void onLoadComplete();
+    }
 
     private MyReviewAdapter() {
     }
@@ -41,8 +46,9 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHo
     }
 
 
-    public void init(Context cont) {
+    public void init(Context cont, MyReviewAdapter.onLoad callback) {
         mInflater = LayoutInflater.from(cont);
+        this.callback = callback;
         MovieReviewManager.getInstance().getMyReview(this);
     }
 
@@ -68,6 +74,12 @@ public class MyReviewAdapter extends RecyclerView.Adapter<MyReviewAdapter.ViewHo
     @Override
     public void onLoadReviewComplete() {
         notifyDataSetChanged();
+        callback.onLoadComplete();
+    }
+
+    public void refresh(MyReviewAdapter.onLoad callback){
+        this.callback = callback;
+        MovieReviewManager.getInstance().getMyReview(this);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

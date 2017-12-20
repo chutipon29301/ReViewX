@@ -16,16 +16,16 @@ import android.view.ViewGroup;
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 import com.chutipon.reviewx.adapter.MovieListAdapter;
+import com.chutipon.reviewx.adapter.MyReviewAdapter;
 
 import me.toptas.fancyshowcase.FancyShowCaseQueue;
 import me.toptas.fancyshowcase.FancyShowCaseView;
-import me.toptas.fancyshowcase.FocusShape;
 
 /**
  * Created by admin on 12/9/2017 AD.
  */
 
-public class MovieListFragment extends Fragment implements View.OnClickListener {
+public class MovieListFragment extends Fragment implements View.OnClickListener, MovieListAdapter.onLoad {
     private RecyclerView movieListRecycler;
     private SwipeRefreshLayout swipeRefreshLayout;
     private static final String TAG = "MovieListFragment";
@@ -50,7 +50,7 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
     private void initInstance(View rootView) {
         movieListRecycler = rootView.findViewById(R.id.movielistRecycler);
         btnwrite = rootView.findViewById(R.id.btn_write);
-        MovieListAdapter.getInstance().init(getActivity().getBaseContext());
+        MovieListAdapter.getInstance().init(getActivity().getBaseContext(), this);
 
         movieListRecycler.setAdapter(MovieListAdapter.getInstance());
         movieListRecycler.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
@@ -60,8 +60,12 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                movieListRecycler.setAdapter(MovieListAdapter.getInstance());
-                swipeRefreshLayout.setRefreshing(false);
+                MyReviewAdapter.getInstance().refresh(new MyReviewAdapter.onLoad() {
+                    @Override
+                    public void onLoadComplete() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
             }
         });
         showMainTutorial();
@@ -99,5 +103,10 @@ public class MovieListFragment extends Fragment implements View.OnClickListener 
                 .add(showMovieList)
                 .add(showWrite)
                 .add(showMenu).show();
+    }
+
+    @Override
+    public void onLoadComplete() {
+        swipeRefreshLayout.setRefreshing(false);
     }
 }

@@ -1,37 +1,26 @@
 package com.chutipon.reviewx.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.chutipon.reviewx.R;
 import com.chutipon.reviewx.activity.HomeActivity;
 import com.chutipon.reviewx.activity.ReviewListActivity;
-import com.chutipon.reviewx.fragment.MovieListFragment;
-
-import com.chutipon.reviewx.fragment.ReviewListFragment;
-
-import com.chutipon.reviewx.manager.MovieReviewManager;
 import com.chutipon.reviewx.manager.MovieSuggestionManager;
-import com.chutipon.reviewx.manager.PreferenceManager;
 import com.chutipon.reviewx.util.Contextor;
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import at.grabner.circleprogress.CircleProgressView;
-import at.markushi.ui.CircleButton;
 
 
 /**
@@ -43,6 +32,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     private static final String TAG = "MovieListAdapter";
     private static MovieListAdapter instance;
     private LayoutInflater mInflater;
+    private MovieListAdapter.onLoad callback;
+
+    public interface onLoad{
+        void onLoadComplete();
+    }
 
     private MovieListAdapter() {
     }
@@ -54,10 +48,16 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         return instance;
     }
 
-    public void init(Context cont) {
+    public void init(Context cont, MovieListAdapter.onLoad callback) {
+        this.callback = callback;
         mInflater = LayoutInflater.from(cont);
         MovieSuggestionManager.getInstance().load(this);
         Log.d("printming", mInflater + "");
+    }
+
+    public void refresh(MovieListAdapter.onLoad callback){
+        this.callback = callback;
+        MovieSuggestionManager.getInstance().load(this);
     }
 
     @Override
@@ -78,8 +78,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     }
 
     @Override
-    public void onloadComplete() {
+    public void onLoadComplete() {
         notifyDataSetChanged();
+        callback.onLoadComplete();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
