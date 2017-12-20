@@ -32,10 +32,10 @@ public class MovieReviewManager {
     }
 
     private MovieReviewManager() {
-//        if (RealmManager.getInstance().findAllMovieReviewInfoDao() != null) {
-//            movieReviewListDao = new MovieReviewListDao();
-//            movieReviewListDao.setMovieReviewInfoDao(RealmManager.getInstance().findAllMovieReviewInfoDao());
-//        }
+        if (RealmManager.getInstance().findAllMovieReviewInfoDao() != null) {
+            movieReviewListDao = new MovieReviewListDao();
+            movieReviewListDao.setMovieReviewInfoDao(RealmManager.getInstance().findAllMovieReviewInfoDao());
+        }
     }
 
     public void getReview(int movieID, final MovieReviewManager.onLoad callback) {
@@ -62,7 +62,7 @@ public class MovieReviewManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: ");
-//                        RealmManager.getInstance().storeAllMovieReviewInfoDao(movieReviewListDao);
+                        RealmManager.getInstance().storeAllMovieReviewInfoDao(movieReviewListDao);
                         callback.onLoadReviewComplete();
                     }
                 });

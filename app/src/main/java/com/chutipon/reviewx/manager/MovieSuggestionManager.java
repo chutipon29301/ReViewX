@@ -32,10 +32,10 @@ public class MovieSuggestionManager {
     }
 
     private MovieSuggestionManager() {
-//        if (RealmManager.getInstance().findAllMovieSuggestionInfoDao() != null) {
-//            movieSuggestionListDao = new MovieSuggestionListDao();
-//            movieSuggestionListDao.setMovieSuggestionInfoDao(RealmManager.getInstance().findAllMovieSuggestionInfoDao());
-//        }
+        if (RealmManager.getInstance().findAllMovieSuggestionInfoDao() != null) {
+            movieSuggestionListDao = new MovieSuggestionListDao();
+            movieSuggestionListDao.setMovieSuggestionInfoDao(RealmManager.getInstance().findAllMovieSuggestionInfoDao());
+        }
     }
 
     public void load(final MovieSuggestionManager.onLoad callback) {
@@ -62,7 +62,7 @@ public class MovieSuggestionManager {
                     @Override
                     public void onComplete() {
                         Log.i(TAG, "onComplete: called");
-//                        RealmManager.getInstance().storeAllMovieSuggestionInfoDao(movieSuggestionListDao);
+                        RealmManager.getInstance().storeAllMovieSuggestionInfoDao(movieSuggestionListDao);
                         callback.onLoadComplete();
                     }
                 });
